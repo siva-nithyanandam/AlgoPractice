@@ -8,6 +8,26 @@ import java.util.List;
  * FOLLOW UP
  * How would you solve this problem if temporary buffer is not allowed?
  */
+
+/**
+ * #1 -> Use Buffer to find duplicates. O(n)
+ * #2 -> Use two loops to find duplicates. O(n^2)
+ */
+
+/**
+ * Result:
+ * ****WITH BUFFER****
+ * Before removing dups:
+ * 3,1,2,3,4,
+ * After removing dups:
+ * 3,1,2,4,
+ *
+ * ****WITH OUT BUFFER****
+ * Before removing dups:
+ * 3,1,2,3,4,
+ * After removing dups:
+ * 3,1,2,4,
+ */
 public class RemoveDups {
 
   static class Node {
