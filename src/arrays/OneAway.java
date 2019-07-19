@@ -1,4 +1,4 @@
-package chapter1;
+package arrays;
 
 /**
  * There are three types of edit that can be performed on strings:

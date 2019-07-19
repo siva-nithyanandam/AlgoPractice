@@ -1,6 +1,4 @@
-package chapter1;
-
-import java.util.Arrays;
+package arrays;
 
 /**
  * Given an array of characters, compress it in-place.

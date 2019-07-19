@@ -1,4 +1,4 @@
-package chapter1;
+package arrays;
 
 /**
  * Implement a method to perform basic string compression using the counts of repeated

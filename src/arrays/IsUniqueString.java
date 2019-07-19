@@ -1,4 +1,4 @@
-package chapter1;
+package arrays;
 
 /**
  * Implement an algorithm to determine if a string has all unique characters. Dont use additional

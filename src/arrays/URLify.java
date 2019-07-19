@@ -1,4 +1,4 @@
-package chapter1;
+package arrays;
 
 /**
  * Write a method to replace all spaces in a string with "%20". YOu may assume that the string has

@@ -1,4 +1,4 @@
-package chapter1;
+package arrays;
 
 /**
  * Assume you have a method isSubString which checks if one word is substring of another.
