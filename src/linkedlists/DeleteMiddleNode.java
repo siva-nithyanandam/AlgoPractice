@@ -9,6 +9,11 @@ package linkedlists;
  */
 
 /**
+ * Idea here is have 2 pointers, one moving one step, other moving 2 steps. When second one reaches
+ * end, first would have be half the way. Delete that node!
+ */
+
+/**
  * Result:
  * 6,5,4,2,1,
  */
