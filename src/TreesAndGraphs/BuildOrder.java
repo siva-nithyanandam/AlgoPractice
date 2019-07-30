@@ -16,12 +16,12 @@ import java.util.Map;
  */
 
 /**
- * Using Depth first search.
+ * Not Depth first search - Use Topological order
  */
 public class BuildOrder {
 
   public static void main(String[] args) {
-    char[] projects = {'a', 'b', 'c', 'd', 'e', 'f'};
+    char[] projects = {'f', 'b', 'c', 'e', 'a', 'd'};
     Map<Character, LinkedList<Character>> pd = new HashMap<>();
     insertDependencies(pd, 'a', 'd');
     insertDependencies(pd, 'f', 'b');
@@ -44,17 +44,17 @@ public class BuildOrder {
     return res;
   }
 
-  private static void iterateOrder(char c, Map<Character, LinkedList<Character>> pd,
+  private static void iterateOrder(char src, Map<Character, LinkedList<Character>> pd,
       Map<Character, Boolean> checked, List<Character> res) {
-    if (checked.get(c) == null || !checked.get(c)) {
-      checked.put(c, true);
-      if (pd.get(c) == null) {
-        res.add(c);
+    if (checked.get(src) == null || !checked.get(src)) {
+      checked.put(src, true);
+      if (pd.get(src) == null) {
+        res.add(src);
       } else {
-        for(char d : pd.get(c)) {
-          iterateOrder(d, pd, checked, res);
-          res.add(c);
+        for(char s : pd.get(src)) {
+          iterateOrder(s, pd, checked, res);
         }
+        res.add(src);
       }
     }
   }
