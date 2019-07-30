@@ -5,6 +5,11 @@ package TreesAndGraphs;
  * in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not
  * necessarily a binary search tree.
  */
+
+/**
+ * Iterate all the elements from root until finding both the elements. Have a class boolean
+ * variable to check whenever either of the element found.
+ */
 public class FirstCommonAncestor {
     private static boolean leftCheck;
     private static boolean rightCheck;
