@@ -8,13 +8,39 @@ import java.util.Random;
  * should be equally likely to be chosen. Design and implement an algorithm for getRandomNode,
  * and explain how you would implement the rest of the methods.
  */
+
+/**
+ * There are multiple small logic
+ * Initialize a Node with "size" variable set to 1 as default. Increment the size with child added.
+ *
+ * 1. Insert
+ * insert in an order - a binary search tree method.
+ * increment the size of its parent in a recursive manner.
+ *
+ * 2. Find
+ * a binary search tree search method
+ *
+ * 3. Deletion
+ * Find by binary search tree method as above
+ * Once found, look for childs
+ * if 2 childs, take min child from right and replace this, later call delete for min on the right.
+ * if only one child, take that child of child and replace
+ * if no child, make it null
+ * All this operation also decrement size variable created above
+ *
+ * 4. Random Node
+ * Create random nbr - rn
+ * if rn == leftChildSize, return current
+ * if rn < leftChildSize, call randomNode() with current.left
+ * if rn > leftChildSize, call randomNode() with current.right and rn-leftChildSize-1
+ */
 public class RandomNode {
 
   private static Node head;
 
   static class Node {
     private int data;
-    private int size;
+    private int size = 1;
     private Node left, right;
 
     public Node (int data) {
@@ -115,9 +141,9 @@ public class RandomNode {
   }
 
   private static Node getRandomNode() {
-    int totalSize = head.size + 1;
+    int totalSize = head.size;
     Random random = new Random();
-    int rv = random.nextInt(totalSize - 1);
+    int rv = random.nextInt(totalSize-1);
     if (head != null) {
       return getGivenIndex(rv, head);
     } else {
@@ -127,11 +153,13 @@ public class RandomNode {
 
   private static Node getGivenIndex(int i, Node node) {
     if (node != null) {
-      if (node.left != null && node.left.size <= i) {
-        return getGivenIndex(i - node.left.size, node.left);
-      } else if ()
-      else {
-
+      int leftSize = node.left == null ? 0 : node.left.size;
+      if (leftSize == i) {
+        return node;
+      } else if (i < leftSize) {
+        return getGivenIndex(i, node.left);
+      } else {
+        return getGivenIndex(i - leftSize - 1, node.right);
       }
     } else {
       return null;
@@ -231,5 +259,6 @@ public class RandomNode {
 
     //Random Node
     Node rn = getRandomNode();
+    System.out.println("Random value - " + rn.data);
   }
 }
