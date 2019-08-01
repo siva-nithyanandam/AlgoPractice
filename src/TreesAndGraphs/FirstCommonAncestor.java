@@ -35,13 +35,19 @@ public class FirstCommonAncestor {
         Node fca = findFCA(root, 2, 4);
         System.out.println(fca.data);
 
-        fca = findFCA(root, 4, 6);
+        fca = findFCA(root, 2, 5);
         System.out.println(fca.data);
 
-        fca = findFCA(root, 3, 4);
+        fca = findFCA(root, 2, 6);
         System.out.println(fca.data);
 
-        fca = findFCA(root, 2, 9);
+        fca = findFCA(root, 4, 7);
+        System.out.println(fca.data);
+
+        fca = findFCA(root, 1, 7);
+        System.out.println(fca.data);
+
+        fca = findFCA(root, 1, 9);
         System.out.println(fca.data);
     }
 
@@ -51,7 +57,7 @@ public class FirstCommonAncestor {
         if (ai.get() >= 2) {
             return fca;
         } else {
-            return null;
+            return new Node(-1);
         }
     }
 
