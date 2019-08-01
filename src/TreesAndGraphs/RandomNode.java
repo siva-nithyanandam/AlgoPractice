@@ -1,5 +1,7 @@
 package TreesAndGraphs;
 
+import java.util.Random;
+
 /**
  * You are implementing a binary tree class from scratch which, in addition to find, insert and
  * delete, has a method getRandomNode() which returns a random node from the tree. All nodes
@@ -33,6 +35,10 @@ public class RandomNode {
     }
   }
 
+  static class DeletionPointer {
+    private int val;
+  }
+
   private static void insertInOrder(int data) {
     if (head == null) {
       head = new Node(data);
@@ -55,29 +61,80 @@ public class RandomNode {
     }
   }
 
-  private static int delete(int data, Node node) {
-    int v;
-    if (node == null) {
-      v = 0;
-    } else if (node.data == data) {
-      v = -1;
-    } else {
-      if (data <= node.data) {
-        v = delete(data, node.left);
-      } else {
-        v = delete(data, node.right);
-      }
+  private static int getMinElement(Node node) {
+    Node res = node;
+    while(res.left != null) {
+      res = res.left;
     }
-    node.size += v;
-    return v;
+    return res.data;
   }
 
-  private static boolean delete(int data) {
+  private static Node delete(int data, Node node, DeletionPointer dp) {
+    if (node == null) {
+      return null;
+    } else if (data < node.data) {
+      node.left = delete(data, node.left, dp);
+    } else if (data > node.data) {
+      node.right = delete(data, node.right, dp);
+    } else {
+      //If 2 childrens
+      if (node.left != null && node.right != null) {
+        int min = getMinElement(node.right);
+        node.data = min;
+        node.right = delete(min, node.right, dp);
+      }
+      // if only left child
+      else if (node.left != null) {
+        node = node.left;
+        dp.val = -1;
+      }
+      // if only right child
+      else if (node.right != null) {
+        node = node.right;
+        dp.val = -1;
+      }
+      //Both childs are null
+      else {
+        node = null;
+        dp.val = -1;
+      }
+    }
+    if (node != null) {
+      node.size += dp.val;
+    }
+    return node;
+  }
+
+  private static boolean delete(int data, DeletionPointer dp) {
     if (head == null) {
       return false;
     } else {
-      int v = delete(data, head);
-      return v == -1 ? true : false;
+      delete(data, head, dp);
+      return true;
+    }
+  }
+
+  private static Node getRandomNode() {
+    int totalSize = head.size + 1;
+    Random random = new Random();
+    int rv = random.nextInt(totalSize - 1);
+    if (head != null) {
+      return getGivenIndex(rv, head);
+    } else {
+      return null;
+    }
+  }
+
+  private static Node getGivenIndex(int i, Node node) {
+    if (node != null) {
+      if (node.left != null && node.left.size <= i) {
+        return getGivenIndex(i - node.left.size, node.left);
+      } else if ()
+      else {
+
+      }
+    } else {
+      return null;
     }
   }
 
@@ -92,44 +149,87 @@ public class RandomNode {
     insertInOrder(10);
     insertInOrder(9);
 
+    int val;
+    Node f;
+
     //Find
-    Node f = find(2, head);
-    System.out.println("Found 2, and the size is - " + f == null? null : f.data);
-
-    f = find(5, head);
-    System.out.println("Found 2, and the size is - " + f == null? null : f.data);
-
-    f = find(12121, head);
+    val = 5;
+    f = find(val, head);
     if (f == null) {
-      System.out.println("data not found");
+      System.out.println(val + " not found");
     } else {
-      System.out.println("Found 12121, and the size is - " + f.data);
+      System.out.println(val + " was found and children size is " + f.size);
+    }
+
+    val = 9;
+    f = find(val, head);
+    if (f == null) {
+      System.out.println(val + " not found");
+    } else {
+      System.out.println(val + " was found and children size is " + f.size);
+    }
+
+    val = 3;
+    f = find(val, head);
+    if (f == null) {
+      System.out.println(val + " not found");
+    } else {
+      System.out.println(val + " was found and children size is " + f.size);
+    }
+
+    val = 7;
+    f = find(val, head);
+    if (f == null) {
+      System.out.println(val + " not found");
+    } else {
+      System.out.println(val + " was found and children size is " + f.size);
     }
 
     //Delete
-    System.out.println("Is deleted? - " + delete(9));
+    DeletionPointer dp = new DeletionPointer();
+
+    dp.val = 0;
+    val = 9;
+    System.out.println(val + " is deleted? - " + delete(val, dp));
+
+    dp.val = 0;
+    val = 5;
+    System.out.println(val + " is deleted? - " + delete(val, dp));
 
     //Find
-    f = find(2, head);
-    System.out.println("Found 2, and the size is - " + f == null? null : f.data);
-
-    f = find(5, head);
-    System.out.println("Found 2, and the size is - " + f == null? null : f.data);
-
-    f = find(12121, head);
+    val = 5;
+    f = find(val, head);
     if (f == null) {
-      System.out.println("data not found");
+      System.out.println(val + " not found");
     } else {
-      System.out.println("Found 12121, and the size is - " + f.data);
+      System.out.println(val + " was found and children size is " + f.size);
     }
-  }
 
-  private static int assignSize(Node node) {
-    if (node == null) {
-      return 0;
+    val = 9;
+    f = find(val, head);
+    if (f == null) {
+      System.out.println(val + " not found");
     } else {
-      node.size = assignSize(node.left) + assignSize(node.right) + 1;
+      System.out.println(val + " was found and children size is " + f.size);
     }
-    return node.size;
+
+    val = 3;
+    f = find(val, head);
+    if (f == null) {
+      System.out.println(val + " not found");
+    } else {
+      System.out.println(val + " was found and children size is " + f.size);
+    }
+
+    val = 7;
+    f = find(val, head);
+    if (f == null) {
+      System.out.println(val + " not found");
+    } else {
+      System.out.println(val + " was found and children size is " + f.size);
+    }
+
+    //Random Node
+    Node rn = getRandomNode();
   }
 }
