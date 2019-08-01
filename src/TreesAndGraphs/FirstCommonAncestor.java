@@ -6,13 +6,13 @@ package TreesAndGraphs;
  * necessarily a binary search tree.
  */
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Iterate all the elements from root until finding both the elements. Have a class boolean
  * variable to check whenever either of the element found.
  */
 public class FirstCommonAncestor {
-    private static boolean leftCheck;
-    private static boolean rightCheck;
 
     static class Node {
         private int data;
@@ -32,7 +32,7 @@ public class FirstCommonAncestor {
         root.right.left = new Node(6);
         root.right.right = new Node(7);
 
-        Node fca = findFCA(root, 4, 5);
+        Node fca = findFCA(root, 2, 4);
         System.out.println(fca.data);
 
         fca = findFCA(root, 4, 6);
@@ -41,25 +41,34 @@ public class FirstCommonAncestor {
         fca = findFCA(root, 3, 4);
         System.out.println(fca.data);
 
-        fca = findFCA(root, 2, 4);
+        fca = findFCA(root, 2, 9);
         System.out.println(fca.data);
     }
 
     private static Node findFCA(Node node, int i, int j) {
+        AtomicInteger ai = new AtomicInteger();
+        Node fca = findFCA(node, i, j, ai);
+        if (ai.get() >= 2) {
+            return fca;
+        } else {
+            return null;
+        }
+    }
+
+    private static Node findFCA(Node node, int i, int j, AtomicInteger ai) {
         if (node == null) {
             return null;
         }
+        Node leftNode = findFCA(node.left, i, j, ai);
+        Node rightNode = findFCA(node.right, i, j, ai);
 
         if (node.data == i) {
-            leftCheck = true;
+            ai.incrementAndGet();
             return node;
         } else if (node.data == j) {
-            rightCheck = true;
+            ai.incrementAndGet();
             return node;
         }
-
-        Node leftNode = findFCA(node.left, i, j);
-        Node rightNode = findFCA(node.right, i, j);
 
         if (leftNode != null && rightNode != null) {
             return node;
