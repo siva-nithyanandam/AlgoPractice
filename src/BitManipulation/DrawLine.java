@@ -9,32 +9,45 @@ package BitManipulation;
  * The method signature should look something like:
  * drawLine(byte[] screen, int width, int xl, int x2, int y)
  */
+
+/**
+ * Typical question. Got to observe the question carefully - How many bytes, pixels and width.
+ * And usual set and get bit operations.
+ */
 public class DrawLine {
 
     public static void main(String[] args) {
 
         byte[] screen = new byte[16];
         int width = 32;
-        int y = 3;
-        int x1 = 1;
-        int x2 = 2;
         printScreen(screen, width);
         System.out.println("");
-        //drawLine(screen, width, x1, x2, y);
+        drawLine(screen, width, 1, 30, 3);
+        drawLine(screen, width, 31,31, 1);
+        drawLine(screen, width, 2, 29, 2);
+        drawLine(screen, width, 1, 5, 3);
         printScreen(screen, width);
     }
 
     private static void drawLine(byte[] screen, int width, int x1, int x2, int y) {
-        int startByte = (y * width) + x1;
-        for (int i = startByte; i <= startByte + x2 - x1; i++) {
-            screen[i] |= 1;
+        int startRow = (x1/8) + (y * width/8);
+        int endRow = (x2/8) + (y * width/8);
+
+        for (int i = startRow + 1; i < endRow; i++) {
+            screen[i] = (byte)0xFF;
+        }
+        if (startRow == endRow) {
+            screen[startRow] |= (byte)((0xFF >> (x1%8)) & ~(0xFF >> ((x2%8) + 1)));
+        } else {
+            screen[startRow] |= (byte)(0xFF >> (x1%8));
+            screen[endRow] |= (byte)(~(0xFF >> ((x2%8) + 1)));
         }
     }
 
     private static void printScreen(byte[] screen, int width) {
         int count = 0;
         for(byte b : screen) {
-            for(int j = 0; j < 8; j++) {
+            for(int j = 7; j >= 0; j--) {
                 System.out.print((b >> j) & 1);
             }
             count++;

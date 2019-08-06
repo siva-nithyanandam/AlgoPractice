@@ -34,12 +34,11 @@ public class DrawLineTest {
         byte[] screen = new byte[16];
         int width = 32;
         printScreen(screen, width);
-        drawLine1(screen, width, 1, 30, 3);
-        printScreen(screen, width);
-        /*drawLine(screen, width, 31,31, 1);
+        drawLine(screen, width, 1, 30, 3);
+        drawLine(screen, width, 31,31, 1);
         drawLine(screen, width, 2, 29, 2);
         drawLine(screen, width, 1, 5, 3);
-        printScreen(screen, width);*/
+        printScreen(screen, width);
     }
 
     private static void printScreen(byte[] screen, int width) {
