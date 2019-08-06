@@ -12,14 +12,15 @@ package BitManipulation;
 public class DrawLine {
 
     public static void main(String[] args) {
-        byte[] screen = new byte[64];
-        int width = 16;
+
+        byte[] screen = new byte[16];
+        int width = 32;
         int y = 3;
         int x1 = 1;
         int x2 = 2;
         printScreen(screen, width);
         System.out.println("");
-        drawLine(screen, width, x1, x2, y);
+        //drawLine(screen, width, x1, x2, y);
         printScreen(screen, width);
     }
 
@@ -31,11 +32,15 @@ public class DrawLine {
     }
 
     private static void printScreen(byte[] screen, int width) {
-        for(int i = 0; i < screen.length; i++) {
-            if (i%width == 0) {
+        int count = 0;
+        for(byte b : screen) {
+            for(int j = 0; j < 8; j++) {
+                System.out.print((b >> j) & 1);
+            }
+            count++;
+            if (count % (width/8) == 0) {
                 System.out.println("");
             }
-            System.out.print(screen[i]);
         }
     }
 }
