@@ -12,7 +12,9 @@ public class NextNumber {
 
   public static void main(String[] args) {
     int i = 156;
+    System.out.println(Integer.toBinaryString(i));
     System.out.println(findNextLargeNbr(i));
+    System.out.println(Integer.toBinaryString(findNextLargeNbr(i)));
   }
 
   private static int findNextLargeNbr(int i) {
