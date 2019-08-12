@@ -13,6 +13,11 @@ package linkedlists;
  * ]
  * Output: 1->1->2->3->4->4->5->6
  */
+
+/**
+ * Divide and conquer. Take 2 each time.
+ * O(nk log k), where n = number of elements in the linked list, K = number of linked lists
+ */
 public class MergeKSortedLists {
     public static class ListNode {
         int val;
@@ -44,35 +49,36 @@ public class MergeKSortedLists {
     }
 
     private static ListNode sortedMerge(ListNode a, ListNode b) {
-        if (a == null) {
-            return b;
-        } else if (b == null) {
-            return a;
-        } else {
-            if (a.val > b.val) {
-                b.next = sortedMerge(a, b.next);
-                return b;
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+        while(a != null && b != null) {
+            if (a.val < b.val) {
+                curr.next = a;
+                a = a.next;
             } else {
-                a.next = sortedMerge(a.next, b);
-                return a;
+                curr.next = b;
+                b = b.next;
             }
+            curr = curr.next;
         }
+        curr.next = a == null ? b : a;
+        return dummy.next;
     }
     
     public static ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) {
+        return mergeKLists(lists, 0, lists.length - 1);
+    }
+
+    private static ListNode mergeKLists(ListNode[] lists, int start, int end) {
+        if (start > end) {
             return null;
         }
-        int end = lists.length - 1;
-        int start = 0;
-        while (start < end) {
-            while (start < end) {
-                lists[start] = sortedMerge(lists[start], lists[end]);
-                start++;
-                end--;
-            }
-            start = 0;
+        if (start == end) {
+            return lists[start];
         }
-        return lists[start];
+        int mid = (start + end)/2;
+        ListNode left = mergeKLists(lists, start, mid);
+        ListNode right = mergeKLists(lists, mid + 1, end);
+        return sortedMerge(left, right);
     }
 }

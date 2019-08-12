@@ -38,20 +38,6 @@ public class MergeTwoSortedLinkedList {
             n.next = new Node(data);
         }
     }
-    public static void main(String[] args) {
-        Node a = new Node(5);
-        a.add(10);
-        a.add(15);
-        Node b = new Node(2);
-        b.add(3);
-        b.add(20);
-
-        Node sorted = sortedMerge(a, b);
-        while(sorted != null) {
-            System.out.println(sorted.data + ",");
-            sorted = sorted.next;
-        }
-    }
 
     private static Node sortedMerge(Node a, Node b) {
         if (a == null) {
@@ -68,4 +54,19 @@ public class MergeTwoSortedLinkedList {
             }
         }
     }
+
+  public static void main(String[] args) {
+    Node a = new Node(5);
+    a.add(10);
+    a.add(15);
+    Node b = new Node(2);
+    b.add(3);
+    b.add(20);
+
+    Node sorted = sortedMerge(a, b);
+    while(sorted != null) {
+      System.out.println(sorted.data + ",");
+      sorted = sorted.next;
+    }
+  }
 }
