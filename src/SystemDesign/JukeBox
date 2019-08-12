@@ -1,0 +1,87 @@
+//Design a musical jukebox using object-oriented principles.
+
+Class Song {
+    private final String songName;
+    private final String albumName;
+
+    public Song(String songName, String albumName, PlayList p) {
+        p.addSong(this);
+    }
+
+    pulblic void play() {
+        //Playing song...
+    }
+}
+
+class PlayList {
+    private final String name;
+    private final List<Song> songs;
+
+    public PlayList(String name) {
+
+    }
+
+    public void addSong(Song s) {
+        songs.add(s);
+    }
+
+    public void getSongs() {
+        return songs;
+    }
+}
+
+class JukeBox {
+    private final Map<String, PlayList> playLists;
+    private static final String defaultPlayListName = "AllSongs";
+    private final PlayList defaultPlayList;
+    private static boolean isSongPlaying;
+    private static final Queue<Song> queue = new LinkedList<Song>();
+
+    static {
+        defaultPlayList = new PlayList(defaultPlayListName);
+        playLists.put(defaultPlayListName, defaultPlayList);
+    }
+
+    public Song createNewSong(String sName, String aName) {
+        Song s = new Song(sName, aName, defaultPlayList);
+        addSongToPlayList(defaultPlayListName, s)
+    }
+
+    public void createPlayList(String playListName) {
+        playLists.put(playListName, new PlayList(playListName));
+    }
+
+    public void addSongToPlayList(Song s, String name) {
+        PlayList playList = playLists.get(name);
+        playList.addSong(s);
+        playLists.put(name, playList);
+    }
+
+    public void playSong(String name) {
+        PlayList playList = playLists.get(defaultPlayListName);
+        for (Song s : playList.getSongs) {
+            if (name.equals(s.getName())) {
+                playSong(s);
+            }
+        }
+    }
+
+    public void playSong(Song s) {
+        s.play();
+        while(!queue.isEmpty()) {
+            Song song = queue.pop();
+            song.play();
+        }
+    }
+
+    public void playPlayList(String name) {
+        PlayList playList = playLists.get(name);
+        for (Song s : playList.getSongs) {
+            playSong(s);
+        }
+    }
+
+    public void addToQueue(Song s) {
+        queue.add(s);
+    }
+}

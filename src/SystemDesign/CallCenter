@@ -1,0 +1,102 @@
+ Imagine you have a call center with three levels of employees: respondent, manager, and director.
+ An incoming telephone call must be first allocated to a respondent who is free.
+ If the respondent can't handle the call, he or she must escalate the call to a manager.
+ If the manager is not free or not able to handle it, then the call should be escalated to a director.
+ Design the classes and data structures for this problem.
+ Implement a method dispatchCall() which assigns a call to the first available employee.
+
+ Enum Role {
+    Respondent, Manager, Director;
+ }
+
+ abstract class Employee {
+    String name;
+    int empId;
+    boolean isFree = true;
+
+    public abstract String getRole();
+    public engageCall() {
+        isFree = false;
+        Thread.sleep(3 minutes);
+        isFree = true;
+    }
+    public boolean isFree() {
+        return isFree;
+    }
+ }
+
+ class Respondent extends Employee {
+    private final Role role = Role.Respondent;
+
+    @override
+    public Role getRole() {
+        return role;
+    }
+ }
+
+ class Manager extends Employee {
+     private final Role role = Role.Manager;
+
+     @override
+     public Role getRole() {
+         return role;
+     }
+ }
+
+ class Director extends Employee {
+     private final Role role = Role.Director;
+
+     @override
+     public Role getRole() {
+         return role;
+     }
+ }
+
+ class Caller {
+    String name;
+    String concern;
+
+    private void call() {
+        callCenter.call(this);
+    }
+ }
+
+ class CallCenter {
+    private static final String[] priorities = {"Respondent", "Manager", "Director"};
+    private static final Map<String, List<Employee>> employees;
+
+    private Employee getEmployeeWhoIsFree() {
+        for(String role : priorities) {
+            for(Employee e : employees.get(role)) {
+                if (e.isFree()) {
+                    return e;
+                }
+            }
+        }
+        throw new Exception("All the employees are busy, Try after some time....");
+    }
+
+    public void call(Caller caller) {
+        //get more information
+        dispatchCall(Caller caller);
+    }
+
+    public void dispatchCall(Caller caller) {
+        Employee e = getEmployeeWhoIsFree();
+        e.engageCall();
+    }
+
+    private void addEmployee(int empId, String name, String role) {
+        Employee e = null;
+        if (role == "Respondent") {
+            e = new Respondent(id, name);
+        } else if.....
+        else {
+            throw new InvalidStateException("There is no such given role - " + role);
+        }
+        List<Employee> existingEmployees = employees.get(role);
+        existingEmployees.add(e);
+        employees.put(role, existingEmployees);
+    }
+
+ }

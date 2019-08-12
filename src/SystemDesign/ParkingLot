@@ -1,0 +1,75 @@
+//Design a parking lot using object-oriented principles.
+
+class ParkingLot {
+    List<Gate> gates;
+    Map<Integer, Queue<Spot>> freeSpots;
+    Map<Integer, Receipt> allocated;
+
+    public void addGates(Gate gate) {
+        gates.add(gate);
+    }
+
+    public void addSpot(Spot s) {
+        freeSpots.put(s.getId(), s);
+    }
+
+    public int deallocateVehicle(int receiptNbr) {
+        Receipt r = allocated.get(receiptNbr);
+
+        Queue<Spot> queue = freeSpots.get(r.getSpot().getSize());
+        queue.add(r.getSpot());
+        freeSpots.put(r.getSpot().getSize(), queue);
+
+        int price = (currentTime() - r.timeEntered()) * r.getSpot().getPrice();
+        allocated.remove(receiptNbr);
+        return price;
+    }
+
+    public Receipt allocateVehicle(Gate gate, Vehicle v) {
+        Spot s = getFreeSpot(v.getSize().getSeqNbr());
+        if (s != null) {
+            Receipt r = new Receipt(randomId, gate, v, s, currentTime());
+            allocated.put(randomId, r);
+            return r;
+        }
+        throw new InvalidStateException("No available spots");
+    }
+
+    public synchronized Spot getFreeSpot(int sizeNbr) {
+        for (int i = sizeNbr; i <= Size.getMaxSize(); i++) {
+            Queue<Spot> queue = freeSpots.get(i);
+            if (!queue.isEmpty()) {
+                return queue.pop();
+            }
+        }
+    }
+}
+
+class Receipt {
+    int receiptId;
+    Gate gate;
+    Vehicle vehicle;
+    Spot spot;
+    long timeEntered;
+}
+
+class Gate {
+    int gateNbr;
+}
+
+class Spot {
+    int id;
+    Size size;
+    int price;
+}
+
+class Vehicle {
+    String licensePlate;
+    String color;
+    Size size;
+}
+
+class Size {
+    SMALL(1), MEDIUM(2), LARGE(3), EXTRALARGE(4);
+    public VehicleType(int seqNbr) {}
+}
