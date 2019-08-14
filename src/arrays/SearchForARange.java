@@ -28,6 +28,11 @@ public class SearchForARange {
         int target;
         int[] res;
 
+        nums = new int[]{121, 121, 121, 129, 129, 132, 132, 132, 132};
+        target = 129;
+        res = searchRange(nums, target);
+        System.out.println(res[0] + " " + res[1]);
+
         nums = new int[]{5,7,7,8,8,10};
         target = 8;
         res = searchRange(nums, target);
