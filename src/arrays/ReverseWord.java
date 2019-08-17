@@ -8,11 +8,32 @@ package arrays;
  */
 public class ReverseWord {
   public static void main(String[] args) {
-    String s = "This is sample";
+    String s = "hi is";
     System.out.println(reverseWord(s));
   }
 
   private static String reverseWord(String s) {
+    int i = 0;
+    int j = s.length() - 1;
+    int k = 0;
+
+    while (i <= j) {
+      if (s.charAt(j) == ' ') {
+        k = i;
+        s = s.substring(0, k) + s.charAt(j) + s;
+        j += k;
+        k++;
+        i += k;
+      } else {
+        s = s.substring(0, k) + s.charAt(j) + s;
+        i++;
+        j -= k;
+      }
+    }
+    return s.substring(0, i);
+  }
+
+  private static String reverseWord1(String s) {
     if (s == null || s.length() == 0) {
       return s;
     }
