@@ -33,15 +33,16 @@ public class PowerXN {
     public static void main(String[] args) {
         System.out.println(findPowerValue(3, 2));
         System.out.println(findPowerValue(2, 10));
+        System.out.println(findPowerValue(2.1f, 3));
         System.out.println(findPowerValue(2, -2));
     }
 
-    private static double findPowerValue(int a, int b) {
+    private static float findPowerValue(float a, int b) {
         if (b == 0) {
             return 1;
         } else {
-            double temp = findPowerValue(a, b/2);
-            if ((b & 1) == 0) {
+            float temp = findPowerValue(a, b/2);
+            if ((b % 2) == 0) {
                 return temp * temp;
             } else {
                 if (b > 0) {
