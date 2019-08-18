@@ -1,39 +1,47 @@
 package arrays;
 
 /**
- * Reverse a given word with out additional data structure.
+ * Reverse a given word.
  * Example:
  * Given : This is sample
  * Output: sample is This.
  */
+
+/**
+ * Used 2 solutions, with and without data structure.
+ * With data structure -> Given complete word been reversed and word by word reversed
+ * Without data structure -> Took last char and append at first and until a space, and then substring until a space
+ * and append char.
+ */
 public class ReverseWord {
   public static void main(String[] args) {
-    String s = "hi is";
-    System.out.println(reverseWord(s));
+    String s = "reverse this given string";
+    System.out.println(reverseWordWithDataStructure(s));
+    System.out.println(reverseWordWithoutDataStructure(s));
   }
 
-  private static String reverseWord(String s) {
+  private static String reverseWordWithoutDataStructure(String s) {
     int i = 0;
     int j = s.length() - 1;
     int k = 0;
+    int m = 0;
 
     while (i <= j) {
       if (s.charAt(j) == ' ') {
-        k = i;
-        s = s.substring(0, k) + s.charAt(j) + s;
-        j += k;
+        k = k + m;
+        s = s.substring(0, k) + s.charAt(j) + s.substring(k);
         k++;
-        i += k;
+        m = 0;
       } else {
-        s = s.substring(0, k) + s.charAt(j) + s;
-        i++;
-        j -= k;
+        s = s.substring(0, k) + s.charAt(j) + s.substring(k);
+        m++;
       }
+      i++;
     }
     return s.substring(0, i);
   }
 
-  private static String reverseWord1(String s) {
+  private static String reverseWordWithDataStructure(String s) {
     if (s == null || s.length() == 0) {
       return s;
     }
@@ -51,11 +59,12 @@ public class ReverseWord {
   }
 
   private static void reverseString(char[] nums, int start, int end) {
-    char temp = '\u0000';
     while (start < end) {
-      temp = nums[start];
-      nums[start++] = nums[end];
-      nums[end--] = temp;
+      nums[start] ^= nums[end];
+      nums[end] ^= nums[start];
+      nums[start] ^= nums[end];
+      start++;
+      end--;
     }
   }
 
