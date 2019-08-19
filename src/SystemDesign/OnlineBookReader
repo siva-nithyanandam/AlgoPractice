@@ -1,2 +1,39 @@
 //Design the data structures for an online book reader system
 
+class Book {
+  int bookId;
+  String title;
+  String details;
+}
+
+class User {
+  int userId;
+  String name;
+  String details;
+}
+
+class Library {
+  String name;
+  List<Book> books;
+
+  Book findBook(int bookId);
+  void addBook(Book book);
+  Book removeBook(Book book);
+}
+
+class OnlineBookReaderSystem {
+  List<User> users;
+  Library library;
+
+  void addUser(User user);
+  void removeUser(int userId);
+
+  void addBook(Book book) {
+    library.addBook(book);
+  }
+
+  Book searchBook(int bookId) {
+    library.findBook(bookId);
+  }
+}
+
