@@ -16,10 +16,17 @@ package arrays;
 public class MaximumSubarray {
 
     public static void main(String[] args) {
-        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] nums;
+        nums = new int[]{1, 2, 3, 4};
         System.out.println(maxSubArray(nums));
 
-        //TODO yet to complete
+        nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        System.out.println(maxSubArray(nums));
+
+        nums = new int[]{1, 2, 3, 4};
+        System.out.println(maxSubArrayByDivideAndConquer(nums, 0, nums.length - 1));
+
+        nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
         System.out.println(maxSubArrayByDivideAndConquer(nums, 0, nums.length - 1));
     }
 
@@ -30,18 +37,34 @@ public class MaximumSubarray {
             return 0;
         }
         int mid = (start + end) / 2;
-        int leftMax = maxSubArrayByDivideAndConquer(nums, start, mid - 1);
-        int rightMax = maxSubArrayByDivideAndConquer(nums, mid + 1, end);
-        return maxVal(leftMax, nums[mid], rightMax, leftMax + nums[mid], nums[mid] + rightMax, leftMax + nums[mid] + rightMax);
+        return maxCrossingSum(nums, start, mid, end);
     }
 
-    private static int maxVal(int a, int b, int c, int ab, int bc, int abc) {
-        int max = a > b ? a : b;
-        max = max > c ? max : c;
-        max = max > ab ? max : ab;
-        max = max > bc ? max : bc;
-        max = max > abc ? max : abc;
-        return max;
+    static int maxCrossingSum(int arr[], int l,
+        int m, int h)
+    {
+        // Include elements on left of mid.
+        int sum = 0;
+        int left_sum = Integer.MIN_VALUE;
+        for (int i = m; i >= l; i--)
+        {
+            sum = sum + arr[i];
+            if (sum > left_sum)
+                left_sum = sum;
+        }
+
+        // Include elements on right of mid
+        sum = 0;
+        int right_sum = Integer.MIN_VALUE;
+        for (int i = m + 1; i <= h; i++)
+        {
+            sum = sum + arr[i];
+            if (sum > right_sum)
+                right_sum = sum;
+        }
+        // Return sum of elements on left
+        // and right of mid
+        return left_sum + right_sum;
     }
 
     private static int maxSubArray(int[] nums) {
