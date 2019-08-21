@@ -11,6 +11,15 @@ import java.util.List;
  * and [2,6] overlaps, merge them into [1,6]. Example 2: Input: [[1,4],[4,5]] Output: [[1,5]]
  * Explanation: Intervals [1,4] and [4,5] are considered overlapping.
  */
+
+/**
+ * There are 2 solutions given below.
+ * #1 - O(nlogn) - Sort the given intervals based on open(start) and move the downstream elements before if it crosses previous one.
+ *
+ * #2 - O(n) - Find max and min elements from overall. Create integer arrays "openArr" and "closeArr" of size (max - min + 1)
+ * Increment wherever open and close are happening. Then if openCount and closeCount matches at certain point, that is a
+ * merging point. Simple but coding is medium difficult.
+ */
 public class MergeIntervals {
 
   public static void main(String[] args) {
@@ -107,7 +116,7 @@ public class MergeIntervals {
       closeCount += closeArr[i];
 
       if (openCount == closeCount && openCount > 0) {
-        res.add(new int[]{mergedOpen+min, min+i});
+        res.add(new int[]{mergedOpen+min, i+min});
         openCount = 0;
         closeCount = 0;
       }
@@ -121,49 +130,4 @@ public class MergeIntervals {
     return resArr;
   }
 
-  public static int[][] mergeFromInternet(int[][] intervals) {
-    int min = Integer.MAX_VALUE;
-    int max = Integer.MIN_VALUE;
-
-    for (int i = 0; i < intervals.length; i++) {
-      min = Math.min(min, intervals[i][0]);
-      max = Math.max(max, intervals[i][1]);
-    }
-
-    int[] open = new int[max - min + 1];
-    int[] closed = new int[max - min + 1];
-
-    for (int i = 0; i < intervals.length; i++) {
-      open[intervals[i][0] - min]++;
-      closed[intervals[i][1] - min]++;
-    }
-
-    int cur_open = 0;
-    int cur_closed = 0;
-    int merged_open = -1;
-
-    List<int[]> res = new ArrayList<>();
-    for (int i = 0; i < open.length; i++) {
-      if (merged_open == -1 && cur_open == 0 && open[i] > 0) {
-        merged_open = i;
-      }
-
-      cur_open += open[i];
-      cur_closed += closed[i];
-
-      if (cur_open == cur_closed && cur_open > 0) {
-        res.add(new int[]{merged_open + min, i + min});
-        merged_open = -1;
-        cur_open = 0;
-        cur_closed = 0;
-      }
-    }
-
-    int[][] res_arr = new int[res.size()][];
-    for (int i = 0; i < res.size(); i++) {
-      res_arr[i] = res.get(i);
-    }
-
-    return res_arr;
-  }
 }
