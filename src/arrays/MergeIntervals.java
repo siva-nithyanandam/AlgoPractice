@@ -45,7 +45,7 @@ public class MergeIntervals {
     System.out.println("");
 
     intervals = new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}};
-    res = mergeFromInternet(intervals);
+    res = mergeFromInternetModified(intervals);
     for (int i = 0; i < res.length; i++) {
       System.out.print(res[i][0] + ", " + res[i][1]);
       System.out.println("");
@@ -76,6 +76,49 @@ public class MergeIntervals {
       }
     }
     return Arrays.copyOf(intervals, pointer + 1);
+  }
+
+  public static int[][] mergeFromInternetModified(int[][] intervals) {
+    int min = Integer.MAX_VALUE;
+    int max = Integer.MIN_VALUE;
+
+    for (int i = 0; i < intervals.length; i++) {
+      min = Math.min(intervals[i][0], min);
+      max = Math.max(intervals[i][1], max);
+    }
+
+    int[] openArr = new int[max - min + 1];
+    int[] closeArr = new int[max - min + 1];
+
+    for (int i = 0; i < intervals.length; i++) {
+      openArr[intervals[i][0] - min]++;
+      closeArr[intervals[i][1] - min]++;
+    }
+
+    List<int[]> res = new ArrayList<>();
+    int openCount = 0, closeCount = 0, mergedOpen = 0;
+
+    for (int i = 0; i < openArr.length; i++) {
+
+      if (openCount == 0) {
+        mergedOpen = i;
+      }
+      openCount += openArr[i];
+      closeCount += closeArr[i];
+
+      if (openCount == closeCount && openCount > 0) {
+        res.add(new int[]{mergedOpen+min, min+i});
+        openCount = 0;
+        closeCount = 0;
+      }
+    }
+
+    int[][] resArr = new int[res.size()][2];
+    for(int i = 0; i < res.size(); i++) {
+      resArr[i][0] = res.get(i)[0];
+      resArr[i][1] = res.get(i)[1];
+    }
+    return resArr;
   }
 
   public static int[][] mergeFromInternet(int[][] intervals) {
