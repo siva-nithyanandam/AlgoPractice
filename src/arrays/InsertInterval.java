@@ -4,204 +4,318 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
- * You may assume that the intervals were initially sorted according to their start times.
+ * Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if
+ * necessary). You may assume that the intervals were initially sorted according to their start
+ * times.
  *
- * Example 1:
- * Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
- * Output: [[1,5],[6,9]]
+ * Example 1: Input: intervals = [[1,3],[6,9]], newInterval = [2,5] Output: [[1,5],[6,9]]
  *
- * Example 2:
- * Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
- * Output: [[1,2],[3,10],[12,16]]
- * Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+ * Example 2: Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8] Output:
+ * [[1,2],[3,10],[12,16]] Explanation: Because the new interval [4,8] overlaps with
+ * [3,5],[6,7],[8,10].
+ */
+
+/**
+ * There are two solutions below.
+ * #1 - Comparision happens at O(n) time.
+ * #2 - Comparision happens at O(log n) time. But logic is bit complicated. Rules applied scenario by scenario.
  */
 public class InsertInterval {
 
-    public static void main(String[] args) {
-        int[][] intervals;
-        int[] newInterval;
-        int[][] res;
+  public static void main(String[] args) {
+    int[][] intervals;
+    int[] newInterval;
+    int[][] res;
 
-        intervals = new int[][]{{1,3},{6,9}};
-        newInterval = new int[]{2,5};
-        res = insert(intervals, newInterval);
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i][0] + ", " + res[i][1]);
-            System.out.println("");
-        }
-
-        System.out.println("");
-
-        intervals = new int[][]{{1,2},{3,5},{6,7},{8,10},{12,16}};
-        newInterval = new int[]{4,8};
-        res = insert(intervals, newInterval);
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i][0] + ", " + res[i][1]);
-            System.out.println("");
-        }
-
-        System.out.println("");
-
-        intervals = new int[][]{{1,5}};
-        newInterval = new int[]{2,7};
-        res = insert(intervals, newInterval);
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i][0] + ", " + res[i][1]);
-            System.out.println("");
-        }
-
-        System.out.println("");
-
-        intervals = new int[][]{{1,5},{8,9}};
-        newInterval = new int[]{2,10};
-        res = insertFromInternet(intervals, newInterval);
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i][0] + ", " + res[i][1]);
-            System.out.println("");
-        }
+    intervals = new int[][]{{1, 3}, {6, 9}};
+    newInterval = new int[]{2, 5};
+    res = insert(intervals, newInterval);
+    for (int i = 0; i < res.length; i++) {
+      System.out.print(res[i][0] + ", " + res[i][1]);
+      System.out.println("");
     }
 
-    private static int[][] insert(int[][] intervals, int[] newInterval) {
+    System.out.println("");
 
-        int i = 0;
-        List<int[]> res = new ArrayList<>();
-        while(i < intervals.length) {
-            if (newInterval[0] <= intervals[i][1]) {
-                if (newInterval[0] >= intervals[i][0]) {
-                    res.add(new int[]{Math.min(newInterval[0], intervals[i][0]), newInterval[1]});
-                } else {
-                    res.add(new int[]{newInterval[0], newInterval[1]});
-                }
-                break;
-            } else {
-                res.add(new int[]{intervals[i][0], intervals[i][1]});
-            }
-            i++;
-        }
-
-        if (i == intervals.length) {
-            res.add(new int[]{newInterval[0], newInterval[1]});
-        }
-
-        while(i < intervals.length) {
-            if (newInterval[1] <= intervals[i][1]) {
-                int[] s = res.get(res.size() - 1);
-                if (newInterval[1] >= intervals[i][0]) {
-                    s[1] = Math.max(newInterval[1], intervals[i][1]);
-                    i++;
-                } else {
-                    s[1] = newInterval[1];
-                }
-                break;
-            }
-            i++;
-        }
-
-        while(i < intervals.length) {
-            res.add(new int[]{intervals[i][0], intervals[i][1]});
-            i++;
-        }
-
-        int[][] resArr = new int[res.size()][2];
-        for(int j = 0; j < res.size(); j++) {
-            resArr[j][0] = res.get(j)[0];
-            resArr[j][1] = res.get(j)[1];
-        }
-        return resArr;
+    intervals = new int[][]{{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
+    newInterval = new int[]{4, 8};
+    res = insert(intervals, newInterval);
+    for (int i = 0; i < res.length; i++) {
+      System.out.print(res[i][0] + ", " + res[i][1]);
+      System.out.println("");
     }
 
-    public static int[][] insertFromInternet(int[][] intervals, int[] newInterval) {
-        //int[][] res = new int[][]{};
-        int len = intervals.length;
-        if(intervals==null || intervals.length==0){
-            return new int[][]{{newInterval[0],newInterval[1]}};
-        }
-        int start = newInterval[0];
-        int end = newInterval[1];
-        if(start>intervals[len-1][1]){
-            int[][] res= new int[len+1][2];
-            for(int i=0; i<len; ++i){
-                res[i][0] = intervals[i][0];
-                res[i][1] = intervals[i][1];
-            }
-            res[len][0] = newInterval[0];
-            res[len][1] = newInterval[1];
-            return res;
-        }
-        else if(end<intervals[0][0]){
-            int[][] res= new int[len+1][2];
-            res[0][0] = newInterval[0];
-            res[0][1] = newInterval[1];
-            for(int i=1; i<len+1; ++i){
-                res[i][0] = intervals[i-1][0];
-                res[i][1] = intervals[i-1][1];
-            }
-            return res;
-        }
+    System.out.println("");
 
-        int startposition = findstart(intervals,start);
-        int endposition = findend(intervals,end);
-        if(startposition==endposition){
-            intervals[startposition][0] = Math.min(intervals[startposition][0],newInterval[0]);
-            intervals[startposition][1] = Math.max(intervals[startposition][1],newInterval[1]);
-            return intervals;
-        }
-
-        int[][] res = new int[intervals.length-(endposition-startposition)][2];
-        for(int i=0; i<startposition; ++i){
-            res[i][0] = intervals[i][0];
-            res[i][1] = intervals[i][1];
-        }
-        res[startposition][0] = Math.min(intervals[startposition][0],newInterval[0]);
-        res[startposition][1] = Math.max(intervals[endposition][1],newInterval[1]);
-
-        for(int i=startposition+1; i<res.length; ++i){
-            res[i][0] = intervals[i-startposition+endposition][0];
-            res[i][1] = intervals[i-startposition+endposition][1];
-        }
-        return res;
+    intervals = new int[][]{{1, 5}};
+    newInterval = new int[]{2, 7};
+    res = insert(intervals, newInterval);
+    for (int i = 0; i < res.length; i++) {
+      System.out.print(res[i][0] + ", " + res[i][1]);
+      System.out.println("");
     }
 
-    private static int findstart(int[][] intervals, int start){
-        int left = 0;
-        int right = intervals.length-1;
-        while(left<right-1){
-            int mid = left + (right-left)/2;
-            if(intervals[mid][1]==start){
-                return mid;
-            }
-            else if(intervals[mid][1]>start){
-                right = mid;
-            }
-            else{
-                left = mid;
-            }
-        }
-        if(intervals[left][1]>=start)
-            return left;
-        else
-            return right;
+    System.out.println("");
+
+    intervals = new int[][]{{1, 5}, {8, 9}};
+    newInterval = new int[]{2, 10};
+    res = insertFromInternet(intervals, newInterval);
+    for (int i = 0; i < res.length; i++) {
+      System.out.print(res[i][0] + ", " + res[i][1]);
+      System.out.println("");
     }
 
-    private static int findend(int[][] intervals, int end){
-        int left = 0;
-        int right = intervals.length-1;
-        while(left<right-1){
-            int mid = left + (right-left)/2;
-            if(intervals[mid][0]==end){
-                return mid;
-            }
-            else if(intervals[mid][0]>end){
-                right = mid;
-            }
-            else{
-                left = mid;
-            }
-        }
-        if(intervals[right][0]<=end)
-            return right;
-        else
-            return left;
+    System.out.println("");
+
+    intervals = new int[][]{{1, 2}, {5, 8}};
+    newInterval = new int[]{6, 7};
+    res = insertFromInternetModified(intervals, newInterval);
+    for (int i = 0; i < res.length; i++) {
+      System.out.print(res[i][0] + ", " + res[i][1]);
+      System.out.println("");
     }
+
+    System.out.println("");
+
+    intervals = new int[][]{{-1, 0}, {1, 3}, {4, 6}, {7, 8}};
+    newInterval = new int[]{2, 5};
+    res = insertFromInternetModified(intervals, newInterval);
+    for (int i = 0; i < res.length; i++) {
+      System.out.print(res[i][0] + ", " + res[i][1]);
+      System.out.println("");
+    }
+  }
+
+  private static int[][] insert(int[][] intervals, int[] newInterval) {
+
+    int i = 0;
+    List<int[]> res = new ArrayList<>();
+    while (i < intervals.length) {
+      if (newInterval[0] <= intervals[i][1]) {
+        if (newInterval[0] >= intervals[i][0]) {
+          res.add(new int[]{Math.min(newInterval[0], intervals[i][0]), newInterval[1]});
+        } else {
+          res.add(new int[]{newInterval[0], newInterval[1]});
+        }
+        break;
+      } else {
+        res.add(new int[]{intervals[i][0], intervals[i][1]});
+      }
+      i++;
+    }
+
+    if (i == intervals.length) {
+      res.add(new int[]{newInterval[0], newInterval[1]});
+    }
+
+    while (i < intervals.length) {
+      if (newInterval[1] <= intervals[i][1]) {
+        int[] s = res.get(res.size() - 1);
+        if (newInterval[1] >= intervals[i][0]) {
+          s[1] = Math.max(newInterval[1], intervals[i][1]);
+          i++;
+        } else {
+          s[1] = newInterval[1];
+        }
+        break;
+      }
+      i++;
+    }
+
+    while (i < intervals.length) {
+      res.add(new int[]{intervals[i][0], intervals[i][1]});
+      i++;
+    }
+
+    int[][] resArr = new int[res.size()][2];
+    for (int j = 0; j < res.size(); j++) {
+      resArr[j][0] = res.get(j)[0];
+      resArr[j][1] = res.get(j)[1];
+    }
+    return resArr;
+  }
+
+  public static int[][] insertFromInternet(int[][] intervals, int[] newInterval) {
+    int len = intervals.length;
+    if (intervals == null || intervals.length == 0) {
+      return new int[][]{{newInterval[0], newInterval[1]}};
+    }
+    int start = newInterval[0];
+    int end = newInterval[1];
+    if (start > intervals[len - 1][1]) {
+      int[][] res = new int[len + 1][2];
+      for (int i = 0; i < len; ++i) {
+        res[i][0] = intervals[i][0];
+        res[i][1] = intervals[i][1];
+      }
+      res[len][0] = newInterval[0];
+      res[len][1] = newInterval[1];
+      return res;
+    } else if (end < intervals[0][0]) {
+      int[][] res = new int[len + 1][2];
+      res[0][0] = newInterval[0];
+      res[0][1] = newInterval[1];
+      for (int i = 1; i < len + 1; ++i) {
+        res[i][0] = intervals[i - 1][0];
+        res[i][1] = intervals[i - 1][1];
+      }
+      return res;
+    }
+
+    int startposition = findstart(intervals, start);
+    int endposition = findend(intervals, end);
+    if (startposition == endposition) {
+      intervals[startposition][0] = Math.min(intervals[startposition][0], newInterval[0]);
+      intervals[startposition][1] = Math.max(intervals[startposition][1], newInterval[1]);
+      return intervals;
+    }
+
+    int[][] res = new int[intervals.length - (endposition - startposition)][2];
+    for (int i = 0; i < startposition; ++i) {
+      res[i][0] = intervals[i][0];
+      res[i][1] = intervals[i][1];
+    }
+    res[startposition][0] = Math.min(intervals[startposition][0], newInterval[0]);
+    res[startposition][1] = Math.max(intervals[endposition][1], newInterval[1]);
+
+    for (int i = startposition + 1; i < res.length; ++i) {
+      res[i][0] = intervals[i - startposition + endposition][0];
+      res[i][1] = intervals[i - startposition + endposition][1];
+    }
+    return res;
+  }
+
+  private static int findstart(int[][] intervals, int start) {
+    int left = 0;
+    int right = intervals.length - 1;
+    while (left < right - 1) {
+      int mid = left + (right - left) / 2;
+      if (intervals[mid][1] == start) {
+        return mid;
+      } else if (intervals[mid][1] > start) {
+        right = mid;
+      } else {
+        left = mid;
+      }
+    }
+    if (intervals[left][1] >= start) {
+      return left;
+    } else {
+      return right;
+    }
+  }
+
+  private static int findend(int[][] intervals, int end) {
+    int left = 0;
+    int right = intervals.length - 1;
+    while (left < right - 1) {
+      int mid = left + (right - left) / 2;
+      if (intervals[mid][0] == end) {
+        return mid;
+      } else if (intervals[mid][0] > end) {
+        right = mid;
+      } else {
+        left = mid;
+      }
+    }
+    if (intervals[right][0] <= end) {
+      return right;
+    } else {
+      return left;
+    }
+  }
+
+  public static int[][] insertFromInternetModified(int[][] intervals, int[] newInterval) {
+
+    if (intervals == null || intervals.length == 0) {
+      return new int[][]{{newInterval[0], newInterval[1]}};
+    }
+    int start = newInterval[0];
+    int end = newInterval[1];
+
+    int[][] res;
+    if (end < intervals[0][0]) {
+      res = new int[intervals.length + 1][2];
+      res[0][0] = start;
+      res[0][1] = end;
+      for (int i = 1; i <= intervals.length; i++) {
+        res[i][0] = intervals[i - 1][0];
+        res[i][1] = intervals[i - 1][1];
+      }
+      return res;
+    } else if (start > intervals[intervals.length - 1][1] && end > intervals[intervals.length
+        - 1][1]) {
+      res = new int[intervals.length + 1][2];
+      for (int i = 0; i < intervals.length; i++) {
+        res[i][0] = intervals[i][0];
+        res[i][1] = intervals[i][1];
+      }
+      res[intervals.length][0] = start;
+      res[intervals.length][1] = end;
+      return res;
+    }
+
+    int startPos = findStartPos(intervals, start);
+    int endPos = findEndPos(intervals, end);
+    if (startPos == endPos) {
+      intervals[startPos][0] = Math.min(intervals[startPos][0], start);
+      intervals[startPos][1] = Math.max(intervals[startPos][1], end);
+      return intervals;
+    } else {
+      res = new int[intervals.length - (endPos - startPos)][2];
+      for (int i = 0; i < startPos; i++) {
+        res[i][0] = intervals[i][0];
+        res[i][1] = intervals[i][1];
+      }
+      res[startPos][0] = Math.min(intervals[startPos][0], start);
+      res[startPos][1] = Math.max(intervals[endPos][1], end);
+      for (int i = startPos + 1; i < res.length; i++) {
+        res[i][0] = intervals[i - startPos + endPos][0];
+        res[i][1] = intervals[i - startPos + endPos][1];
+      }
+    }
+    return res;
+  }
+
+  private static int findEndPos(int[][] intervals, int end) {
+    int left = 0;
+    int right = intervals.length - 1;
+
+    while (left < right - 1) {
+      int mid = (right + left) / 2;
+      if (intervals[mid][0] == end) {
+        return mid;
+      } else if (intervals[mid][0] < end) {
+        left = mid;
+      } else {
+        right = mid;
+      }
+    }
+    if (intervals[right][0] <= end) {
+      return right;
+    } else {
+      return left;
+    }
+  }
+
+  private static int findStartPos(int[][] intervals, int start) {
+    int left = 0;
+    int right = intervals.length - 1;
+
+    while (left < right - 1) {
+      int mid = (right + left) / 2;
+      if (intervals[mid][1] == start) {
+        return mid;
+      } else if (intervals[mid][1] < start) {
+        left = mid;
+      } else {
+        right = mid;
+      }
+    }
+    if (intervals[left][1] < start) {
+      return right;
+    } else {
+      return left;
+    }
+  }
 }
