@@ -8,6 +8,8 @@ package recursion;
 
 /**
  * https://www.geeksforgeeks.org/count-ways-reach-nth-stair-using-step-1-2-3/
+ * http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibpuzzles.html
+ * https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/
  */
 public class TripleStep {
   static int countWaysUtil(int n, int m)
