@@ -12,27 +12,25 @@ package recursion;
  * https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/
  */
 public class TripleStep {
-  static int countWaysUtil(int n, int m)
-  {
-    if (n <= 1)
-      return n;
-    int res = 0;
-    for (int i = 1; i<=n; i++)
-      res += countWaysUtil(n-i, m);
-    return res;
+
+  public static void main (String args[]) {
+    int totalSteps = 6,maxHops = 3;
+    System.out.println("Number of ways = "+ countWays(totalSteps,maxHops));
   }
 
-  // Returns number of ways to reach s'th stair
-  static int countWays(int s, int m)
-  {
-    return countWaysUtil(s+1, m);
-  }
+  private static int countWays(int totalSteps, int maxHops) {
 
-
-  /* Driver program to test above function */
-  public static void main (String args[])
-  {
-    int s = 3,m = 2;
-    System.out.println("Number of ways = "+ countWays(s,m));
+    int[] nums = new int[totalSteps+1];
+    nums[0] = 1;
+    nums[1] = 1;
+    for(int i = 2; i < maxHops; i++) {
+      nums[i] = nums[i-1] + nums[i-2];
+    }
+    for (int i = maxHops; i <= totalSteps; i++) {
+      for(int j = 1; j <= maxHops; j++) {
+        nums[i] += nums[i-j];
+      }
+    }
+    return nums[totalSteps];
   }
 }
