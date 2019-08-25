@@ -15,7 +15,7 @@ public class RobotInAGrid {
 
   public static void main(String[] args) {
     int[][] grid = new int[3][3];
-//    grid[0][1] = 1;
+    grid[1][1] = 1;
 //    grid[1][0] = 1;
 
     if (grid == null || grid.length == 0) {
@@ -33,10 +33,19 @@ public class RobotInAGrid {
     }
   }
 
+  static List<String> l = new ArrayList<>();
+
   private static void findPath(int[][] grid, int row, int col, int nbrOfRows,
       int nbrOfCols, Map<String, List<String>> map) {
 
     String key = row + "," + col;
+
+    if (l.contains(key)) {
+      System.out.println("Duplicate");
+    } else {
+      l.add(key);
+    }
+
     List<String> subList = new ArrayList<>();
     if (grid[row][col] == 1) {
       subList.add("-1,-1");
