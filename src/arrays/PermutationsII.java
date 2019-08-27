@@ -18,7 +18,7 @@ import java.util.*;
 public class PermutationsII {
 
     public static void main(String[] args) {
-        List<List<Integer>> res = permuteUnique3(new int[]{1, 1, 2});
+        List<List<Integer>> res = permuteUnique2(new int[]{1, 1, 2});
         for (List<Integer> i : res) {
             for (Integer j : i) {
                 System.out.print(j + ",");
@@ -127,42 +127,4 @@ public class PermutationsII {
             readState[i] = false;
         }
     }
-
-    public static List<List<Integer>> permuteUnique3(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        Arrays.sort(nums);
-        int[] indexes = new int[nums.length];
-        Arrays.fill(indexes, -1);
-        boolean[] readState = new boolean[nums.length];
-        permuteUnique3Helper(nums, 0, indexes, readState, result);
-        return result;
-    }
-
-    public static void permuteUnique3Helper(int[] nums, int count, int[] indexes,
-                                            boolean[] readState, List<List<Integer>> result) {
-        if (count == nums.length) {
-            List<Integer> subList = new LinkedList<>();
-            for (int k = 0; k < nums.length; k++) {
-                subList.add(nums[indexes[k]]);
-            }
-            result.add(subList);
-            return;
-        }
-        List<Integer> uniques = new ArrayList<>();
-        for(int i = 0; i < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1] && !readState[i - 1]) {
-                continue;
-            }
-            if (!readState[i]) {
-                uniques.add(nums[i]);
-                readState[i] = true;
-                indexes[count] = i;
-                permuteUnique3Helper(nums, count + 1, indexes, readState, result);
-                readState[i] = false;
-                indexes[count] = -1;
-            }
-
-        }
-    }
-
 }
