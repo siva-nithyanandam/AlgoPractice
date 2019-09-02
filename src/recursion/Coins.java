@@ -7,24 +7,20 @@ package recursion;
 public class Coins {
     public static void main(String[] args) {
         System.out.println(findNbrOfWays(10));
+        System.out.println(findNbrOfWays(15));
     }
 
     private static int findNbrOfWays(int n) {
-        return findNbrOfWays(n, 0);
-    }
-
-    private static int findNbrOfWays(int n, int tot) {
-        int sum = 0;
-        if (tot == n) {
-            return 1;
-        } else if (tot > n) {
-            return 0;
-        } else {
-            sum += findNbrOfWays(n, tot + 25);
-            sum += findNbrOfWays(n, tot + 10);
-            sum += findNbrOfWays(n, tot + 5);
-            sum += findNbrOfWays(n, tot + 1);
+        int count = 0;
+        for (int c25 = 0; c25 <= n; c25 += 25) {
+            for (int c10 = c25; c10 <= n; c10 += 10) {
+                for (int c5 = c10; c5 <= n; c5 += 5) {
+                    if (c5 <= n) {
+                        count++;
+                    }
+                }
+            }
         }
-        return sum;
+        return count;
     }
 }
