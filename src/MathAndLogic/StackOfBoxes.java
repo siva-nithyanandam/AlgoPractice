@@ -25,20 +25,31 @@ public class StackOfBoxes {
   private static int findMaxHeight(int[][] nums) {
     sort(nums);
     int[] max = new int[nums.length];
+    int[] res = new int[nums.length];
     for(int i = 0; i < nums.length; i++) {
       max[i] = nums[i][2];
     }
+    Arrays.fill(res, -1);
 
     for (int i = 1; i < nums.length; i++) {
       for (int j = 0; j < i; j++) {
         if (nums[i][0] < nums[j][0] && nums[i][1] < nums[j][1]) {
+          res[i] = j;
           max[i] = Math.max(max[i], nums[i][2] + max[j]);
         }
       }
     }
     int maxH = 0;
-    for (int i : max) {
-      maxH = Math.max(maxH, i);
+    int maxI = 0;
+    for (int i = 0; i < max.length; i++) {
+      if (max[i] > maxH) {
+        maxH = max[i];
+        maxI = i;
+      }
+    }
+    while(maxI != -1) {
+      System.out.println(nums[maxI][0] + "," + nums[maxI][1] + "," + nums[maxI][2]);
+      maxI = res[maxI];
     }
     return maxH;
   }
