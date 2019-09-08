@@ -14,7 +14,8 @@ import java.util.List;
 
 /**
  * There are 2 solutions given below.
- * #1 - O(nlogn) - Sort the given intervals based on open(start) and move the downstream elements before if it crosses previous one.
+ * #1 - O(nlogn) - Sort the given intervals based on open(start) and move the downstream elements before if it
+ * crosses previous one.
  *
  * #2 - O(n) - Find max and min elements from overall. Create integer arrays "openArr" and "closeArr" of size (max - min + 1)
  * Increment wherever open and close are happening. Then if openCount and closeCount matches at certain point, that is a
