@@ -80,9 +80,10 @@ public class WordLadderII {
     }
     if (endMap.size() == 0) return res;
     int[] track = new int[wordList.size()+1];
-    track[0] = -1;
+    Arrays.fill(track,-1);
 
     ladderLength(beginMap, endMap, dict, 1, track);
+    return res;
   }
 
   public Integer ladderLength(Map<String, Integer> beginMap, Map<String, Integer> endMap,
@@ -90,9 +91,14 @@ public class WordLadderII {
     if (beginMap.isEmpty()) {
       return -1;
     }
-    dict.remove(beginMap);
+    for (String s : beginMap.keySet()) {
+      dict.remove(s);
+    }
     Map<String, Integer> nextMap = new HashMap<>();
-    beginMap.forEach((k, v) -> {
+    for (Map.Entry<String, Integer> entry : beginMap.entrySet()) {
+      String k = entry.getKey();
+      int v = entry.getValue();
+
       char[] sArr = k.toCharArray();
       for (int i = 0; i < sArr.length; i++) {
         char temp = sArr[i];
@@ -102,12 +108,14 @@ public class WordLadderII {
           if (dict.containsKey(newWord)) {
             track[dict.get(newWord)] = v;
             if (endMap.containsKey(newWord)) {
-              return dict.get(newWord);
+              //return dict.get(newWord);
             }
             nextMap.put(newWord, dict.get(newWord));
           }
         }
+        sArr[i] = temp;
       }
-    });
+    }
+    return ladderLength(nextMap, endMap, dict, count+1, track);
   }
 }
