@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import sun.awt.image.ImageWatched.Link;
 
 /**
  * Given two words (beginWord and endWord), and a dictionary's word list, find all shortest
@@ -40,10 +43,17 @@ import java.util.Set;
  *
  * Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
  */
+
+/**
+ * Using BFS and DFS. Complex logic. Got to go through
+ * https://www.youtube.com/watch?v=Tlq4x5ln9Rg
+ */
 public class WordLadderII {
 
   public static void main(String[] args) {
     WordLadderII wl = new WordLadderII();
+    List<List<String>> res;
+
     List<String> wordList = new ArrayList<>();
     wordList.add("hot");
     wordList.add("dot");
@@ -51,7 +61,8 @@ public class WordLadderII {
     wordList.add("lot");
     wordList.add("log");
     wordList.add("cog");
-    List<List<String>> res = wl.ladderLength("hit", "cog", wordList);
+    res = wl.findLadders("hit", "cog", wordList);
+    printRes(res);
 
     wordList.clear();
     wordList.add("hot");
@@ -59,63 +70,114 @@ public class WordLadderII {
     wordList.add("dog");
     wordList.add("lot");
     wordList.add("log");
-    res = wl.ladderLength("hit", "cog", wordList);
+    res = wl.findLadders("hit", "cog", wordList);
+    printRes(res);
+
+    wordList.clear();
+    wordList.add("ted");
+    wordList.add("tex");
+    wordList.add("red");
+    wordList.add("tax");
+    wordList.add("tad");
+    wordList.add("den");
+    wordList.add("rex");
+    wordList.add("pee");
+    res = wl.findLadders("red", "tax", wordList);
+    printRes(res);
+
+    wordList.clear();
+    wordList.add("hot");
+    wordList.add("dog");
+    res = wl.findLadders("hot", "dog", wordList);
+    printRes(res);
   }
 
-  public List<List<String>> ladderLength(String beginWord, String endWord, List<String> wordList) {
+  private static void printRes(List<List<String>> res) {
+    for (List<String> l : res) {
+      for (String s : l) {
+        System.out.print(s + ",");
+      }
+      System.out.println();
+    }
+  }
+
+  public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
     List<List<String>> res = new ArrayList<>();
-    if (beginWord == null || endWord == null || wordList == null) {
+    Set<String> dict = new HashSet<>();
+    for (int i = 0; i < wordList.size(); i++) {
+      dict.add(wordList.get(i));
+    }
+    if (!dict.contains(endWord)) {
       return res;
     }
-    Map<String, Integer> beginMap = new HashMap<>();
-    beginMap.put(beginWord, 0);
+    Set<String> beginSet = new HashSet<>();
+    beginSet.add(beginWord);
 
-    Map<String, Integer> endMap = new HashMap<>();
-    Map<String, Integer> dict = new HashMap<>();
-    for (int i = 0; i < wordList.size(); i++) {
-      dict.put(wordList.get(i), i+1);
-      if (wordList.get(i).equals(endWord)) {
-        endMap.put(endWord, i+1);
-      }
-    }
-    if (endMap.size() == 0) return res;
-    int[] track = new int[wordList.size()+1];
-    Arrays.fill(track,-1);
+    Set<String> endSet = new HashSet<>();
+    endSet.add(endWord);
 
-    ladderLength(beginMap, endMap, dict, 1, track);
+    Map<String, List<String>> bfsMap = new HashMap<>();
+
+    findLadders(beginSet, endSet, bfsMap, dict, 1, res);
     return res;
   }
 
-  public Integer ladderLength(Map<String, Integer> beginMap, Map<String, Integer> endMap,
-      Map<String, Integer> dict, int count, int[] track) {
-    if (beginMap.isEmpty()) {
-      return -1;
+  private void findLadders(Set<String> beginSet, Set<String> endSet, Map<String,
+      List<String>> bfsMap, Set<String> dict, int level,
+      List<List<String>> res) {
+
+    if (beginSet.isEmpty() || !res.isEmpty()) {
+      return;
     }
-    for (String s : beginMap.keySet()) {
+    for (String s : beginSet) {
       dict.remove(s);
     }
-    Map<String, Integer> nextMap = new HashMap<>();
-    for (Map.Entry<String, Integer> entry : beginMap.entrySet()) {
-      String k = entry.getKey();
-      int v = entry.getValue();
-
-      char[] sArr = k.toCharArray();
+    Set<String> nextSet = new HashSet<>();
+    for (String s : beginSet) {
+      char[] sArr = s.toCharArray();
       for (int i = 0; i < sArr.length; i++) {
         char temp = sArr[i];
         for (char c = 'a'; c <= 'z'; c++) {
           sArr[i] = c;
           String newWord = new String(sArr);
-          if (dict.containsKey(newWord)) {
-            track[dict.get(newWord)] = v;
-            if (endMap.containsKey(newWord)) {
-              //return dict.get(newWord);
+          if (dict.contains(newWord)) {
+            putInBfsMap(newWord, bfsMap, s);
+            if (endSet.contains(newWord)) {
+              List<String> subRes = new ArrayList<>();
+              subRes.add(s);
+              subRes.add(newWord);
+              helper(res, bfsMap, subRes, s, res);
             }
-            nextMap.put(newWord, dict.get(newWord));
+            nextSet.add(newWord);
           }
         }
         sArr[i] = temp;
       }
     }
-    return ladderLength(nextMap, endMap, dict, count+1, track);
+    findLadders(nextSet, endSet, bfsMap, dict, level+1, res);
+  }
+
+  private void helper(List<List<String>> res, Map<String, List<String>> bfsMap, List<String> subRes,
+      String word, List<List<String>> lists) {
+    List<String> l = bfsMap.get(word);
+    if (l != null) {
+      for (String s : l) {
+        subRes.add(0, s);
+        helper(res, bfsMap, subRes, s, res);
+        subRes.remove(s);
+      }
+    } else {
+      res.add(new ArrayList<>(subRes));
+    }
+  }
+
+  private void putInBfsMap(String s, Map<String, List<String>> bfsMap, String newWord) {
+    if (bfsMap.get(s) == null) {
+      List<String> l = new ArrayList<>();
+      l.add(newWord);
+      bfsMap.put(s, l);
+    } else {
+      bfsMap.get(s).add(newWord);
+    }
   }
 }
