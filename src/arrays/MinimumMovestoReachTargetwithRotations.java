@@ -45,6 +45,8 @@ import java.util.Queue;
  */
 public class MinimumMovestoReachTargetwithRotations {
 
+  private static final int HORIZONTAL = 0;
+  private static final int VERTICAL = 0;
   public static void main(String[] args) {
     MinimumMovestoReachTargetwithRotations o = new MinimumMovestoReachTargetwithRotations();
     int[][] grid = new int[][]{{0,0,0,0,0,1},
@@ -57,6 +59,67 @@ public class MinimumMovestoReachTargetwithRotations {
   }
 
   public int minimumMoves(int[][] g) {
+    if (g.length == 0) {
+      return -1;
+    }
+    int n = g.length;
+    int m = g[0].length;
+    Queue<int[]> q = new ArrayDeque<>();
+    q.add(new int[]{0,0,HORIZONTAL});
+    int[][] dist = new int[n][m];
+    for(int i = 0;i < n;i++){
+      for(int j = 0;j < m;j++){
+        dist[i][j] = 99999;
+      }
+    }
+    dist[0][0] = 0;
+    dist[0][1] = 0;
+
+    while(!q.isEmpty()) {
+      int[] loc = q.poll();
+      int r = loc[0];
+      int c = loc[1];
+      int pos = loc[2];
+      int r2 = pos == HORIZONTAL ? r : r+1;
+      int c2 = pos == HORIZONTAL ? c+1 : c;
+
+      //Slide right - Either Horizontal position or Vertical position
+      if ((c + 1 < m) && (c2 + 1 < m) && g[r][c+1] == 0 && g[r2][c2+1] == 0) {
+        if (dist[r][c]+1 < dist[r][c+1]) {
+          dist[r][c+1] = dist[r][c]+1;
+          q.add(new int[]{r,c+1,pos});
+        }
+      }
+
+      //Slide down - Either Horizontal position or Vertical position
+      if ((r + 1 < n) && (r2 + 1 < n) && g[r+1][c] == 0 && g[r2+1][c2] == 0) {
+        if (dist[r][c]+1 < dist[r+1][c]) {
+          dist[r+1][c] = dist[r][c]+1;
+          q.add(new int[]{r+1,c,pos});
+        }
+      }
+
+      //Rotate clockwise if Horizontal
+      if (pos == HORIZONTAL) {
+        if ((r+1 < n) && g[r+1][c] == 0 && g[r2+1][c2+1] == 0) {
+          dist[r][c] = dist[r][c]+1;
+          q.add(new int[]{r,c,VERTICAL});
+        }
+      }
+
+      //Rotate clockwise if Horizontal
+      if (pos == VERTICAL) {
+        if ((c+1 < m) && g[r][c+1] == 0 && g[r2+1][c2+1] == 0) {
+          dist[r][c] = dist[r][c]+1;
+          q.add(new int[]{r,c,HORIZONTAL});
+        }
+      }
+    }
+    return dist[n-1][m-2];
+  }
+
+
+  public int minimumMoves1(int[][] g) {
     int n = g.length, m = g[0].length;
     Queue<int[]> q = new ArrayDeque<>();
     q.add(new int[]{0, 0, 0});
