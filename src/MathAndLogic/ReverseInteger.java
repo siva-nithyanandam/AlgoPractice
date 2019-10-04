@@ -23,6 +23,7 @@ public class ReverseInteger {
 
   public static void main(String[] args) {
     ReverseInteger o = new ReverseInteger();
+    System.out.println((Integer.MAX_VALUE));
     System.out.println(o.reverse(1534236469));
     System.out.println(o.reverse(-123));
     System.out.println(o.reverse(10));
@@ -30,17 +31,17 @@ public class ReverseInteger {
   }
 
   public int reverse(int x) {
-    int val = 1;
-    if (x < 0) {
-      x = x * -1;
-      val = -1;
-    }
     int rev_num = 0;
-    while(x > 0) {
+    int prev_num = 0;
+    while(x != 0) {
       rev_num = rev_num * 10 + x % 10;
+      if (rev_num/10 != prev_num) {
+        return 0;
+      }
       x = x / 10;
+      prev_num = rev_num;
     }
-    return rev_num * val;
+    return rev_num;
   }
 
   public static int reverseBits(int n) {
