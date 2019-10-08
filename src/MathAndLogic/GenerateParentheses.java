@@ -1,5 +1,9 @@
 package MathAndLogic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *  Implement an algorithm to print all valid (e.g., properly opened and closed) combinations
  *  of n pairs of parentheses.
@@ -7,8 +11,41 @@ package MathAndLogic;
  * Input: 3 Output: ((())), (()()), (())(), ()(()), ()()()
  */
 public class GenerateParentheses {
+
     public static void main(String[] args) {
-        printParenthesis(3);
+        GenerateParentheses o = new GenerateParentheses();
+        List<String> list = o.generateParenthesis(3);
+        printList(list);
+    }
+
+    private static void printList(List<String> list) {
+        for (String s : list) {
+            System.out.println(s);
+        }
+    }
+
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        char[] chars = new char[n*2];
+        generateParenthesis(n, 0, 0, chars, res);
+        return res;
+    }
+
+    private void generateParenthesis(int n, int opens, int closes, char[] chars, List<String> res) {
+
+        int tot = opens + closes;
+        if (tot == n*2) {
+            res.add(String.valueOf(chars));
+            return;
+        }
+        if (opens < n) {
+            chars[tot] = '(';
+            generateParenthesis(n, opens+1, closes, chars, res);
+        }
+        if (closes < opens) {
+            chars[tot] = ')';
+            generateParenthesis(n, opens, closes+1, chars, res);
+        }
     }
 
     private static void printParenthesis(int n) {
