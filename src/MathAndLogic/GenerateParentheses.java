@@ -6,7 +6,7 @@ package MathAndLogic;
  * EXAMPLE
  * Input: 3 Output: ((())), (()()), (())(), ()(()), ()()()
  */
-public class Parens {
+public class GenerateParentheses {
     public static void main(String[] args) {
         printParenthesis(3);
     }
