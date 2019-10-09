@@ -16,7 +16,46 @@ package arrays;
  */
 public class NextPermutation {
 
-    public void nextPermutation(int[] nums) {
+    public static void main(String[] args) {
+        NextPermutation o = new NextPermutation();
+        o.nextPermutation(new int[]{3, 2, 1});
+        o.nextPermutation(new int[]{1, 3, 2});
+        o.nextPermutation(new int[]{1});
+        o.nextPermutation(new int[]{1, 2, 3});
+        o.nextPermutation(new int[]{4, 5, 6, 3, 2, 1});
+        o.nextPermutation(new int[]{7, 9, 8, 3, 2, 1});
+    }
 
+    public void nextPermutation(int[] nums) {
+        if (nums.length == 0) {
+            return;
+        }
+        for (int i = nums.length-2; i >= 0; i--) {
+            if (nums[i] < nums[i+1]) {
+                int j = i+1, k=-1;
+                while(j < nums.length) {
+                    if (nums[j] > nums[i]) {
+                        k = j;
+                    }
+                    j++;
+                }
+                int temp = nums[k];
+                nums[k] = nums[i];
+                nums[i] = temp;
+                swap(nums, i+1, nums.length - 1);
+                return;
+            }
+        }
+        swap(nums, 0, nums.length - 1);
+    }
+
+    private void swap(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
