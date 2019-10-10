@@ -46,7 +46,7 @@ public class RegularExpressionMatching {
 
   public static void main(String[] args) {
     RegularExpressionMatching o = new RegularExpressionMatching();
-    System.out.println(o.isMatch("xaabyc", "xa*b.c"));//true
+    System.out.println(o.isMatch_faster("xaabyc", "xa*b.c"));//true
     System.out.println(o.isMatch("aa", "a"));//false
     System.out.println(o.isMatch("aa", "a*"));//true
     System.out.println(o.isMatch("ab", ".*"));//true
