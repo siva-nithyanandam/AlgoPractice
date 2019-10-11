@@ -49,8 +49,8 @@ package MathAndLogic;
 public class WildcardMatching {
     public static void main(String[] args) {
         WildcardMatching o = new WildcardMatching();
-        System.out.println(o.isMatch("aab", "c*a*b"));//false
-        System.out.println(o.isMatch("abefcdgiescdfimde", "ab*cd?i*de"));//true
+        System.out.println(o.isMatch_faster("aab", "c*a*b"));//false
+        System.out.println(o.isMatch_faster("abefcdgiescdfimde", "ab*cd?i*de"));//true
         System.out.println(o.isMatch("a", "aa"));//false
         System.out.println(o.isMatch("aa", "a"));//false
         System.out.println(o.isMatch("aa", "*"));//true
