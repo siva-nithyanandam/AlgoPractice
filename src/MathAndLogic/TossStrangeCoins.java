@@ -27,10 +27,57 @@ package MathAndLogic;
 public class TossStrangeCoins {
     public static void main(String[] args) {
         TossStrangeCoins o = new TossStrangeCoins();
-        System.out.println(o.probabilityOfHeads(new double[]{0.4, 0.4, 0.4}, 1));
+        System.out.println(o.probabilityOfHeads_faster(new double[]{0.6, 0.8, 0.4, 0.3, 0.5}, 2));
     }
 
     public double probabilityOfHeads(double[] prob, int target) {
+        int n = prob.length;
+        double[][] arr = new double[n+1][target+1];
+        arr[0][0] = 1;
+
+        for (int tar = 0; tar < target+1; tar++) {
+            for (int toss = 0; toss < n; toss++) {
+                arr[toss+1][tar] += arr[toss][tar] * (1 - prob[toss]);
+                if (tar < target) {
+                    arr[toss+1][tar+1] += arr[toss][tar] * (prob[toss]);
+                }
+            }
+        }
+        return arr[n][target];
+    }
+
+    public double probabilityOfHeads_faster(double[] prob, int target) {
+        int n = prob.length;
+        double[] array = new double[target+1];
+        array[0]=1;
+        for(int toss=0;toss<n;toss++) {
+            for(int tar=Math.min(target, toss+1); tar>0;tar--) {
+                array[tar]=(array[tar]*(1-prob[toss])) +(array[tar-1]*prob[toss]);
+            }
+            array[0] *= 1-prob[toss];
+        }
+        return array[target];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public double probabilityOfHeads1(double[] prob, int target) {
         int n = prob.length;
         double[][] p = new double[1+n][1+n];
         p[0][0] = 1;
