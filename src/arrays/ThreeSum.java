@@ -20,7 +20,7 @@ import java.util.List;
 public class ThreeSum {
   public static void main(String[] args) {
     ThreeSum o = new ThreeSum();
-    List<List<Integer>> res = o.threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+    List<List<Integer>> res = o.threeSum_faster(new int[]{-1, 0, 1, 2, -1, -4});
     printList(res);
 
     res = o.threeSum_faster(new int[]{-2,0,0,2,2});
