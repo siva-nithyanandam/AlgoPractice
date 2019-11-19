@@ -44,11 +44,11 @@ public class WordBreakII {
 
     public static void main(String[] args) {
         WordBreakII o = new WordBreakII();
-        List<String> res = o.wordBreak("catsanddog", Arrays.asList("cat", "cats", "and", "sand", "dog");
+        List<String> res = o.wordBreak("catsanddog", Arrays.asList("cat", "cats", "and", "sand", "dog"));
 
     }
 
     public List<String> wordBreak(String s, List<String> wordDict) {
-
+        return null;
     }
 }
