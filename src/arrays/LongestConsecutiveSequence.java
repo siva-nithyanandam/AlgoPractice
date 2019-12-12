@@ -1,7 +1,7 @@
 package arrays;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Given an unsorted array of integers, find the length of the longest consecutive elements sequence.

@@ -1,7 +1,7 @@
 package arrays;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Design and implement a TwoSum class. It should support the following operations: add and find.

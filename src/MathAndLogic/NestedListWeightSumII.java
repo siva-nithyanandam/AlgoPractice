@@ -1,12 +1,6 @@
 package MathAndLogic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Given a nested list of integers, return the sum of all integers in the list weighted by their depth.

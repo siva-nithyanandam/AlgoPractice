@@ -1,9 +1,9 @@
 package MathAndLogic;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T,

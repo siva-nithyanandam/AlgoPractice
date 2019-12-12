@@ -36,10 +36,11 @@ public class SmallestCommonRegion {
         {"Canada","Ontario","Quebec"},
         {"South America","Brazil"}};
 
-    System.out.println(o.findSmallestRegion());
+//    System.out.println(o.findSmallestRegion());
   }
 
   public String findSmallestRegion(List<List<String>> regions, String region1, String region2) {
-
+  //TODO do this
+    return null;
   }
 }

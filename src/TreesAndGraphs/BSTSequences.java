@@ -1,8 +1,8 @@
 package TreesAndGraphs;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A binary search tree was created by traversing through an array from

@@ -1,7 +1,5 @@
 package linkedlists;
 
-import java.util.List;
-import java.util.LinkedList;
 /**
  * Merge two sorted linked lists
  * Write a SortedMerge() function that takes two lists, each of which is sorted in increasing order,

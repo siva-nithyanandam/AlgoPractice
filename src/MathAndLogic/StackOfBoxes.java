@@ -1,7 +1,7 @@
 package MathAndLogic;
 
-import java.util.Comparator;
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * You have a stack of n boxes, with widths 'w' heights 'h' and depths 'd'. The boxes

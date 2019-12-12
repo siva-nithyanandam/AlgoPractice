@@ -1,9 +1,9 @@
 package MathAndLogic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Imagine a robot sitting on the upper left corner of grid with r rows and c columns.

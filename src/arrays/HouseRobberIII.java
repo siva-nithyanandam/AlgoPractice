@@ -1,10 +1,5 @@
 package arrays;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * The thief has found himself a new place for his thievery again. There is only one entrance to
  * this area, called the "root." Besides the root, each house has one and only one parent house.

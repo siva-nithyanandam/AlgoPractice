@@ -1,7 +1,5 @@
 package TreesAndGraphs;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Implement a function to check if a binary tree is a binary search tree.
  */
