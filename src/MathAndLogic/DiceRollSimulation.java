@@ -34,17 +34,46 @@ package MathAndLogic;
  * rollMax.length == 6
  * 1 <= rollMax[i] <= 15
  */
+
+/**
+ * https://leetcode.com/problems/dice-roll-simulation/discuss/403964/Java-two-method-DP-solutions-and-DFS-solution
+ */
 //TODO Revisit
 public class DiceRollSimulation {
     public static void main(String[] args) {
         DiceRollSimulation o = new DiceRollSimulation();
-        System.out.println(o.dieSimulator2(3, new int[]{3,1,1,1,1,3}));
+        System.out.println(o.dieSimulator2(2, new int[]{3,1,1,1,1,3}));
+        System.out.println(o.dieSimulator2(3, new int[]{1,1,2,2,2,3}));
+        System.out.println(o.dieSimulator(2, new int[]{3,1,1,1,1,3}));
         System.out.println(o.dieSimulator(3, new int[]{1,1,2,2,2,3}));
+
     }
 
     private int dieSimulator(int n, int[] rollMax) {
-
-        return 0;
+        int[][][] dp = new int[n+1][7][16];
+        for (int i = 1; i < 7; i++) {
+            dp[1][i][1] = 1;
+        }
+        for (int x = 2; x <= n; x++) {
+            for (int i = 1; i < 7; i++) {
+                for (int k = 1; k < rollMax[i-1]; k++) {
+                    dp[x][i][k+1] += dp[x-1][i][k];
+                }
+                for (int j = 1; j < 7; j++) {
+                    if (i == j) continue;
+                    for (int k = 1; k <= rollMax[i-1]; k++) {
+                        dp[x][j][1] += dp[x-1][i][k];
+                    }
+                }
+            }
+        }
+        int res = 0;
+        for (int a = 1; a < 7; a++) {
+            for (int b = 1; b < 16; b++) {
+                res += dp[n][a][b];
+            }
+        }
+        return res;
     }
 
     private static final int MOD = 1000000007;

@@ -11,6 +11,7 @@ package MathAndLogic;
  * https://www.geeksforgeeks.org/egg-dropping-puzzle-dp-11/
  * http://www.cs.umd.edu/~gasarch/BLOGPAPERS/eggold.pdf
  * https://www.geeksforgeeks.org/egg-dropping-puzzle-with-2-eggs-and-k-floors/
+ * https://www.geeksforgeeks.org/eggs-dropping-puzzle-binomial-coefficient-and-binary-search-solution/
  */
 public class EggDropProblem {
 
@@ -19,11 +20,30 @@ public class EggDropProblem {
     int e = 2;
     System.out.println(eggDrop(f, e));
     //Math.ceil((-1.0 + Math.sqrt(1 + 8 * f)) / 2.0);
-    System.out.println(eggDropInMemory(e, f));
+    System.out.println(eggDropInMemory1(e, f));
 
   }
 
-  private static int eggDropInMemory(int n, int k) {
+  private static int eggDropInMemory(int eggs, int floor) {
+    int[][] eggFloor = new int[eggs+1][floor+1];
+
+    for (int k = 1; k <= floor; k++) {
+      eggFloor[1][k] = k;
+    }
+    for (int n = 1; n <= eggs; n++) {
+      eggFloor[n][1] = 1;
+      eggFloor[n][0] = 0;
+    }
+    int res = 0;
+    for (int n = 2; n <= eggs; n++) {
+      for (int k = 2; k <= floor; k++) {
+        eggFloor[n][k] = 1 + Math.max(eggFloor[n-1][k-1], eggFloor[n][floor-k]);
+      }
+    }
+    return eggFloor[eggs][floor];
+  }
+
+  private static int eggDropInMemory1(int n, int k) {
     int[][] eggFloor = new int[n + 1][k + 1];
 
     for (int i = 1; i <= n; i++) {
