@@ -2,6 +2,8 @@ package MathAndLogic;
 
 import java.util.Arrays;
 
+import com.temp.ValidRectangleNumber;
+
 /**
  * Given an array consists of non-negative integers, your task is to count
  * the number of quadruplets chosen from the array that can make rectangles if
@@ -20,16 +22,24 @@ public class ValidRectangleNumber {
         Arrays.sort(nums);
         int prevI = 0;
         int prev = nums[0];
-        int invComb = 0;
+        int[] subRes = new int[nums.length];
+        int count = 0;
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] != prev) {
-                invComb += binomialCoefficient(i-prevI, 2);
+                subRes[count] = binomialCoefficient(i-prevI, 2);
+                count++;
                 prevI = i;
                 prev = nums[i];
             }
         }
-        invComb += binomialCoefficient(nums.length-prevI, 2);
-        return binomialCoefficient(invComb, 2);
+        subRes[count] = binomialCoefficient(nums.length-prevI, 2);
+        int res = 0;
+        for (int i = 0; i < count; i++) {
+        	for (int j = i+1; j <=count; j++) {
+        		res += subRes[i] * subRes[j];
+        	}
+        }
+        return res;
     }
 
     private int binomialCoefficient(int n, int k) {
