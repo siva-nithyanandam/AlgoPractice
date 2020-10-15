@@ -14,7 +14,7 @@ package recursion;
 public class TripleStep {
 
   public static void main (String args[]) {
-    int totalSteps = 6,maxHops = 3;
+    int totalSteps = 6,maxHops = 4;
     System.out.println("Number of ways = "+ countWays(totalSteps,maxHops));
   }
 

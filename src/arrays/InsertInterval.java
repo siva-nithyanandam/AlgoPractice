@@ -27,8 +27,8 @@ public class InsertInterval {
     int[] newInterval;
     int[][] res;
 
-    intervals = new int[][]{{1, 3}, {6, 9}};
-    newInterval = new int[]{2, 5};
+    intervals = new int[][]{{1, 2}, {5, 6}};
+    newInterval = new int[]{3, 4};
     res = insert(intervals, newInterval);
     for (int i = 0; i < res.length; i++) {
       System.out.print(res[i][0] + ", " + res[i][1]);

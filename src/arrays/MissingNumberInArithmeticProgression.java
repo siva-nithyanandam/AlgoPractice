@@ -1,7 +1,8 @@
 package arrays;
 
 /**
- * In some array arr, the values were in arithmetic progression: the values arr[i+1] - arr[i] are all equal for every 0 <= i < arr.length - 1.
+ * In some array arr, the values were in arithmetic progression: the values arr[i+1] - arr[i] are all
+ * equal for every 0 <= i < arr.length - 1.
  *
  * Then, a value from arr was removed that was not the first or last value in the array.
  *

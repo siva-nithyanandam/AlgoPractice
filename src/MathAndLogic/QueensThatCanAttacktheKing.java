@@ -8,7 +8,9 @@ import java.util.List;
  *
  * On an 8x8 chessboard, there can be multiple Black Queens and one White King.
  *
- * Given an array of integer coordinates queens that represents the positions of the Black Queens, and a pair of coordinates king that represent the position of the White King, return the coordinates of all the queens (in any order) that can attack the King.
+ * Given an array of integer coordinates queens that represents the positions of the Black Queens,
+ * and a pair of coordinates king that represent the position of the White King,
+ * return the coordinates of all the queens (in any order) that can attack the King.
  *
  *
  *

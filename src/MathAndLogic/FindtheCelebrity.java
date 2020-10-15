@@ -10,12 +10,12 @@ package MathAndLogic;
  */
 public class FindtheCelebrity {
 
-  static int MATRIX[][] = { { 0, 0, 1, 0, 0, 1},
-      { 0, 0, 1, 1, 0, 0 },
-      { 0, 0, 1, 1, 0, 0 },
-      { 1, 0, 0, 0, 0, 0 },
-      { 0, 0, 1, 1, 0, 0 },
-      { 0, 0, 1, 1, 0, 0 } };
+  static int MATRIX[][] = { { 0, 0, 1, 0, 1, 0},
+      { 0, 0, 0, 1, 1, 0 },
+      { 0, 0, 0, 0, 1, 1 },
+      { 1, 0, 0, 0, 1, 0 },
+      { 0, 0, 0, 0, 0, 0 },
+      { 0, 0, 0, 1, 1, 0 } };
 
   public static void main(String[] args) {
     FindtheCelebrity o = new FindtheCelebrity();

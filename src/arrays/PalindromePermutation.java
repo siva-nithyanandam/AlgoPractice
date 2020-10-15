@@ -19,7 +19,7 @@ public class PalindromePermutation {
    * Assumptions for below:
    * 1. Case insensitive
    * 2. Space doesn't count
-   * Idea is, If there is more than one character having count 1, then characters are not
+   * Idea is, If there is more than one character having odd count, then characters are not
    * distributed. Example -> "aba" is, but "abca" is not.
    * @param str
    * @return

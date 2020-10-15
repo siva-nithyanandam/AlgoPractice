@@ -2,8 +2,6 @@ package MathAndLogic;
 
 import java.util.Arrays;
 
-import com.temp.ValidRectangleNumber;
-
 /**
  * Given an array consists of non-negative integers, your task is to count
  * the number of quadruplets chosen from the array that can make rectangles if
@@ -13,6 +11,7 @@ public class ValidRectangleNumber {
 
     public static void main(String[] args) {
         ValidRectangleNumber o = new ValidRectangleNumber();
+        System.out.println(o.findTheCountOfRectangle(new int[]{1, 2, 2, 3, 3}));
         System.out.println(o.findTheCountOfRectangle(new int[]{1, 2, 1, 2, 3, 3}));
         System.out.println(o.findTheCountOfRectangle(new int[]{1, 2, 1, 2, 1}));
         System.out.println(o.findTheCountOfRectangle(new int[]{1, 2, 1, 2, 3, 3, 1}));

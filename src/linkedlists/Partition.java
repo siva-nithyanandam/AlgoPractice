@@ -8,7 +8,7 @@ package linkedlists;
  * appear between the left and right partitions.
  * Example:
  * Input: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1 [partition = 5]
- * Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
+ * Output: 1 -> 2 -> 3 -> 5 -> 8 -> 5 -> 10
  */
 
 /**
@@ -34,10 +34,10 @@ class Partition {
         head.next.next.next = new Node(5);
         head.next.next.next.next = new Node(10);
         head.next.next.next.next.next = new Node(2);
-        head.next.next.next.next.next.next = new Node(1);
+        head.next.next.next.next.next.next = new Node(11);
 
         printList(head);
-        head = partition(head, 6);
+        head = partition(head, 5);
         printList(head);
     }
 

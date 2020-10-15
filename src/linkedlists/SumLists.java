@@ -17,7 +17,8 @@ package linkedlists;
  */
 
 /**
- * For #2 problem, its bit tricky. Take only matching lenghts of two lists and add. Once thats complete, take remaining
+ * For #2 problem, its bit tricky. Take only matching lenghts of two lists and add.
+ * Once thats complete, take remaining
  * numbers from big list and add it.
  */
 public class SumLists {

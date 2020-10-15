@@ -24,9 +24,11 @@ public class ValidTriangleNumber {
 
     public static void main(String[] args) {
         ValidTriangleNumber o = new ValidTriangleNumber();
+        System.out.println(o.findTheCountOfTriangles_faster(new int[]{1, 14,14}));
+        System.out.println(o.findTheCountOfTriangles(new int[]{4, 6, 3, 7}));
         System.out.println(o.findTheCountOfTriangles_faster(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
+        System.out.println(o.findTheCountOfTriangles(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
         System.out.println(o.findTheCountOfTriangles_faster(new int[]{2, 2, 1}));
-        System.out.println(o.findTheCountOfTriangles_faster(new int[]{4, 6, 3, 7}));
         System.out.println(o.findTheCountOfTriangles_faster(new int[]{10, 21, 22, 100, 101, 200, 300}));
         System.out.println(o.findTheCountOfTriangles_faster(new int[]{2,2,3,4}));
         System.out.println(o.findTheCountOfTriangles_faster(new int[]{34,75,96,10,60,70,70,45}));

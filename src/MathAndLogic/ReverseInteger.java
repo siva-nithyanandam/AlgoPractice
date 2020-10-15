@@ -24,6 +24,7 @@ public class ReverseInteger {
   public static void main(String[] args) {
     ReverseInteger o = new ReverseInteger();
     System.out.println((Integer.MAX_VALUE));
+    System.out.println(Math.log10(Integer.MAX_VALUE));
     System.out.println(o.reverse(1534236469));
     System.out.println(o.reverse(-123));
     System.out.println(o.reverse(10));

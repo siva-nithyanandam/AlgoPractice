@@ -16,34 +16,58 @@ package MathAndLogic;
 public class EggDropProblem {
 
   public static void main(String[] args) {
-    int f = 5;
-    int e = 2;
-    System.out.println(eggDrop(f, e));
+    int f = 8;
+    int e = 3;
     //Math.ceil((-1.0 + Math.sqrt(1 + 8 * f)) / 2.0);
-    System.out.println(eggDropInMemory1(e, f));
+    System.out.println(eggDropInMemory(e, f));
+    System.out.println(eggDrop(e, f));
 
   }
 
-  private static int eggDropInMemory(int eggs, int floor) {
-    int[][] eggFloor = new int[eggs+1][floor+1];
-
-    for (int k = 1; k <= floor; k++) {
-      eggFloor[1][k] = k;
-    }
-    for (int n = 1; n <= eggs; n++) {
-      eggFloor[n][1] = 1;
-      eggFloor[n][0] = 0;
-    }
-    int res = 0;
-    for (int n = 2; n <= eggs; n++) {
-      for (int k = 2; k <= floor; k++) {
-        eggFloor[n][k] = 1 + Math.max(eggFloor[n-1][k-1], eggFloor[n][floor-k]);
+  //TODO Learn this equation
+  //https://brilliant.org/wiki/egg-dropping/
+  public static int superEggDropFastest(int eggs, int floors) {
+    int lo = 1, hi = floors;
+    while (lo < hi) {
+      int mi = (lo + hi) / 2;
+      if (f(mi, eggs, floors) < floors) {
+        lo = mi + 1;
+      } else {
+        hi = mi;
       }
     }
-    return eggFloor[eggs][floor];
+
+    return lo;
   }
 
-  private static int eggDropInMemory1(int n, int k) {
+  public static int f(int mid, int eggs, int floors) {
+    int ans = 0, r = 1;
+    for (int i = 1; i <= eggs; ++i) {
+      r *= mid - i + 1;
+      r /= i;
+      ans += r;
+      if (ans >= floors) {
+        break;
+      }
+    }
+    return ans;
+  }
+
+  //https://leetcode.com/problems/super-egg-drop/discuss/158974/C%2B%2BJavaPython-2D-and-1D-DP-O(KlogN)
+  public static int superEggDrop1(int eggs, int floors) {
+    int[][] dp = new int[floors+1][eggs+1];
+
+    int m = 0;
+    while(dp[m][eggs] < floors) {
+      m++;
+      for (int e = 1; e <= eggs; e++) {
+        dp[m][e] = dp[m-1][e-1] + 1 + dp[m-1][e];
+      }
+    }
+    return m;
+  }
+
+  private static int eggDropInMemory(int n, int k) {
     int[][] eggFloor = new int[n + 1][k + 1];
 
     for (int i = 1; i <= n; i++) {
@@ -69,7 +93,7 @@ public class EggDropProblem {
     return eggFloor[n][k];
   }
 
-  private static int eggDrop(int totalFloors, int eggs) {
+  private static int eggDrop(int eggs, int totalFloors) {
     if (totalFloors <= 1) {
       return totalFloors;
     } else if (eggs == 1) {
@@ -80,8 +104,8 @@ public class EggDropProblem {
     int res;
 
     for (int floor = 1; floor <= totalFloors; floor++) {
-      int notBreaked = eggDrop(totalFloors-floor, eggs);
-      int breaked = eggDrop(floor-1, eggs-1);
+      int notBreaked = eggDrop(eggs, totalFloors-floor);
+      int breaked = eggDrop(eggs-1, floor-1);
       res = Math.max(notBreaked, breaked);
       if (res < min) {
         min = res;
@@ -89,4 +113,38 @@ public class EggDropProblem {
     }
     return min + 1;
   }
+
+  private static int superEggDrop(int eggs, int floors) {
+    int[][] mem = new int[eggs+1][floors+1];
+    for (int i = 1; i <= floors; i++) {
+      mem[1][i] = i;
+    }
+    return superEggDrop(eggs, floors, mem);
+  }
+  private static int superEggDrop(int eggs, int floors, int[][] mem) {
+    if (floors <= 1) {
+      return floors;
+    }
+    if (mem[eggs][floors] > 0) {
+      return mem[eggs][floors];
+    }
+    int low = 1;
+    int high = floors;
+    int res = floors;
+    while (low < high) {
+      int mid = low + (high - low)/2;
+      int breaked = superEggDrop(eggs-1, mid-1, mem);
+      int notBreaked = superEggDrop(eggs, floors-mid, mem);
+      res = Math.min(res, 1 + Math.max(breaked, notBreaked));
+      if (breaked > notBreaked) {
+        high = mid;
+      } else {
+        low = mid + 1;
+      }
+    }
+    mem[eggs][floors] = res;
+    return res;
+  }
+
+
 }

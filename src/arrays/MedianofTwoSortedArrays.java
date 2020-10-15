@@ -20,6 +20,7 @@ public class MedianofTwoSortedArrays {
   public static void main(String[] args) {
     MedianofTwoSortedArrays o = new MedianofTwoSortedArrays();
 
+    System.out.println(o.findMedianSortedArrays(new int[]{1}, new int[]{2,3,4,5,6,7,8,9,10}));
     System.out.println(o.findMedianSortedArrays(new int[]{1,3,7,8}, new int[]{2,4,5,6}));
     System.out.println(o.findMedianSortedArrays(new int[]{1,2,6,7}, new int[]{3,4,5,8}));
     System.out.println(o.findMedianSortedArrays(new int[]{1,2,3,5}, new int[]{4,6,7,8}));
@@ -69,6 +70,29 @@ public class MedianofTwoSortedArrays {
     }
     return -1;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   private double findMedianSortedArraysForSameSize(int[] nums1, int[] nums2, int topStart, int topEnd,
       int bottomStart, int bottomEnd) {

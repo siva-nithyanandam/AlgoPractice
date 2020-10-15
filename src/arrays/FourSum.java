@@ -2,6 +2,7 @@ package arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,6 +25,10 @@ public class FourSum {
   public static void main(String[] args) {
     FourSum o = new FourSum();
     List<List<Integer>> fourSum;
+
+    fourSum = o.fourSum_faster(new int[]{-1, -1, -1, 0, 0, 1, 2, 3}, 0);
+    printList(fourSum);
+
     fourSum = o.fourSum_faster(new int[]{-2, -1, 0, 0, 1, 2}, 0);
     printList(fourSum);
 
@@ -209,7 +214,8 @@ public class FourSum {
         count++;
       }
     }
-    Arrays.sort(pairArr, (o1, o2) -> o1[2] - o2[2]);
+//    Arrays.sort(pairArr, (o1, o2) -> o1[2] - o2[2]);
+    Arrays.sort(pairArr, Comparator.comparingInt(o -> o[2]));
 
     int i = 0;
     int j = pairArr.length - 1;

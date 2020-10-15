@@ -9,7 +9,15 @@ package BitManipulation;
  */
 public class FlipBitToWin {
   public static void main(String[] args) {
-    int i = 1775;
+    int i = 255;
+    System.out.println(findMaxLengthSequence(Integer.toBinaryString(i).toCharArray()));
+    System.out.println(findMaxLengthSequenceByBitwise(i));
+
+    i = -1;
+    System.out.println(findMaxLengthSequence(Integer.toBinaryString(i).toCharArray()));
+    System.out.println(findMaxLengthSequenceByBitwise(i));
+
+    i = 1775;
     System.out.println(findMaxLengthSequence(Integer.toBinaryString(i).toCharArray()));
     System.out.println(findMaxLengthSequenceByBitwise(i));
 

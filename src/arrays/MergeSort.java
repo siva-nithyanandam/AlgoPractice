@@ -25,20 +25,20 @@ public class MergeSort {
     	for (int i = low; i <= high; i++) {
     		tempArr[i] = arr[i];
 		}
-		int helperLeft = low;
-    	int helperRight = middle + 1;
-    	int curr = low;
-    	while (helperLeft <= middle && helperRight <= high) {
-    		if (tempArr[helperLeft] <= tempArr[helperRight]) {
-    			arr[curr] = tempArr[helperLeft];
-				helperLeft++;
+		int left = low;
+		int right = middle + 1;
+		int curr = low;
+		while (left <= middle && right <= high) {
+			if (tempArr[left] <= tempArr[right]) {
+				arr[curr] = tempArr[left];
+				left++;
 			} else {
-				arr[curr] = tempArr[helperRight];
-				helperRight++;
+				arr[curr] = tempArr[right];
+				right++;
 			}
 			curr++;
 		}
-		for (int i = helperLeft; i <= middle; i++) {
+		for (int i = left; i <= middle; i++) {
 			arr[curr++] = tempArr[i];
 		}
 	}

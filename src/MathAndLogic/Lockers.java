@@ -14,7 +14,7 @@ package MathAndLogic;
  */
 public class Lockers {
     public static void main(String[] args) {
-        int totalLockers = 100;
+        int totalLockers = 5;
         System.out.println((int)Math.sqrt(totalLockers));
     }
 }

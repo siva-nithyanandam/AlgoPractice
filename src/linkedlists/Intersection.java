@@ -95,5 +95,3 @@ class Intersection {
         return size;
     }
 }
-
-// This code has been contributed by Mayank Jaiswal

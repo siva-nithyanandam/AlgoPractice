@@ -9,10 +9,10 @@ public class EncodeNumber {
     System.out.println(o.encode(3));
     System.out.println(o.encode(4));
     System.out.println(o.encode(5));
-    System.out.println(o.encode(6));
+    System.out.println(o.encode1(6));
     System.out.println(o.encode(7));
     System.out.println(o.encode(8));
-    System.out.println(o.encode(9));
+    System.out.println(o.encode1(9));
     System.out.println(o.encode(10));
     System.out.println(o.encode(23));
   }

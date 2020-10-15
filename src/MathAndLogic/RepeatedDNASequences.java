@@ -26,7 +26,7 @@ public class RepeatedDNASequences {
     public static void main(String[] args) {
         RepeatedDNASequences o = new RepeatedDNASequences();
         List<String> res;
-        res = o.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
+        res = o.findRepeatedDnaSequences_1("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
         printRes(res);
 
         res = o.findRepeatedDnaSequences("AAAAAAAAAAA");
@@ -72,6 +72,37 @@ public class RepeatedDNASequences {
             }
         }
         return ret;
+    }
+
+    public List<String> findRepeatedDnaSequences_own1(String s) {
+        List<String> res = new ArrayList<>();
+        if (s.length() < 10) {
+            return res;
+        }
+        int[] holder = new int[4 << 11];
+        int[] chars = new int[128];
+        chars['A'] = 1;
+        chars['C'] = 2;
+        chars['G'] = 3;
+        chars['T'] = 4;
+
+        int sum = 0;
+        for (int i = 9; i > -1; i--) {
+            sum += (chars[s.charAt(i)] << i);
+        }
+        holder[sum] = 1;
+        int i = 0, j = 10;
+        while (j < s.length()) {
+            int sub = chars[s.charAt(i)];
+            int add = chars[s.charAt(j)] << 9;
+            sum = ((sum - sub) << 1) + add;
+            if (holder[sum] == 1) {
+                res.add(s.substring(i+1, j+1));
+            }
+            holder[sum]++;
+            i++; j++;
+        }
+        return res;
     }
 
     public List<String> findRepeatedDnaSequences_1(String s) {

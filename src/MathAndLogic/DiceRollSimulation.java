@@ -1,7 +1,9 @@
 package MathAndLogic;
 
 /**
- * A die simulator generates a random number from 1 to 6 for each roll. You introduced a constraint to the generator such that it cannot roll the number i more than rollMax[i] (1-indexed) consecutive times.
+ * A die simulator generates a random number from 1 to 6 for each roll.
+ * You introduced a constraint to the generator such that it cannot roll the number i more than
+ * rollMax[i] (1-indexed) consecutive times.
  *
  * Given an array of integers rollMax and an integer n, return the number of distinct sequences that can be obtained with exact n rolls.
  *
@@ -36,17 +38,51 @@ package MathAndLogic;
  */
 
 /**
+ * https://leetcode.com/problems/dice-roll-simulation/discuss/403756/Java-Share-my-DP-solution
  * https://leetcode.com/problems/dice-roll-simulation/discuss/403964/Java-two-method-DP-solutions-and-DFS-solution
  */
 //TODO Revisit
 public class DiceRollSimulation {
     public static void main(String[] args) {
         DiceRollSimulation o = new DiceRollSimulation();
-        System.out.println(o.dieSimulator2(2, new int[]{3,1,1,1,1,3}));
-        System.out.println(o.dieSimulator2(3, new int[]{1,1,2,2,2,3}));
-        System.out.println(o.dieSimulator(2, new int[]{3,1,1,1,1,3}));
-        System.out.println(o.dieSimulator(3, new int[]{1,1,2,2,2,3}));
+        System.out.println(o.dieSimulatorFaster(2, new int[]{3,1,1,1,1,3}));
+        System.out.println(o.dieSimulatorFaster(3, new int[]{1,1,1,1,1,1}));
+        System.out.println(o.dieSimulatorFaster(20, new int[]{8,5,10,8,7,2}));
+    }
 
+    private static int dieSimulatorFaster(int n, int[] rollMax) {
+        int mod = (int)1e9 + 7;
+        //dp[i][j] represents the number of distinct sequences that can be obtained when rolling
+        // i times and ending with j
+        //The one more row represents the total sequences when rolling i times
+        int[][] dp = new int[n + 1][7];
+        //init for the first roll
+        for (int i = 0; i < 6; i++) {
+            dp[1][i] = 1;
+        }
+        dp[1][6] = 6;
+        for (int i = 2; i <= n; i++) {
+            int total = 0;
+            for (int j = 0; j < 6; j++) {
+                //If there are no constraints, the total sequences ending with j should be the total
+                // sequences from preious rolling
+                dp[i][j] = dp[i - 1][6];
+                //For xx1, only 111 is not allowed, so we only need to remove 1 sequence from previous sum
+                if (i - rollMax[j] == 1) {
+                    dp[i][j]--;
+                }
+                //For axx1, we need to remove the number of a11 (211 + 311 + 411 + 511 + 611) =>
+                // (..2 + ..3 + ..4 + ..5 + ..6) => (sum - ..1)
+                if (i - rollMax[j] >= 2) {
+                    int reduciton = dp[i - rollMax[j] - 1][6] - dp[i - rollMax[j] - 1][j];
+                    //must add one more mod because subtraction may introduce negative numbers
+                    dp[i][j] = ((dp[i][j] - reduciton) % mod + mod) % mod;
+                }
+                total = (total + dp[i][j]) % mod;
+            }
+            dp[i][6] = total;
+        }
+        return dp[n][6];
     }
 
     private int dieSimulator(int n, int[] rollMax) {
@@ -70,6 +106,7 @@ public class DiceRollSimulation {
         int res = 0;
         for (int a = 1; a < 7; a++) {
             for (int b = 1; b < 16; b++) {
+                System.out.println(a+"-"+b+"-"+dp[n][a][b]);
                 res += dp[n][a][b];
             }
         }

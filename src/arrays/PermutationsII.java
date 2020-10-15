@@ -8,7 +8,7 @@ import java.util.*;
  * <p>
  * Example:
  * <p>
- * Input: [3,1,2] Output: [ [1,1,2], [1,2,1], [2,1,1] ]
+ * Input: [1,1,2] Output: [ [1,1,2], [1,2,1], [2,1,1] ]
  */
 
 /**

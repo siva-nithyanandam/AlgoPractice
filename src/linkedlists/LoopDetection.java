@@ -33,6 +33,7 @@ public class LoopDetection {
         head.next.next.next = new Node(4);
         head.next.next.next.next = head.next.next.next;
 
+
         Node loopNode = detectLoop(head);
         System.out.println(loopNode.data);
     }

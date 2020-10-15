@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given an array of words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
- * You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary
+ * Given an array of words and a width maxWidth, format the text such that each line has exactly
+ * maxWidth characters and is fully (left and right) justified.
+ * You should pack your words in a greedy approach; that is, pack as many words as you can in each line.
+ * Pad extra spaces ' ' when necessary
  * so that each line has exactly maxWidth characters.
- * Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line do not divide evenly between words,
+ * Extra spaces between words should be distributed as evenly as possible.
+ * If the number of spaces on a line do not divide evenly between words,
  * the empty slots on the left will be assigned more spaces than the slots on the right.
  * For the last line of text, it should be left justified and no extra space is inserted between words.
  * Note:
@@ -59,21 +62,22 @@ public class TextJustification {
     List<String> res;
     TextJustification tj = new TextJustification();
 
-    words = new String[] {"This", "is", "an", "example", "of", "text", "justification."};
+    words = new String[]{"This", "is", "an", "example", "of", "text", "justification."};
     res = tj.fullJustify(words, 16);
     for (String s : res) {
       System.out.println(s);
     }
 
     System.out.println();
-    words = new String[] {"What","must","be","acknowledgment","shall","be"};
+    words = new String[]{"What", "must", "be", "acknowledgment", "shall", "be"};
     res = tj.fullJustify(words, 16);
     for (String s : res) {
       System.out.println(s);
     }
 
     System.out.println();
-    words = new String[] {"Science","is","what","we","understand","well","enough","to","explain", "to","a","computer.","Art","is","everything","else","we","do"};
+    words = new String[]{"Science", "is", "what", "we", "understand", "well", "enough", "to",
+        "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"};
     res = tj.fullJustify(words, 16);
     for (String s : res) {
       System.out.println(s);
@@ -82,35 +86,37 @@ public class TextJustification {
 
   public List<String> fullJustify(String[] words, int maxWidth) {
     List<String> res = new ArrayList<>();
-    int idx =0;
-    while(idx < words.length){
-      int last = idx +1;
+    int idx = 0;
+    while (idx < words.length) {
+      int last = idx + 1;
       int count = words[idx].length();
-      while(last<words.length&&count+1+words[last].length()<=maxWidth){
+      while (last < words.length && count + 1 + words[last].length() <= maxWidth) {
         count += words[last].length() + 1;
         last++;
       }
-      int numOfWord = last-idx-1;
+      int numOfWord = last - idx - 1;
       StringBuilder sb = new StringBuilder();
-      if(last==words.length||numOfWord==0){
-        for(int i = idx;i<last;i++){
+      if (last == words.length || numOfWord == 0) {
+        for (int i = idx; i < last; i++) {
           sb.append(words[i]);
           sb.append(" ");
         }
-        sb.deleteCharAt(sb.length()-1);
-        while(sb.length()<maxWidth){
+        sb.deleteCharAt(sb.length() - 1);
+        while (sb.length() < maxWidth) {
           sb.append(" ");
         }
-      }else{
-        int gap = (maxWidth-count)/numOfWord;
-        int left =  (maxWidth-count)%numOfWord;
-        for(int i = idx;i<last;i++){
+      } else {
+        int gap = (maxWidth - count) / numOfWord;
+        int left = (maxWidth - count) % numOfWord;
+        for (int i = idx; i < last; i++) {
           sb.append(words[i]);
-          if(i==last-1) break;
-          for(int j = 0;j<=gap;j++){
+          if (i == last - 1) {
+            break;
+          }
+          for (int j = 0; j <= gap; j++) {
             sb.append(" ");
           }
-          if(left>0){
+          if (left > 0) {
             sb.append(" ");
             left--;
           }
@@ -144,7 +150,7 @@ public class TextJustification {
 
         sb = new StringBuilder();
         sb.append(words[start]);
-        for (int j = start+1; j <= end; j++) {
+        for (int j = start + 1; j <= end; j++) {
           sb.append(getSpaces(reqSpace));
           if (excessSpace > 0) {
             sb.append(" ");
@@ -186,7 +192,7 @@ public class TextJustification {
       for (int j = i; j < words.length; j++) {
         int newLength = length + words[j].length() + j - i;
         if (newLength <= maxWidth) {
-          matrix[i][j] = (int)Math.pow((maxWidth - newLength), 2);
+          matrix[i][j] = (int) Math.pow((maxWidth - newLength), 2);
         } else {
           matrix[i][j] = Integer.MAX_VALUE;
         }
@@ -200,11 +206,11 @@ public class TextJustification {
       minCost[i] = matrix[i][words.length - 1];
       resIndex[i] = words.length;
       for (int j = words.length - 1; j > i; j--) {
-        if (matrix[i][j-1] == Integer.MAX_VALUE) {
+        if (matrix[i][j - 1] == Integer.MAX_VALUE) {
           continue;
         }
-        if (minCost[i] > minCost[j] + matrix[i][j-1]) {
-          minCost[i] = minCost[j] + matrix[i][j-1];
+        if (minCost[i] > minCost[j] + matrix[i][j - 1]) {
+          minCost[i] = minCost[j] + matrix[i][j - 1];
           resIndex[i] = j;
         }
       }
@@ -217,12 +223,12 @@ public class TextJustification {
     do {
       j = resIndex[i];
       sb = new StringBuilder();
-      while(i < j) {
+      while (i < j) {
         sb.append(words[i]).append(" ");
         i++;
       }
       res.add(sb.toString());
-    } while(j < words.length);
+    } while (j < words.length);
 
     return res;
   }

@@ -3,7 +3,8 @@ package MathAndLogic;
 import java.util.*;
 
 /**
- * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+ * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words,
+ * determine if s can be segmented into a space-separated sequence of one or more dictionary words.
  *
  * Note:
  *
@@ -52,10 +53,11 @@ public class WordBreak {
         if(visited[start])
             return false;
         visited[start] = true;
-        for(String word : wordDict){
+        for(String word : wordDict) {
             if(s.startsWith(word, start)){
-                if(dfs(s, start + word.length(), wordDict, visited))
+                if(dfs(s, start + word.length(), wordDict, visited)) {
                     return true;
+                }
             }
         }
         return false;

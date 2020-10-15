@@ -30,14 +30,15 @@ public class Conversion {
     return count;
   }
 
-  private static void possibleSubsets(char A[], int N)
-  {
-    for(int i = 0;i < (1 << N); ++i)
-    {
-      for(int j = 0;j < N;++j)
-        if((i & (1 << j)) == 1) {
-          System.out.println(A[j]);
+  private static void possibleSubsets(char A[], int N) {
+
+    for (int i = 0; i < (1 << N); i++) {
+      for (int j = 0; j < N; j++) {
+        if ((i & (1 << j)) > 0) {
+          System.out.print(A[j]);
         }
+      }
+      System.out.println();
     }
   }
 }

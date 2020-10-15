@@ -22,7 +22,8 @@ package linkedlists;
 
 /**
  * O(n)
- * Idea is to compare the same Node reference of left's and right's. Consider given node referenced as node1 and node2.
+ * Idea is to compare the same Node reference of left's and right's.
+ * Consider given node referenced as node1 and node2.
  * node1.left = node2.right && node1.right = node2.left?
  */
 public class SymmetricTree {

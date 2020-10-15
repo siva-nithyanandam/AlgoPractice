@@ -13,7 +13,7 @@ package BitManipulation;
  */
 public class Insertion {
     public static void main(String[] args) {
-        int n = Integer.parseInt("10000000000", 2);
+        int n = Integer.parseInt("10000010000", 2);
         int m = Integer.parseInt("10011", 2);
         int i = 2;
         int j = 6;

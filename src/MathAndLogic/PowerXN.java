@@ -31,8 +31,8 @@ package MathAndLogic;
 public class PowerXN {
 
     public static void main(String[] args) {
-        System.out.println(findPowerValue(3, 2));
-        System.out.println(findPowerValue(2, 10));
+        System.out.println(findPowerValue(2, -3));
+        System.out.println(findPowerValue(2, -2));
         System.out.println(findPowerValue(2.1f, 3));
         System.out.println(findPowerValue(2, -2));
     }

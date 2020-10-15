@@ -27,7 +27,7 @@ public class LongestIncreasingSubsequence {
         LongestIncreasingSubsequence lis = new LongestIncreasingSubsequence();
         int[] nums;
         nums = new int[]{10,9,2,5,3,7,101,18};
-//        System.out.println(lis.lengthOfLIS(nums));
+        System.out.println(lis.lengthOfLIS(nums));
 
         nums = new int[]{3, 4, -1, 5, 8, 2, 3, 12, 7, 9, 10};
 //        System.out.println(lis.lengthOfLIS(nums));

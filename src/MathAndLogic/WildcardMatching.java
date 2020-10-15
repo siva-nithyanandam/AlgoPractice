@@ -49,14 +49,52 @@ package MathAndLogic;
 public class WildcardMatching {
     public static void main(String[] args) {
         WildcardMatching o = new WildcardMatching();
-        System.out.println(o.isMatch_faster("aab", "c*a*b"));//false
-        System.out.println(o.isMatch_faster("abefcdgiescdfimde", "ab*cd?i*de"));//true
+        System.out.println(o.isMatch("aab", "c*a*b"));//false
+        System.out.println(o.isMatch("abefcdgiescdfimde", "ab*cd?i*de"));//true
         System.out.println(o.isMatch("a", "aa"));//false
         System.out.println(o.isMatch("aa", "a"));//false
-        System.out.println(o.isMatch("aa", "*"));//true
+        System.out.println(o.isMatch_faster("aa", "*"));//true
         System.out.println(o.isMatch("cb", "?a"));//false
-        System.out.println(o.isMatch("adceb", "*a*b"));//true
-        System.out.println(o.isMatch("acdcb", "a*c?b"));//false
+        System.out.println(o.isMatch_own("adceb", "*a*b"));//true
+        System.out.println(o.isMatch_own("acdcb", "a*c?b"));//false
+        System.out.println(o.isMatch_own("", "*"));//false
+    }
+
+    public boolean isMatch_own(String s, String p) {
+        Boolean[][] res = new Boolean[s.length()+1][p.length()+1];
+        return isMatch(s.toCharArray(), 0, p.toCharArray(), 0, res);
+    }
+
+    private boolean isMatch(char[] strArr, int i, char[] patArr, int j, Boolean[][] res) {
+        if (res[i][j] != null) {
+            return res[i][j];
+        }
+        if (j >= patArr.length && i >= strArr.length) {
+            return true;
+        }
+        if (j >= patArr.length) {
+            return false;
+        }
+        if (i >= strArr.length) {
+            for (int k = j; k < patArr.length; k++) {
+                if(patArr[k] != '*') {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        boolean b = false;
+        if (i < strArr.length && strArr[i] == patArr[j]) {
+            b = isMatch(strArr, i+1, patArr, j+1, res);
+        } else if (patArr[j] == '?' && i < strArr.length) {
+            b = isMatch(strArr, i+1, patArr, j+1, res);
+        } else if (patArr[j] == '*') {
+            b = isMatch(strArr, i+1, patArr, j, res)
+                || isMatch(strArr, i, patArr, j+1, res);
+        }
+        res[i][j] = b;
+        return b;
     }
 
     public boolean isMatch_faster(String s, String p) {
@@ -158,5 +196,32 @@ public class WildcardMatching {
                     || !isMatch(sChars, sIdx, pChars, pIdx + 1);
         }
         return false;
+    }
+
+    public boolean isMatch_fastest(String s, String p) {
+        int sp=0;
+        int pp=0;
+        int match=0;
+        int star=-1;
+
+        while(sp<s.length()){
+            if(pp<p.length()&& (s.charAt(sp)==p.charAt(pp)||p.charAt(pp)=='?'  ) ){
+                sp++;
+                pp++;
+            }else if(pp<p.length() && p.charAt(pp)=='*'){
+                star =pp;
+                match = sp;
+                pp++;
+            }else if (star !=-1){
+                pp=star+1;
+                match++;
+                sp=match;
+            }else{
+                return false;
+            }
+        }
+
+        while(pp<p.length() && p.charAt(pp)=='*') pp++;
+        return pp==p.length();
     }
 }

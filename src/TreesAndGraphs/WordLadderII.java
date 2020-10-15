@@ -137,7 +137,7 @@ public class WordLadderII {
               List<String> subRes = new ArrayList<>();
               subRes.add(s);
               subRes.add(newWord);
-              helper(res, bfsMap, subRes, s, res);
+              helper(res, bfsMap, subRes, s);
             }
             nextSet.add(newWord);
           }
@@ -149,12 +149,12 @@ public class WordLadderII {
   }
 
   private void helper(List<List<String>> res, Map<String, List<String>> bfsMap, List<String> subRes,
-      String word, List<List<String>> lists) {
+      String word) {
     List<String> l = bfsMap.get(word);
     if (l != null) {
       for (String s : l) {
         subRes.add(0, s);
-        helper(res, bfsMap, subRes, s, res);
+        helper(res, bfsMap, subRes, s);
         subRes.remove(s);
       }
     } else {
