@@ -38,7 +38,7 @@ public class LetterCombinationsofaPhoneNumber {
     printList(letterCombinations);
     System.out.println("");
 
-    letterCombinations = o.letterCombinations("23");
+    letterCombinations = o.letterCombinations_faster("23");
     printList(letterCombinations);
     System.out.println("");
 

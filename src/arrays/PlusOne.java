@@ -55,6 +55,20 @@ public class PlusOne {
         }
     }
 
+    public int[] plusOne_optimized(int[] digits) {
+        for(int i= digits.length -1; i >= 0; i--){
+            if(digits[i] != 9){
+                digits[i] = digits[i]+1;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+        int[] newDigit = new int[digits.length+1];
+        newDigit[0] = 1;
+        return newDigit;
+
+    }
+
     public int[] plusOne(int[] digits) {
         if (digits.length == 0) {
             return digits;
