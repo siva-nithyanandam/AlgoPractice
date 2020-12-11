@@ -23,6 +23,7 @@ public class TrappingRainWater {
 
     public static void main(String[] args) {
         TrappingRainWater o = new TrappingRainWater();
+        System.out.println(o.trap_faster(new int[]{2,0,1,0,2}));
         System.out.println(o.trap_faster(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
     }
 
@@ -33,7 +34,7 @@ public class TrappingRainWater {
         }
         int[] maxHeightRight = new int[n];
         maxHeightRight[n - 1] = height[n -1];
-        for (int i = n - 2; i > -1; i--) {
+        for (int i = n - 2; i >= 0; i--) {
             maxHeightRight[i] = Math.max(maxHeightRight[i+1], height[i]);
         }
         int maxHeightLeft = height[0];
