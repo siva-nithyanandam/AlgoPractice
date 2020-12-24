@@ -1,0 +1,2041 @@
+{
+	"info": {
+		"_postman_id": "b451e504-314d-4a65-87d4-24d1ccc1e0dc",
+		"name": "SCA-CONSENT Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "apic_oauth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status 200\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"var accessToken = jsonData.access_token;",
+							"postman.setGlobalVariable(\"adfs_token\", \"Bearer \" + accessToken);",
+							"",
+							"let template = `",
+							"<html>",
+							"<head>",
+							"    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js\"></script>",
+							"    <script src=\"https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js\"></script>",
+							"</head>",
+							"<body>",
+							"    <div>",
+							"    <div>",
+							"        <pre><code style=\"width:max-content!important;\" id=\"copyText\">${accessToken}</code></pre>",
+							"    </div>",
+							"    <button id = \"myButton\" class=\"copyButton\" type=\"button\" data-clipboard-action=\"copy\" data-clipboard-target=\"#copyText\" style=\"background:green;color:white;\">Copy to Clipboard</button>",
+							"    </div>",
+							"</body>",
+							"</html>",
+							"<script>",
+							"    var clipboard = new ClipboardJS('.copyButton');",
+							"    clipboard.on('success', function(e) {",
+							"        e.clearSelection();",
+							"        e.trigger.textContent = '✔ Copied!';",
+							"        window.setTimeout(function() {",
+							"            e.trigger.textContent = 'Copy to Clipboard';",
+							"        }, 2000);",
+							"    });",
+							"    clipboard.on('error', function(e) {",
+							"        e.clearSelection();",
+							"        e.trigger.textContent = '✗ Not Copied';",
+							"        window.setTimeout(function() {",
+							"            e.trigger.textContent = 'Copy to Clipboard';",
+							"        }, 2000);",
+							"    });",
+							"    document.getElementById(\"myButton\").click();",
+							"</script>`",
+							"pm.visualizer.set(template, pm.response.json())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_client_secret}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"clientId\": \"{{adfs_client_id}}\",\r\n  \"clientSecret\": \"{{adfs_client_secret}}\",\r\n  \"resource\": \"{{adfs_resource}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/oauth/token",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_maintain_consent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_client_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"agentId\": \"jcaldw55\",\r\n  \"campaignId\": \"JanCamp01\",\r\n  \"capUserId\": \"42AE2C1F-CE52-4F38-81D3-B1E22D66CA15\",\r\n  \"capturedTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n  \"consentTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n  \"consents\": [\r\n    {\r\n      \"appCountryCode\": \"USA\",\r\n      \"consentContext\": \"5673\",\r\n      \"consentStatus\": \"1\",\r\n      \"devices\": [\r\n        {\r\n          \"deviceType\": \"Phone\",\r\n          \"deviceValue\": \"9600098893\"\r\n        }\r\n      ],\r\n      \"lLId\": \"43A8B867-1520-4979-9920-FAE6A565E1A6\",\r\n      \"requestJson\": \"string\",\r\n      \"vin\": \"12345678912345678\"\r\n    }\r\n  ],\r\n  \"displayedLanguage\": \"en-us\",\r\n  \"physicalDeviceId\": \"123456767\",\r\n  \"scaId\": \"98765432101\",\r\n  \"secondaryAppId\": \"100392\",\r\n  \"shortCode\": \"432123\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/mc/v1/consumerConsents?appCd={{appCd}}",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"mc",
+						"v1",
+						"consumerConsents"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "{{appCd}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_maintain_consent_edu_test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"agentId\": \"\",\r\n    \"campaignId\": \"dKU\",\r\n    \"capUserId\": \"1e7fe342-e234-3a6d-b9d3-867767766acd\",\r\n    \"scaId\": \"d\",\r\n    \"capturedTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consentTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consents\": [{\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"438041\",\r\n            \"consentStatus\": \"0\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"BEUMFshBYk\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"uYybdmLrBW\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"9q68M7UxZT\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D41\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"52705400973278620\"\r\n        }, {\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"9999242032\",\r\n            \"consentStatus\": \"0\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"Grg5CCTTN3\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"LA0b4NUOY3\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"SagsSBlOTw\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D41\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"06941067478479653\"\r\n        }, {\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"762428692\",\r\n            \"consentStatus\": \"1\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"UO9UwjlEyH\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"Md1ZCNHdt1\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"TxY9eAmm6B\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D41\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"52636019074428948\"\r\n        }\r\n    ],\r\n    \"displayedLanguage\": \"en-US\",\r\n    \"physicalDeviceId\": \"z39edIG\",\r\n    \"secondaryAppId\": \"100504\",\r\n    \"shortCode\": \"gBDEJects\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/mc/v1/consumerConsents?appCd=100504",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"mc",
+						"v1",
+						"consumerConsents"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "proxy_maintain_consent_edu_test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"agentID\": \"Sht\",\r\n    \"campaignID\": \"OJh\",\r\n    \"capturedTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consentTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consents\": [{\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"9723960738\",\r\n            \"consentStatus\": \"1\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"tuiM4eWuvY\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"LwfMKYSGXu\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"XM8Y8Yega6\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D41\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"03543650943638805\"\r\n        }, {\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"279696975\",\r\n            \"consentStatus\": \"1\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"bqVFEqRQ8V\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"KU1soGyV1O\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"wlZTDaxww2\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D41\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"72369482470142474\"\r\n        }, {\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"104601\",\r\n            \"consentStatus\": \"1\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"jSDi6IjWRf\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"vEwgD5AOdg\"\r\n                }, {\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"5hslgfKNsN\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D41\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"55040239726743289\"\r\n        }\r\n    ],\r\n    \"displayedLanguage\": \"en-US\",\r\n    \"physicalDeviceId\": \"GoiXF10V_9\",\r\n    \"secondaryAppID\": \"100504\",\r\n    \"shortCode\": \"Krp1O\"\r\n}"
+				},
+				"url": {
+					"raw": "https://mcedu-cap-42crunch.apps.pd01e.edc1.cf.ford.com/mc/consumerAccounts/ab6fb592-0676-d391-6f8f-715a08ded403/consents?AppID=100504",
+					"protocol": "https",
+					"host": [
+						"mcedu-cap-42crunch",
+						"apps",
+						"pd01e",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mc",
+						"consumerAccounts",
+						"ab6fb592-0676-d391-6f8f-715a08ded403",
+						"consents"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintain_consent_edu_test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"agentId\": \"DcRjXUB8\",\r\n    \"campaignId\": \"ej3cdGOh\",\r\n    \"capUserId\": \"8906CC8F-6A65-4968-B4CB-0769313349D1\",\r\n    \"capturedTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consentTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consents\": [{\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"6655478231\",\r\n            \"consentStatus\": \"L\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"PS1oYEtpH\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D42\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"1B4HS28N31F620912\"\r\n        }\r\n    ],\r\n    \"displayedLanguage\": \"en-US\",\r\n    \"physicalDeviceId\": \"L2v\",\r\n    \"scaId\": \"ks\",\r\n    \"secondaryAppId\": \"100504\",\r\n    \"shortCode\": \"g3SLlA\"\r\n}"
+				},
+				"url": {
+					"raw": "https://mcedu-consent-42crunch.apps.pd01e.edc2.cf.ford.com/mc/v1/consumerConsents?appCd=100504",
+					"protocol": "https",
+					"host": [
+						"mcedu-consent-42crunch",
+						"apps",
+						"pd01e",
+						"edc2",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mc",
+						"v1",
+						"consumerConsents"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "local_maintain_consent_edu_test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"agentId\": \"d2T\",\r\n    \"campaignId\": \"w6CN02\",\r\n    \"capUserId\": \"8906CC8F-6A65-4968-B4CB-0769313349D1\",\r\n    \"capturedTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consentTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n    \"consents\": [{\r\n            \"appCountryCode\": \"USA\",\r\n            \"consentContext\": \"966187\",\r\n            \"consentStatus\": \"1\",\r\n            \"devices\": [{\r\n                    \"deviceType\": \"phone\",\r\n                    \"deviceValue\": \"_af\"\r\n                }\r\n            ],\r\n            \"lLId\": \"36695B9B-C28F-4BCF-AC5C-194A352A2D42\",\r\n            \"requestJson\": \"requestJson\",\r\n            \"vin\": \"1B4HS28N31F620912\"\r\n        }\r\n    ],\r\n    \"displayedLanguage\": \"en-US\",\r\n    \"physicalDeviceId\": \"O67iK7\",\r\n    \"scaId\": {\r\n        \"!\": \"...\",\r\n        \"Hello\": \"World\"\r\n    },\r\n    \"secondaryAppId\": \"100504\",\r\n    \"shortCode\": \"AYtRuYkUr\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8081/mc/v1/consumerConsents?appCd=100504",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"mc",
+						"v1",
+						"consumerConsents"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "swagger_maintain_consent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"agentId\": \"jcaldw55\",\r\n  \"campaignId\": \"JanCamp01\",\r\n  \"capUserId\": \"42AE2C1F-CE52-4F38-81D3-B1E22D66CA15\",\r\n  \"capturedTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n  \"consentTimestamp\": \"2020-01-13T20:00:00.000Z\",\r\n  \"consents\": [\r\n    {\r\n      \"appCountryCode\": \"USA\",\r\n      \"consentContext\": \"5673\",\r\n      \"consentStatus\": \"1\",\r\n      \"devices\": [\r\n        {\r\n          \"deviceType\": \"Phone\",\r\n          \"deviceValue\": \"9600098893\"\r\n        }\r\n      ],\r\n      \"lLId\": \"43A8B867-1520-4979-9920-FAE6A565E1A6\",\r\n      \"requestJson\": \"string\",\r\n      \"vin\": \"12345678912345678\"\r\n    }\r\n  ],\r\n  \"displayedLanguage\": \"en-us\",\r\n  \"physicalDeviceId\": \"123456767\",\r\n  \"scaId\": \"98765432101\",\r\n  \"secondaryAppId\": \"100392\",\r\n  \"shortCode\": \"432123\"\r\n}"
+				},
+				"url": {
+					"raw": "https://mcedu-consent.apps.pd01i.edc2.cf.ford.com/mc/v1/consumerConsents?appCd={{appCd}}",
+					"protocol": "https",
+					"host": [
+						"mcedu-consent",
+						"apps",
+						"pd01i",
+						"edc2",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mc",
+						"v1",
+						"consumerConsents"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "{{appCd}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_v1_maintain_privacy_service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_scacp_dev_clientId}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_scacp_dev_client_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"countryCode\": \"USA\",\r\n  \"executingCampaignCode\": \"123456\",\r\n  \"guid\": \"\",\r\n  \"privacyPreferences\": [\r\n    {\r\n      \"consentName\": \"EmailPermission\",\r\n      \"consentType\": \"string\",\r\n      \"endDate\": \"string\",\r\n      \"startDate\": \"string\",\r\n      \"statusCode\": \"Y\"\r\n    }\r\n  ],\r\n  \"scaId\": \"12345678912\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/api/consumer/consents/mpvc/v1/consumerPrivacies?appCd={{appCd}}",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"api",
+						"consumer",
+						"consents",
+						"mpvc",
+						"v1",
+						"consumerPrivacies"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "{{appCd}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_v2_maintain_privacy_service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_scacp_dev_clientId}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_scacp_dev_client_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"countryCode\": \"USA\",\r\n  \"executingCampaignCode\": \"123456\",\r\n  \"guid\": \"\",\r\n  \"privacyPreferences\": [\r\n    {\r\n      \"consentName\": \"EmailPermission\",\r\n      \"consentType\": \"string\",\r\n      \"endDate\": \"string\",\r\n      \"startDate\": \"string\",\r\n      \"statusCode\": \"Y\"\r\n    }\r\n  ],\r\n  \"scaId\": \"12345678912\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/api/consumer/consents/mpvc/v2/consumerPrivacies?appCd={{appCd}}",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"api",
+						"consumer",
+						"consents",
+						"mpvc",
+						"v2",
+						"consumerPrivacies"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "{{appCd}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_retrieve_consent",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_scacp_dev_clientId}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_scacp_dev_client_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/api/consumer/consents/rc/consumerAccounts/{{capUserId}}/consents?AppID={{appCd}}&lLID=43a8b867-1520-4979-9920-fae6a565e1a6&vin=12345678912345678",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"api",
+						"consumer",
+						"consents",
+						"rc",
+						"consumerAccounts",
+						"{{capUserId}}",
+						"consents"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "{{appCd}}"
+						},
+						{
+							"key": "lLID",
+							"value": "43a8b867-1520-4979-9920-fae6a565e1a6"
+						},
+						{
+							"key": "vin",
+							"value": "12345678912345678"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_retrieve_POU",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_client_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/rpou/v1/consumerPous?appCd=100504&capUserId=9F34D7CC-7FA0-434D-A75D-0000168EA7D4&countryCode=USA",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"rpou",
+						"v1",
+						"consumerPous"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "capUserId",
+							"value": "9F34D7CC-7FA0-434D-A75D-0000168EA7D4"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_maintain_privacy_cws_notification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_cws_clientId}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_cws_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"consumer\": {\r\n        \"guids\": [\r\n            {\r\n                \"consumerID\": \"10026104604\",\r\n                \"guid\": \"B7516780-D60B-4E85-BF98-533D19FF9E04\",\r\n                \"guidCountryCode\": \"USA\"\r\n            }\r\n        ],\r\n        \"addressLine1\": \"14561 ROTUNDA DR\",\r\n        \"addressLine2\": \"\",\r\n        \"addressLine3\": \"\",\r\n        \"addressLine4\": \"\",\r\n        \"city\": \"DEARBORN\",\r\n        \"region\": \"\",\r\n        \"state\": \"MI\",\r\n        \"country\": \"USA\",\r\n        \"postCode\": \"48120\",\r\n        \"addressValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"primaryNumber\": \"36170156041\",\r\n        \"primaryNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"alternateNumber\": \"36170156042\",\r\n        \"alternateNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"secondaryNumber\": \"36170156043\",\r\n        \"secondaryNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"mobileNumber\": \"36170156044\",\r\n        \"mobileNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"electronicAddressIdentifiers\": [\r\n            {\r\n                \"email\": \"healthcarefull@gmail.com\",\r\n                \"emailStatus\": \"DELIVERABLE\",\r\n                \"emailValidFromDt\": \"2019-08-22T14:17:52.000Z\"\r\n            },\r\n            {\r\n                \"email\": \"healthcarefull2@gmail.com\",\r\n                \"emailStatus\": \"DELIVERABLE\",\r\n                \"emailValidFromDt\": \"2019-08-22T14:17:52.000Z\"\r\n            }\r\n        ],\r\n        \"capturedTimeStamp\": \"2019-11-15T15:00:00.000Z\",\r\n        \"privacyPreferences\": [\r\n            {\r\n                \"startDate\": null,\r\n                \"endDate\": null,\r\n                \"permPrefType\": \"SMS\",\r\n                \"indicator\": \"Y\",\r\n                \"sourceCode\": \"100504\"\r\n            }\r\n        ],\r\n        \"suppression\": []\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/api/consumer/consents/userConsent/v1?appCd=100504&cntryCd=USA",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"api",
+						"consumer",
+						"consents",
+						"userConsent",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "cntryCd",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apic_maintain_privacy_summary_mdm_only_prem_y",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_cws_clientId}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_cws_secret}}"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"consumer\": {\r\n        \"guids\": [\r\n            {\r\n                \"consumerID\": \"10026104604\",\r\n                \"guid\": \"B7516780-D60B-4E85-BF98-533D19FF9E04\",\r\n                \"guidCountryCode\": \"USA\"\r\n            }\r\n        ],\r\n        \"addressLine1\": \"14561 ROTUNDA DR\",\r\n        \"addressLine2\": \"\",\r\n        \"addressLine3\": \"\",\r\n        \"addressLine4\": \"\",\r\n        \"city\": \"DEARBORN\",\r\n        \"region\": \"\",\r\n        \"state\": \"MI\",\r\n        \"country\": \"USA\",\r\n        \"postCode\": \"48120\",\r\n        \"addressValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"primaryNumber\": \"36170156041\",\r\n        \"primaryNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"alternateNumber\": \"36170156042\",\r\n        \"alternateNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"secondaryNumber\": \"36170156043\",\r\n        \"secondaryNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"mobileNumber\": \"36170156044\",\r\n        \"mobileNumberValidFromDt\": \"2019-08-22T14:17:52.000Z\",\r\n        \"electronicAddressIdentifiers\": [\r\n            {\r\n                \"email\": \"healthcarefull@gmail.com\",\r\n                \"emailStatus\": \"DELIVERABLE\",\r\n                \"emailValidFromDt\": \"2019-08-22T14:17:52.000Z\"\r\n            },\r\n            {\r\n                \"email\": \"healthcarefull2@gmail.com\",\r\n                \"emailStatus\": \"DELIVERABLE\",\r\n                \"emailValidFromDt\": \"2019-08-22T14:17:52.000Z\"\r\n            }\r\n        ],\r\n        \"capturedTimeStamp\": \"2019-11-15T15:00:00.000Z\",\r\n        \"privacyPreferences\": [\r\n            {\r\n                \"startDate\": null,\r\n                \"endDate\": null,\r\n                \"permPrefType\": \"SMS\",\r\n                \"indicator\": \"Y\",\r\n                \"sourceCode\": \"100504\"\r\n            }\r\n        ],\r\n        \"suppression\": []\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/api/consumer/consents/userConsent/v1?appCd=100504&cntryCd=USA",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"api",
+						"consumer",
+						"consents",
+						"userConsent",
+						"v1"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "cntryCd",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequest_cap_preference_req",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-ibm-client-id",
+						"value": "{{apic_client_id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"prefCode\": \"EmailPermission\",\r\n    \"prefEndDate\": \"2021-05-14T08:30:42.041Z\",\r\n    \"prefStartDate\": \"2020-10-21T08:30:42.041Z\",\r\n    \"prefStatusFlag\": \"1\"\r\n  }\r\n]"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/mpvc/consumerAccounts/136A6226-3445-4837-1732-000117320001/preferences?appCd=100547&countryCode=USA",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"mpvc",
+						"consumerAccounts",
+						"136A6226-3445-4837-1732-000117320001",
+						"preferences"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100547"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequest_cws_online",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"brandCode\": \"F\",\r\n  \"countryCode\": \"USA\",\r\n  \"emailId\": \"sample@gmail.com\",\r\n  \"executingCampaignCode\": \"123456\",\r\n  \"privacyPreferences\": [\r\n    {\r\n      \"consentName\": \"EmailPermission\",\r\n      \"indicator\": \"Y\"\r\n    }\r\n  ],\r\n  \"scaId\": \"10039768853\"\r\n}"
+				},
+				"url": {
+					"raw": "https://maintainprivacyservicedev-consent.apps.pp01i.edc1.cf.ford.com/mpvc/v1/consumerPrivacies?appCd=100504",
+					"protocol": "https",
+					"host": [
+						"maintainprivacyservicedev-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mpvc",
+						"v1",
+						"consumerPrivacies"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequest_stewardship_endpoint",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"brandCode\": \"F\",\r\n  \"cdsId\": \"snithy11\",\r\n  \"countryCode\": \"USA\",\r\n  \"emailId\": \"sample@gmail.com\",\r\n  \"executingCampaignCode\": \"123456\",\r\n  \"privacyPreferences\": [\r\n    {\r\n      \"consentName\": \"EmailPermission\",\r\n      \"indicator\": \"Y\"\r\n    }\r\n  ],\r\n  \"scaId\": \"98765432695\"\r\n}"
+				},
+				"url": {
+					"raw": "https://maintainprivacyservicedev-consent.apps.pp01i.edc1.cf.ford.com/mpvc/v2/consumerPrivacies?appCd=100504",
+					"protocol": "https",
+					"host": [
+						"maintainprivacyservicedev-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mpvc",
+						"v2",
+						"consumerPrivacies"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rtc_email_request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"scaId\":\"10039768853\",\"capUserID\":\"136A6226-3445-4837-1732-000117320001\",\"emailId\":null,\"brand\":null}"
+				},
+				"url": {
+					"raw": "https://rtcemailservicedev-consent.apps.pp01i.edc1.cf.ford.com/rtce/v1/consumerConfirmationEmails?appCd=100504&countryCode=USA",
+					"protocol": "https",
+					"host": [
+						"rtcemailservicedev-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"rtce",
+						"v1",
+						"consumerConfirmationEmails"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sourceCodeService_health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/source-code-management/health",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"source-code-management",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sourceCodeService_create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"appCd\": 999997,\r\n  \"appDesc\": \"delete\",\r\n  \"appName\": \"delete\",\r\n  \"effFromDate\": \"2021-08-05T19:02:35.359Z\",\r\n  \"effToDate\": \"2022-09-07T19:02:35.359Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/source-code-management/v1/sourcecodes?appCd=100504&cdsId=snithy11",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"source-code-management",
+						"v1",
+						"sourcecodes"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sourceCodeService_update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"appCd\": 999997,\r\n  \"effFromDate\": \"2020-12-05T19:02:35.359Z\",\r\n  \"effToDate\": \"2023-08-07T19:02:35.359Z\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/source-code-management/v1/sourcecodes?appCd=100504&cdsId=snithy11",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"source-code-management",
+						"v1",
+						"sourcecodes"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sourceCodeService_get_from_table",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/source-code-management/v1/sourcecodes/fromTable/100624?appCd=100504&cdsId=snithy11",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"source-code-management",
+						"v1",
+						"sourcecodes",
+						"fromTable",
+						"100624"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sourceCodeService_delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-ibm-client-id",
+						"value": "{{apic_client_id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}{{basepath}}/source-code-management/v1/sourcecodes/999997?appCd=100504&cdsId=snithy11",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"source-code-management",
+						"v1",
+						"sourcecodes",
+						"999997"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteConsent",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dcdev-consent.apps.pp01i.edc1.cf.ford.com/api/dc/consumerAccounts/51A2BDD4-B182-BB57-47D2-000128875910-scaid-10039770553?AppID=100504",
+					"protocol": "https",
+					"host": [
+						"dcdev-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"api",
+						"dc",
+						"consumerAccounts",
+						"51A2BDD4-B182-BB57-47D2-000128875910-scaid-10039770553"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CWS Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "bff47eaf-67d1-41bd-b229-85e327ba3da8",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "tQ7jA1nK4xK6uX6uY8uG8fK2bR0kA0eN3yJ4sY0mL8gV4tF6xL",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "oneford",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://apigtwqa.ford.com/oneford/api/scacoauthapi/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"apigtwqa",
+						"ford",
+						"com"
+					],
+					"path": [
+						"oneford",
+						"api",
+						"scacoauthapi",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CWS RTC email trigger",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer AAIkYmZmNDdlYWYtNjdkMS00MWJkLWIyMjktODVlMzI3YmEzZGE4EamTGYvzcSDA9oUVpOPDO9dKoQgIiG0sNW-N3FrfgIEkJk6mL7HAALLri_C7lMd6J_nnsKsacYosUMc73Tl5h1Hn03FyuHPMKWyVgAemhRfhftb3ZmQ6j09O3hK3EvUA",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "country-code",
+						"value": "USA",
+						"type": "text"
+					},
+					{
+						"key": "client-source-id",
+						"value": "100504",
+						"type": "text"
+					},
+					{
+						"key": "source-id",
+						"value": "100624",
+						"type": "text"
+					},
+					{
+						"key": "trace-id",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "proxy_apic_retrieve_POU",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-ibm-client-id",
+						"value": "{{apic_client_id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}{{basepath}}/rpou/v2/consumerAccounts/42AE2C1F-CE52-4F38-81D3-B1E22D66CA15/pous?AppCountryCode=USA&AppID=100504",
+					"host": [
+						"{{host}}{{basepath}}"
+					],
+					"path": [
+						"rpou",
+						"v2",
+						"consumerAccounts",
+						"42AE2C1F-CE52-4F38-81D3-B1E22D66CA15",
+						"pous"
+					],
+					"query": [
+						{
+							"key": "AppCountryCode",
+							"value": "USA"
+						},
+						{
+							"key": "AppID",
+							"value": "100504"
+						},
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InI1VFl6SHFoX3BPZjVWYXRCdUI2eFF5cGFWUSJ9.eyJhdWQiOiJ1cm46c2NhY3A6cmVzb3VyY2U6YXBpX2RldmVsb3BlcnM6ZGV2IiwiaXNzIjoiaHR0cHM6Ly9jb3JwcWEuc3RzLmZvcmQuY29tL2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE2MDMzMTExNDIsImV4cCI6MTYwMzMxNDc0MiwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiYjY3ZmMwMTItZjhhZC1iNzYzLWIwODMtMjI0YmY5MjIyZjQ0IiwiYXV0aG1ldGhvZCI6Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9hdXRoZW50aWNhdGlvbm1ldGhvZC9wYXNzd29yZCIsImF1dGhfdGltZSI6IjIwMjAtMTAtMjFUMjA6MTI6MjIuMTc2WiIsInZlciI6IjEuMCJ9.yM66LKxNlrx5XUq5475hWolUPPJodoNlrdJQVTx5MgyclaXGM_HevLMPg4HZje6QHRnFjp3ah33x_MIjJ10kpjnWEbihy4Hy_GsHMUcVa8aFZSabyVlzpw001ipTHQH35GQRdTnLUAWGywwHVFQL-XHzA_3WF3ti7hK8hMFKz1XyWIgux1T023Dq8ya7a6w4Pb4WWomJB8nV9BzDOJOTzGp5XEHRBCvm6oeh95TQazO-M_K3_Mw0iUA9V3uYUkuS2SYwc89RsCc_G355StKclkBHTcuo_xt0PDKXF9YvgTfct7LU-nJb5DpFcL2J2MufcVHaD9UryLAAT7bMSyfL8w",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MergePurgeV2_merge_direct_dev",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"consumers\": [\r\n    {\r\n      \"consumerID\": \"96271674011\"\r\n    },\r\n    {\r\n      \"consumerID\": \"26031312453\"\r\n    }\r\n  ],\r\n  \"mergeTimestamp\": \"2020-05-01 04:22:25.627\"\r\n}"
+				},
+				"url": {
+					"raw": "https://mppv2dev-consent.apps.pp01i.edc1.cf.ford.com/mpp/consent-administrations/v1/consumer-privacies/merge?appCd=100504&countryCode=USA",
+					"protocol": "https",
+					"host": [
+						"mppv2dev-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mpp",
+						"consent-administrations",
+						"v1",
+						"consumer-privacies",
+						"merge"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MergePurgeV2_merge_APIC",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-ibm-client-id",
+						"value": "{{apic_client_id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"value": "{{apic_client_secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"consumers\": [\r\n    {\r\n      \"consumerID\": \"96271674011\"\r\n    },\r\n    {\r\n      \"consumerID\": \"26031312453\"\r\n    }\r\n  ],\r\n  \"mergeTimestamp\": \"2020-05-01 04:22:25.627\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/scaconsentplatform/sb/consent-administrations/v1/consumer-privacies/merge?appCd=100504&countryCode=USA",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"scaconsentplatform",
+						"sb",
+						"consent-administrations",
+						"v1",
+						"consumer-privacies",
+						"merge"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MergePurgeV2_purge_APIC",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-ibm-client-id",
+						"type": "text",
+						"value": "{{apic_client_id}}"
+					},
+					{
+						"key": "x-ibm-client-secret",
+						"type": "text",
+						"value": "{{apic_client_secret}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/scaconsentplatform/sb/consent-administrations/v1/consumer-privacies/purge/26031268253?appCd=100504&countryCode=USA",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"scaconsentplatform",
+						"sb",
+						"consent-administrations",
+						"v1",
+						"consumer-privacies",
+						"purge",
+						"26031268253"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MergePurgeV2_purge_direct_dev",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://mppv2dev-consent.apps.pp01i.edc1.cf.ford.com/mpp/consent-administrations/v1/consumer-privacies/purge/26031268253?appCd=100504&countryCode=USA",
+					"protocol": "https",
+					"host": [
+						"mppv2dev-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mpp",
+						"consent-administrations",
+						"v1",
+						"consumer-privacies",
+						"purge",
+						"26031268253"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "countryCode",
+							"value": "USA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequesttriggerer-qa-by-request-id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://maintainprivacyrequesttriggererqa-consent.apps.pp01i.edc1.cf.ford.com/maintain-privacy-request-triggerer/v1/request-sequence/1?cdsId=snithy11",
+					"protocol": "https",
+					"host": [
+						"maintainprivacyrequesttriggererqa-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"maintain-privacy-request-triggerer",
+						"v1",
+						"request-sequence",
+						"1"
+					],
+					"query": [
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequesttriggerer-edu-by-request-id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://maintainprivacyrequesttriggereredu-consent.apps.pd01i.edc2.cf.ford.com/maintain-privacy-request-triggerer/v1/request-sequence/22800?cdsId=snithy11",
+					"protocol": "https",
+					"host": [
+						"maintainprivacyrequesttriggereredu-consent",
+						"apps",
+						"pd01i",
+						"edc2",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"maintain-privacy-request-triggerer",
+						"v1",
+						"request-sequence",
+						"22800"
+					],
+					"query": [
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequesttriggerer-qa-by-limit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://maintainprivacyrequesttriggererqa-consent.apps.pp01i.edc1.cf.ford.com/maintain-privacy-request-triggerer/v1/limit-requests-by/10?cdsId=snithy11",
+					"protocol": "https",
+					"host": [
+						"maintainprivacyrequesttriggererqa-consent",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"maintain-privacy-request-triggerer",
+						"v1",
+						"limit-requests-by",
+						"10"
+					],
+					"query": [
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "maintainprivacyrequesttriggerer-edu-by-limit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://maintainprivacyrequesttriggereredu-consent.apps.pd01i.edc2.cf.ford.com/maintain-privacy-request-triggerer/v1/limit-requests-by/10?cdsId=snithy11",
+					"protocol": "https",
+					"host": [
+						"maintainprivacyrequesttriggereredu-consent",
+						"apps",
+						"pd01i",
+						"edc2",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"maintain-privacy-request-triggerer",
+						"v1",
+						"limit-requests-by",
+						"10"
+					],
+					"query": [
+						{
+							"key": "cdsId",
+							"value": "snithy11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProxyMaintainPreference-local-Dev",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"prefCode\": \"EmailPermission\",\r\n    \"prefEndDate\": \"2021-05-14T08:30:42.041Z\",\r\n    \"prefStartDate\": \"2020-12-11T00:00:00.000Z\",\r\n    \"prefStatusFlag\": \"1\"\r\n  }\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:8086/mp/consumerAccounts/A4937C50-22D4-4C67-9741-0000030ADBDF/preferences?AppID=100504",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8086",
+					"path": [
+						"mp",
+						"consumerAccounts",
+						"A4937C50-22D4-4C67-9741-0000030ADBDF",
+						"preferences"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProxyMaintainPreference-Direct-Dev",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{adfs_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"prefCode\": \"EmailPermission\",\r\n    \"prefEndDate\": \"2021-05-14T08:30:42.041Z\",\r\n    \"prefStartDate\": \"2020-12-14T00:00:00.000Z\",\r\n    \"prefStatusFlag\": \"1\"\r\n  }\r\n]"
+				},
+				"url": {
+					"raw": "https://mpdev-cap.apps.pp01i.edc1.cf.ford.com/mp/consumerAccounts/A4937C50-22D4-4C67-9741-0000030ADBDF/preferences?AppID=100504",
+					"protocol": "https",
+					"host": [
+						"mpdev-cap",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"mp",
+						"consumerAccounts",
+						"A4937C50-22D4-4C67-9741-0000030ADBDF",
+						"preferences"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProxyMaintainPreference-APIC",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer AAIkYTJjNDBmNzAtZWVjOS00NGQwLWE4ZGItNTZhZTY0ZGM1ZTJkraN3394d8_Stlt7ndh6hfBXyuo-sYLGiL7v_3o3oNGJnK113tt0pITcDK7c2vQzEs924HNANcuZ9K9F8ixYHm2zEMLpcohWcIXq07J8LZcAREwm7nHnnSKtSNUaO_iLp"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"prefCode\": \"EmailPermission\",\r\n    \"prefEndDate\": \"2021-05-14T08:30:42.041Z\",\r\n    \"prefStartDate\": \"2020-12-22T00:00:00.000Z\",\r\n    \"prefStatusFlag\": \"1\"\r\n  }\r\n]"
+				},
+				"url": {
+					"raw": "{{host}}{{basepath-consumeronlineprofiles}}/v1/consumers/A4937C50-22D4-4C67-9741-0000030ADBDF/preferences?appCd=100504",
+					"host": [
+						"{{host}}{{basepath-consumeronlineprofiles}}"
+					],
+					"path": [
+						"v1",
+						"consumers",
+						"A4937C50-22D4-4C67-9741-0000030ADBDF",
+						"preferences"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProxyRetrievePreference-Direct-Dev",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{adfs_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://rpdev-cap.apps.pp01i.edc1.cf.ford.com/rp/consumerAccounts/A4937C50-22D4-4C67-9741-0000030ADBDF/preferences?AppID=100504",
+					"protocol": "https",
+					"host": [
+						"rpdev-cap",
+						"apps",
+						"pp01i",
+						"edc1",
+						"cf",
+						"ford",
+						"com"
+					],
+					"path": [
+						"rp",
+						"consumerAccounts",
+						"A4937C50-22D4-4C67-9741-0000030ADBDF",
+						"preferences"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "100504"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProxyRetrievePreference-APIC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer AAIkYTJjNDBmNzAtZWVjOS00NGQwLWE4ZGItNTZhZTY0ZGM1ZTJk_NDS3MHH_gqC46De0vNyv8h99nRUr_651Q6MIkoQ7aT5XD3etG1EiYAxgZtZTrLRRWmqvcB67JWFT1IMt2uf7nF7jVOx4yr2JQM_MUimGxygOIvml_g-77fAbpl-W0D9"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}{{basepath-consumeronlineprofiles}}/v1/consumers/A4937C50-22D4-4C67-9741-0000030ADBDF/preferences?appCd=100504&prefType=MKT",
+					"host": [
+						"{{host}}{{basepath-consumeronlineprofiles}}"
+					],
+					"path": [
+						"v1",
+						"consumers",
+						"A4937C50-22D4-4C67-9741-0000030ADBDF",
+						"preferences"
+					],
+					"query": [
+						{
+							"key": "appCd",
+							"value": "100504"
+						},
+						{
+							"key": "prefType",
+							"value": "MKT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CAP_apic_OAuth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "a2c40f70-eec9-44d0-a8db-56ae64dc5e2d",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "qN7aO1cV4yL0mW5wB7gG0pP8vD1qD0cJ4dA5dC6bO5lV4sJ1yO",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "oneford",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://apigtwdev.ford.com/scacap/sb/capoauth2provider/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"apigtwdev",
+						"ford",
+						"com"
+					],
+					"path": [
+						"scacap",
+						"sb",
+						"capoauth2provider",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
