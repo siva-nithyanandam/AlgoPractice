@@ -1,0 +1,80 @@
+select * from sys.triggers
+select * from sys.tables
+
+select * from sys.triggers 
+
+
+sp_helptext ''
+
+SSDT
+New - Integration - change name and path
+
+select * into j01_bkp_27jan2020 from actual_table_name
+
+select databasepropertyex('scacap', 'updateability')
+sp_help 'siva'
+sp_helptext 'anbil' - for stored procedures
+
+sp_rename 'anbil', 'siva'
+
+declare @a varchar(10) ='a'
+if  @a = 'A' COLLATE Latin1_General_CI_AS  
+ begin  
+ SELECT 'case insensitive'  
+ end 
+else 
+ BEGIN 
+ SELECT 'case sensitive'
+  end
+
+  
+select ascii('a') , ascii(upper('a'))
+
+select top 1000 * from [dbo].[MCAPP01_USER]
+where ASCII(SUBSTRING(CAPP01_FIRST_N, 2, 1)) = (ASCII(UPPER(SUBSTRING(CAPP01_FIRST_N, 2, 1))))
+and PATINDEX('%[^A-Z]%', CAPP01_FIRST_N) = 0
+
+select CAPP01_FIRST_N,
+upper(left(CAPP01_FIRST_N,1)) + lower(right(CAPP01_FIRST_N, ISNULL(NULLIF(len(CAPP01_FIRST_N) - 1, -1), LEN(CAPP01_FIRST_N)))),
+CAPP01_LAST_N,
+upper(left(CAPP01_LAST_N,1)) + lower(right(CAPP01_LAST_N, ISNULL(NULLIF(len(CAPP01_LAST_N) - 1, -1), LEN(CAPP01_LAST_N))))
+from [dbo].[MCAPP01_USER]
+where ASCII(SUBSTRING(CAPP01_FIRST_N, 2, 1)) = (ASCII(UPPER(SUBSTRING(CAPP01_FIRST_N, 2, 1))))
+and ASCII(SUBSTRING(CAPP01_LAST_N, 2, 1)) = (ASCII(UPPER(SUBSTRING(CAPP01_LAST_N, 2, 1))))
+and PATINDEX('%[^A-Z]%', CAPP01_FIRST_N) = 0
+and PATINDEX('%[^A-Z]%', CAPP01_LAST_N) = 0
+and CAPP01_FIRST_N is NOT NULL
+and len(CAPP01_FIRST_N) > 1
+and CAPP01_LAST_N is NOT NULL
+and len(CAPP01_LAST_N) > 1
+
+sp_tables '%VW'
+
+sp_helptext MCAPV14_CONSENT_GROUP_VW
+
+Temporarily to store table data:
+cte - common table expression - with command
+Hash table - create table with # - temp db
+table variable - @
+
+---
+;with p02
+as (select capp01_user_d from dbo.MCAPP02_COMMON_APP_PROFILE (nolock) where CAPC01_APP_C =100504)
+select count('x')
+-- CAPP01_FIRST_N,
+--upper(left(CAPP01_FIRST_N,1)) + lower(right(CAPP01_FIRST_N, ISNULL(NULLIF(len(CAPP01_FIRST_N) - 1, -1), LEN(CAPP01_FIRST_N)))),
+--CAPP01_LAST_N,
+--upper(left(CAPP01_LAST_N,1)) + lower(right(CAPP01_LAST_N, ISNULL(NULLIF(len(CAPP01_LAST_N) - 1, -1), LEN(CAPP01_LAST_N))))
+from [dbo].[MCAPP01_USER] A (nolock)
+inner join p02
+on a.capp01_user_d = p02.CAPP01_USER_D
+where  ASCII(SUBSTRING(CAPP01_FIRST_N, 2, 1)) = (ASCII(UPPER(SUBSTRING(CAPP01_FIRST_N, 2, 1))))
+and ASCII(SUBSTRING(CAPP01_LAST_N, 2, 1)) = (ASCII(UPPER(SUBSTRING(CAPP01_LAST_N, 2, 1))))
+and PATINDEX('%[^A-Z]%', CAPP01_FIRST_N) = 0
+and PATINDEX('%[^A-Z]%', CAPP01_LAST_N) = 0
+and CAPP01_FIRST_N is NOT NULL
+and len(CAPP01_FIRST_N) > 1
+and CAPP01_LAST_N is NOT NULL
+and len(CAPP01_LAST_N) > 1
+----
+

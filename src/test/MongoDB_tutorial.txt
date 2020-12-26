@@ -1,0 +1,94 @@
+use DATABASE_NAME
+db
+show dbs
+db.movie.insert({"name":"tutorials point"})
+db.dropDatabase()
+db.createCollection(name, options)
+options are -> capped, autoIndexId, size, max
+
+db.createCollection("mycollection")
+{ "ok" : 1 }
+
+show collections
+db.createCollection("mycol", { capped : true, autoIndexId : true, size : 
+   6142800, max : 10000 } )
+{ "ok" : 1 }
+
+db.tutorialspoint.insert({"name" : "tutorialspoint"})
+db.COLLECTION_NAME.drop()
+
+Supported datatypes:
+String, Integer, Boolean, Double, Min/Max Keys, Arrays, Timestamp, Object, Null, Symbol, Date, Object ID, Binary data, Code, Regular expression
+
+db.COLLECTION_NAME.insert(document)
+
+db.mycol.insert({
+   _id: ObjectId(7df78ad8902c),
+   title: 'MongoDB Overview', 
+   description: 'MongoDB is no sql database',
+   by: 'tutorials point',
+   url: 'http://www.tutorialspoint.com',
+   tags: ['mongodb', 'database', 'NoSQL'],
+   likes: 100
+})
+
+db.COLLECTION_NAME.find()
+db.mycol.find().pretty()
+findOne()
+
+db.mycol.find({"by":"tutorials point"}).pretty()
+db.mycol.find({"likes":{$lt:50}}).pretty()
+db.mycol.find({"likes":{$lte:50}}).pretty()
+db.mycol.find({"likes":{$gt:50}}).pretty()
+db.mycol.find({"likes":{$gte:50}}).pretty()
+db.mycol.find({"likes":{$ne:50}}).pretty()
+
+db.mycol.find(
+   {
+      $and: [
+         {key1: value1}, {key2:value2}
+      ]
+   }
+).pretty()
+
+db.mycol.find(
+   {
+      $or: [
+         {key1: value1}, {key2:value2}
+      ]
+   }
+).pretty()
+
+db.mycol.find({"likes": {$gt:10}, $or: [{"by": "tutorials point"},
+   {"title": "MongoDB Overview"}]}).pretty()
+   
+db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)
+
+db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
+db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}},{multi:true})
+
+db.mycol.save(
+   {
+      "_id" : ObjectId(5983548781331adf45ec5), 
+	  "title":"Tutorials Point New Topic",
+      "by":"Tutorials Point"
+   }
+)
+
+db.mycol.remove({})
+db.mycol.remove({'title':'MongoDB Overview'})
+db.COLLECTION_NAME.remove(DELETION_CRITERIA,1)
+
+db.mycol.find({},{"title":1,_id:0})
+db.mycol.find({},{"title":1,_id:0}).limit(2)
+db.mycol.find({},{"title":1,_id:0}).limit(1).skip(1)
+db.mycol.find({},{"title":1,_id:0}).sort({"title":-1})
+
+db.mycol.ensureIndex({"title":1})
+db.mycol.ensureIndex({"title":1,"description":-1})
+background, unique, name, dropDups, sparse, expireAfterSeconds, v, weights, default_language, language_override
+
+db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : 1}}}])
+sum, avg, min, max, push, addToSet, first, last
+
+Pipeline Concept -> project, match, group, sort, skip, limit, unwind
