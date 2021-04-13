@@ -1,7 +1,8 @@
 package MathAndLogic;
 
 /**
- * Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
+ * Given a string s and an integer k, return the length of the longest substring of s such
+ * that the frequency of each character in this substring is greater than or equal to k.
  *
  *
  *
@@ -23,15 +24,16 @@ package MathAndLogic;
  * s consists of only lowercase English letters.
  * 1 <= k <= 105
  */
+//https://gist.github.com/bilbo3000/141f54fb5c5cf3dd9a4015485dd2275d
 public class LongestSubstringwithAtLeastKRepeatingCharacters {
 
   public static void main(String[] args) {
     LongestSubstringwithAtLeastKRepeatingCharacters o = new LongestSubstringwithAtLeastKRepeatingCharacters();
-    System.out.println(o.longestSubstring("aaabb", 3));
-    System.out.println(o.longestSubstring("ababbc", 2));
+//    System.out.println(o.longestSubstring("aaabb", 3));
+//    System.out.println(o.longestSubstring("ababbc", 2));
   }
 
-  public int longestSubstring(String s, int k) {
+  /*public int longestSubstring(String s, int k) {
     char[] chars = s.toCharArray();
     int[] letters;
     int start, len;
@@ -44,7 +46,7 @@ public class LongestSubstringwithAtLeastKRepeatingCharacters {
         }
       }
     }
-  }
+  }*/
 
   private boolean hasFreq(int[] letters, int k) {
     for (int i : letters) {

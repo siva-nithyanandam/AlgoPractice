@@ -1,2 +1,0 @@
-cf add-network-policy maintainPrivacyService --destination-app retrievePrivacyService --protocol tcp --port 8080 
-cf add-network-policy maintainPrivacyService --destination-app rtcEmailService --protocol tcp --port 8080 

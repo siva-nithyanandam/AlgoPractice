@@ -21,14 +21,49 @@ public class RotateMatrix {
     public static void main(String[] args) {
         int[][] arr =
                 {
-                {1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}
+                    {1, 2, 3, 4},
+                    {5, 6, 7, 8},
+                    {9, 10, 11, 12},
+                    {13, 14, 15, 16}
                 };
-        rotateMatrix(arr);
+        int[][] arr1 =
+            {
+                {1, 2, 3}, {4, 5, 6}, {7, 8, 9}
+            };
+        rotate(arr);
+        //rotateMatrix(arr1);
         for(int i = 0; i < arr.length; i++) {
             for(int j = 0; j < arr.length; j++) {
                 System.out.print(arr[i][j] + ",");
             }
             System.out.println("");
+        }
+    }
+
+    public static void rotate(int[][] matrix) {
+
+        int n = matrix.length;
+        int x = 0;
+        int temp;
+        while (x < n/2) {
+            int y = x;
+            while (y < n-1-x) {
+                temp = matrix[x][y];
+
+                //top = left
+                matrix[x][y] = matrix[n-1-y][x];
+
+                //left = bottom
+                matrix[n-1-y][x] = matrix[n-1-x][n-1-y];
+
+                //bottom = right
+                matrix[n-1-x][n-1-y] = matrix[y][n-1-x];
+
+                //right = top
+                matrix[y][n-1-x] = temp;
+                y++;
+            }
+            x++;
         }
     }
 

@@ -30,7 +30,7 @@ package MathAndLogic;
  *
  * Input: str = "4193 with words"
  * Output: 4193
- * Explanation: Conversion stops at digit '3' as the next character is not a numerical digit.
+ * Explanation: Subsets stops at digit '3' as the next character is not a numerical digit.
  * Example 4:
  *
  * Input: str = "words and 987"

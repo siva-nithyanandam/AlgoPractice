@@ -26,7 +26,7 @@ public class LongestPalindromicSubstring {
   public static void main(String[] args) {
     LongestPalindromicSubstring o = new LongestPalindromicSubstring();
     //System.out.println(o.longestPalindrome_faster("aap"));
-    System.out.println(o.longestPalindrome_faster("ababababa"));
+    System.out.println(o.longestPalindrome_faster("malayalam"));
     //System.out.println(o.longestPalindrome_faster("paapa"));
   }
 
@@ -37,11 +37,11 @@ public class LongestPalindromicSubstring {
       return s;
     }
     char[] c = s.toCharArray();
-    longestPallindromeAt(c, 0);
+    longestPalindromeAt(c, 0);
     return s.substring(start, end + 1);
   }
 
-  private void longestPallindromeAt(char[] c, int p) {
+  private void longestPalindromeAt(char[] c, int p) {
     int a = p;
     int b = p;
     int n = c.length;
@@ -60,7 +60,7 @@ public class LongestPalindromicSubstring {
       end = b;
       start = a;
     }
-    longestPallindromeAt(c, p + 1);
+    longestPalindromeAt(c, p + 1);
   }
 
   public String longestPalindrome(String s) {
