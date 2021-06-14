@@ -10,7 +10,7 @@ package MathAndLogic;
 public class ListOfPrimes {
 
   public static void main(String[] args) {
-    int[] arr = getPrimesUntilGiven(100);
+    int[] arr = getPrimesUntilGiven(1000);
     for(int i = 0; i < arr.length; i++) {
       if (arr[i] == 0) {
         System.out.print(i + ",");
@@ -39,7 +39,7 @@ public class ListOfPrimes {
   }
 
   private static void crossOff(int[] flags, int prime) {
-    for(int i = prime * prime; i < flags.length; i += prime) {
+    for(int i = prime * prime; i < flags.length; i += prime*2) {
       flags[i] = 1;
     }
   }

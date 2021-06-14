@@ -1,5 +1,7 @@
 package arrays;
 
+import java.util.BitSet;
+
 /**
  * Given an array of integers, find if the array contains any duplicates.
  *
@@ -22,6 +24,7 @@ public class ContainsDuplicate {
 
   public static void main(String[] args) {
     ContainsDuplicate o = new ContainsDuplicate();
+    System.out.println(o.duplicatesTwo(new int[]{1,500, 500}));
     System.out.println(o.containsDuplicate(new int[]{1,2,3,1}));
     System.out.println(o.containsDuplicate(new int[]{1,2,3,4}));
     System.out.println(o.containsDuplicate(new int[]{1,1,1,3,3,4,3,2,4,2}));
@@ -41,6 +44,21 @@ public class ContainsDuplicate {
       } else {
         (arr[nums[i] & a]) = true;
       }
+    }
+    return false;
+  }
+
+  static boolean duplicatesTwo(final int[] nums)
+  {
+    final int MAXZIP = 3;
+
+    BitSet b = new BitSet();
+    //b.set(0, MAXZIP, false);
+    for (int item : nums) {
+      if (!b.get(item)) {
+        b.set(item, true);
+      } else
+        return true;
     }
     return false;
   }

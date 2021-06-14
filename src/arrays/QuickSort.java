@@ -14,7 +14,7 @@ public class QuickSort {
 		if(p < r) {
 			int q = partition(arr, p, r);
 			quickSort(arr, p, q-1);
-			quickSort(arr, q+1, r);	
+			quickSort(arr, q+1, r);
 		}
 	}
 

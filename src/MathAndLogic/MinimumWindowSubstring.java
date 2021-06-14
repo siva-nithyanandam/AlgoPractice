@@ -41,8 +41,7 @@ public class MinimumWindowSubstring {
         len = j - i;
         start = i;
       }
-      while(i < j && (target == 0
-              || counter[sArr[i]] < 0)) {
+      while(i < j && (target == 0 || counter[sArr[i]] < 0)) {
         if (counter[sArr[i++]]++ == 0) {
           target++;
         }

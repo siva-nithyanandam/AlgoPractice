@@ -72,29 +72,6 @@ public class MedianofTwoSortedArrays {
     return -1;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   private double findMedianSortedArraysForSameSize(int[] nums1, int[] nums2, int topStart, int topEnd,
       int bottomStart, int bottomEnd) {
 

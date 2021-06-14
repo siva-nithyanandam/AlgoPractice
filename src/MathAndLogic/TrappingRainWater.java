@@ -24,6 +24,7 @@ public class TrappingRainWater {
     public static void main(String[] args) {
         TrappingRainWater o = new TrappingRainWater();
         System.out.println(o.trap_faster(new int[]{2,0,1,0,2}));
+        System.out.println(o.trap_faster(new int[]{1,1,1,1}));
         System.out.println(o.trap_faster(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
     }
 

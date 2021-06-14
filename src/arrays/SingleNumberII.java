@@ -20,7 +20,7 @@ public class SingleNumberII {
 
   public static void main(String[] args) {
     SingleNumberII o = new SingleNumberII();
-    System.out.println(o.singleNumber(new int[]{2,2,3,2}));
+    System.out.println(o.singleNumber(new int[]{2,2,2,3}));
     System.out.println(o.singleNumber(new int[]{0,1,0,1,0,1,99}));
     System.out.println(o.singleNumber(new int[]{1}));
   }

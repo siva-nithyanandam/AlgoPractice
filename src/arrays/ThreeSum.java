@@ -2,8 +2,13 @@ package arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0?
@@ -17,10 +22,67 @@ public class ThreeSum {
   public static void main(String[] args) {
     ThreeSum o = new ThreeSum();
     List<List<Integer>> res = o.threeSum_faster(new int[]{0, 1, 2, -3, -4, -1, 3, 5});
-    printList(res);
+    //printList(res);
 
-    res = o.threeSum_faster(new int[]{-2, 0, 0, 2, 2});
+    //res = o.threeSum_faster(new int[]{-2, 0, 0, 2, 2});
+    res = o.threeSum_With_duplicates(new int[]{-2, 0, 0, 2, 2});
     printList(res);
+  }
+
+  public List<List<Integer>> threeSum_With_duplicates(int[] nums) {
+    Set<List<Integer>> res = new HashSet<>();
+    Set<Integer> dups = new HashSet<>();
+    Map<Integer, Integer> seen = new HashMap<>();
+    for (int i = 0; i < nums.length; ++i)
+      if (dups.add(nums[i])) {
+        for (int j = i + 1; j < nums.length; ++j) {
+          int complement = -nums[i] - nums[j];
+          if (seen.containsKey(complement) && seen.get(complement) == i) {
+            List<Integer> triplet = Arrays.asList(nums[i], nums[j], complement);
+            Collections.sort(triplet);
+            res.add(triplet);
+          }
+          seen.put(nums[j], i);
+        }
+      }
+    return new ArrayList(res);
+  }
+
+  public List<List<Integer>> threeSum1(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    if (nums.length < 3) {
+      return res;
+    }
+    Arrays.sort(nums);
+    for (int i = 0; i < nums.length; i++) {
+      //Avoid duplicates
+      if (i > 0 && nums[i] == nums[i-1]) {
+        continue;
+      }
+      if (i+2 >= nums.length || nums[i] > 0) {
+        break;
+      }
+      if (nums[i] == 0 && nums[i+2] == 0) {
+        res.add(Arrays.asList(0, 0, 0));
+        break;
+      }
+      twoSum(nums, i, res);
+    }
+    return res;
+  }
+
+  private void twoSum(int[] nums, int i, List<List<Integer>> res) {
+    int target = 0 - nums[i];
+    for (int j = i+1; j < nums.length; j++) {
+      if (j > i+1 && nums[j] == nums[j-1]) {
+        continue;
+      }
+      int bal = target - nums[j];
+      int k = Arrays.binarySearch(nums, j+1, nums.length, bal);
+      if (k > 0) {
+        res.add(Arrays.asList(nums[i], nums[j], nums[k]));
+      }
+    }
   }
 
   public List<List<Integer>> threeSum_faster(int[] nums) {
