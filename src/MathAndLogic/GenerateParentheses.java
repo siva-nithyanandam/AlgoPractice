@@ -13,7 +13,7 @@ public class GenerateParentheses {
 
     public static void main(String[] args) {
         GenerateParentheses o = new GenerateParentheses();
-        List<String> list = o.generateParenthesis(2);
+        List<String> list = o.generateParenthesis(3);
         printList(list);
     }
 

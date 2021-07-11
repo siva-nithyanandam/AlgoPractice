@@ -80,9 +80,7 @@ public class CourseSchedule {
   /*
    * backtracking method to check that no cycle would be formed starting from currCourse
    */
-  protected boolean isCyclic(
-      Integer currCourse,
-      HashMap<Integer, List<Integer>> courseDict,
+  protected boolean isCyclic(Integer currCourse, HashMap<Integer, List<Integer>> courseDict,
       boolean[] path) {
 
     if (path[currCourse]) {

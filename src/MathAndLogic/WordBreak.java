@@ -30,9 +30,9 @@ public class WordBreak {
 
     public static void main(String[] args) {
         WordBreak o = new WordBreak();
-        System.out.println(o.wordBreak("acccbccb", Arrays.asList("cc","bc","ac","ca")));
+        System.out.println(o.wordBreak_faster("acccbccb", Arrays.asList("cc","bc","ac","ca")));
         System.out.println(o.wordBreak("a", Arrays.asList("a")));
-        System.out.println(o.wordBreak("leetcode", Arrays.asList("leet", "code")));
+        System.out.println(o.wordBreak1("leetcode", Arrays.asList("leet", "code")));
         System.out.println(o.wordBreak("applepenapple", Arrays.asList("apple", "pen")));
         System.out.println(o.wordBreak("catsandog", Arrays.asList("cats", "dog", "sand", "and", "cat")));
         System.out.println(o.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
@@ -61,6 +61,21 @@ public class WordBreak {
             }
         }
         return false;
+    }
+
+    public boolean wordBreak1(String s, List<String> wordDict) {
+        Set<String> wordDictSet = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && wordDictSet.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
     }
 
     public boolean wordBreak_another(String s, List<String> wordDict) {

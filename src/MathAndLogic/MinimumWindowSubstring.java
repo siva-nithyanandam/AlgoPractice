@@ -19,10 +19,42 @@ public class MinimumWindowSubstring {
 
   public static void main(String[] args) {
     MinimumWindowSubstring mws = new MinimumWindowSubstring();
+    System.out.println(mws.minWindow_optimized("ab", "b"));
+    System.out.println(mws.minWindow_own("ab", "b"));
     System.out.println(mws.minWindow_optimized("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow_optimized("ab", "b"));
+  }
+
+  public String minWindow_own(String s, String t) {
+    int[] tArr = new int[128];
+    for (int i = 0; i < t.length(); i++) {
+      tArr[t.charAt(i)]++;
+    }
+
+    char[] sArr = s.toCharArray();
+    int i = 0, len = s.length()+1, j = 0, start = -1;
+    int count = t.length();
+
+    while (i < s.length()) {
+      if (tArr[sArr[i++]]-- > 0) {
+        count--;
+      }
+      if (count == 0) {
+        if (i - j < len) {
+          len = i - j;
+          start = j;
+        }
+        while(count == 0 || (j < i && tArr[sArr[j]] < 0)) {
+          if (++tArr[sArr[j]] > 0) {
+            count++;
+          }
+          j++;
+        }
+      }
+    }
+    return start == -1 ? "" : s.substring(start, start+len);
   }
 
   public String minWindow_optimized(String s, String t) {

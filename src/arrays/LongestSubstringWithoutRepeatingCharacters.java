@@ -5,8 +5,6 @@ package arrays;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
-import java.util.Arrays;
-
 /**
  *
  */
@@ -14,24 +12,46 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
   public static void main(String[] args) {
     LongestSubstringWithoutRepeatingCharacters o = new LongestSubstringWithoutRepeatingCharacters();
-    System.out.println(o.lengthOfLongestSubstring("abcabcbb"));
+    System.out.println(o.lengthOfLongestSubstring_fastest("abcacbcbb"));
     System.out.println(o.lengthOfLongestSubstring("abba"));
     System.out.println(o.lengthOfLongestSubstring("au"));
   }
 
-  public int lengthOfLongestSubstring(String src) {
-    int[] holder = new int[256];
-    Arrays.fill(holder, -1);
-    char[] chars = src.toCharArray();
-    int i = 0, s = 0, res = 0;
-    while (i < chars.length) {
-      if (holder[chars[i]] >= s && holder[chars[i]] > -1) {
-        res = Math.max(res, i - s);
-        s = holder[chars[i]]+1;
-      }
-      holder[chars[i]] = i;
-      i++;
+  public int lengthOfLongestSubstring_fastest(String s) {
+    if (s == null || s.length() == 0) {
+      return 0;
     }
-    return Math.max(res, i - s);
+    int start = 0;
+    int len = 1;
+
+    char[] c = s.toCharArray();
+
+    for(int end = 0; end < c.length; end++) {
+      for(int j = start; j < end; j++) {
+        if (c[j] == c[end]) {
+          start = j+1;
+          break;
+        }
+      }
+      len = Math.max(len, end - start + 1);
+    }
+
+    return len;
+
+  }
+
+  public int lengthOfLongestSubstring(String s) {
+    int start = 0, res = 0;
+    int[] arr = new int[256];
+    int i = 0;
+
+    for (; i < s.length(); i++) {
+      if (arr[s.charAt(i)] > start) {
+        res = Math.max(res, i - start);
+        start = arr[s.charAt(i)];
+      }
+      arr[s.charAt(i)] = i+1;
+    }
+    return Math.max(res, i - start);
   }
 }

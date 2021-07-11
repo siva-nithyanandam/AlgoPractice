@@ -26,7 +26,42 @@ public class ThreeSum {
 
     //res = o.threeSum_faster(new int[]{-2, 0, 0, 2, 2});
     res = o.threeSum_With_duplicates(new int[]{-2, 0, 0, 2, 2});
+    res = o.threeSum_5ms(new int[]{-1,0,1,2,-1,-4});
     printList(res);
+  }
+
+  public List<List<Integer>> threeSum_own(int[] nums) {
+
+    List<List<Integer>> res = new ArrayList<>();
+
+    Arrays.sort(nums);
+
+    for (int i = 0; i < nums.length - 3; i++) {
+      if (i > 0 && nums[i] == nums[i-1]) {
+        continue;
+      }
+      if (nums[i] == 0 && nums[i+2] == 0) {
+        res.add(Arrays.asList(0,0,0));
+        i = i+2;
+        continue;
+      }
+      twoSum(nums, i+1, nums[i], res);
+    }
+    return res;
+  }
+
+  private void twoSum(int[] nums, int start, int first, List<List<Integer>> res) {
+
+    for (int i = start; i < nums.length-2; i++) {
+      if (i > start && nums[i] == nums[i-1]) {
+        continue;
+      }
+      int rem = - first - nums[i];
+      int last = Arrays.binarySearch(nums, i+1, nums.length, rem);
+      if (last > 0) {
+        res.add(Arrays.asList(first, nums[i], nums[last]));
+      }
+    }
   }
 
   public List<List<Integer>> threeSum_With_duplicates(int[] nums) {

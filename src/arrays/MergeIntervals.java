@@ -68,6 +68,35 @@ public class MergeIntervals {
     }
   }
 
+  public int[][] merge_faster(int[][] intervals) {
+    List<int[]> ans = new ArrayList<>();
+    int n = intervals.length;
+    int[] starts = new int[n];
+    int[] ends = new int[n];
+    for (int i = 0; i < n; i++) {
+      starts[i] = intervals[i][0];
+      ends[i] = intervals[i][1];
+    }
+    Arrays.sort(starts);
+    Arrays.sort(ends);
+
+    int start = starts[0];
+    int end = ends[0];
+    for (int i = 0; i < n; i++) {
+      if (starts[i] > end) {
+        ans.add(new int[]{start, end});
+        start = starts[i];
+      }
+      end = ends[i];
+    }
+    ans.add(new int[]{start, end});
+    int[][] res = new int[ans.size()][2];
+    for (int i = 0; i < ans.size(); i++) {
+      res[i] = ans.get(i);
+    }
+    return res;
+  }
+
   public static int[][] merge(int[][] intervals) {
 
     if (intervals.length == 0) {

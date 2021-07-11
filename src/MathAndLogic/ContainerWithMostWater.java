@@ -44,6 +44,27 @@ public class ContainerWithMostWater {
     System.out.println(o.maxArea(new int[]{4,3,2,1,4}));
     System.out.println(o.maxArea(new int[]{1,2,1}));
   }
+
+  public int maxArea_fastest(int[] height) {
+
+    int start = 0, end = height.length-1;
+    int res = 0;
+    int h;
+
+    while (start < end) {
+      h = Math.min(height[start], height[end]);
+      res = Math.max(res, h * (end-start));
+
+      while(start < end && height[start] <= h) {
+        start++;
+      }
+      while(start < end && height[end] <= h) {
+        end--;
+      }
+    }
+    return res;
+  }
+
   public int maxArea(int[] height) {
     int res = 0;
     int left = 0, right = height.length-1;

@@ -35,8 +35,25 @@ public class JumpGame {
     System.out.println(o.canJump(new int[]{2,0,0}));
     System.out.println(o.canJump(new int[]{2,0}));
     System.out.println(o.canJump(new int[]{0,0}));
-    System.out.println(o.canJump(new int[]{2,3,1,1,4}));
+    System.out.println(o.canJump_own(new int[]{1,1,1,1,0}));
+    System.out.println(o.canJump_own(new int[]{2,3,1,1,4}));
     System.out.println(o.canJump(new int[]{3,2,1,0,4}));
+  }
+
+  public boolean canJump_own(int[] nums) {
+
+    int i = 0, maxJ = 0;
+
+    while(i <= maxJ) {
+      if (nums[i] >= maxJ) {
+        maxJ = i + nums[i];
+      }
+      if (maxJ >= nums.length-1) {
+        return true;
+      }
+      i++;
+    }
+    return false;
   }
 
   public boolean canJump_faster(int[] nums) {

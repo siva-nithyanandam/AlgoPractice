@@ -60,8 +60,60 @@ public class Person implements Comparable<Person>
     }
   }
 
+  static class DisjointSetUnion {
+    private int[] parent;
+    private int[] size;
+
+    public DisjointSetUnion(int size) {
+      this.parent = new int[size + 1];
+      this.size = new int[size + 1];
+      for (int i = 0; i < size + 1; ++i) {
+        this.parent[i] = i;
+        this.size[i] = 1;
+      }
+    }
+
+    /** return the component id that the element x belongs to. */
+    public int find(int x) {
+      if (this.parent[x] != x)
+        this.parent[x] = this.find(this.parent[x]);
+      return this.parent[x];
+    }
+
+    /**
+     * merge the two components that x, y belongs to respectively,
+     * and return the merged component id as the result.
+     */
+    public int union(int x, int y) {
+      int px = this.find(x);
+      int py = this.find(y);
+
+      // the two nodes share the same group
+      if (px == py)
+        return px;
+
+      // otherwise, connect the two sets (components)
+      if (this.size[px] > this.size[py]) {
+        // add the node to the union with less members.
+        // keeping px as the index of the smaller component
+        int temp = px;
+        px = py;
+        py = temp;
+      }
+
+      // add the smaller component to the larger one
+      this.parent[px] = py;
+      this.size[py] += this.size[px];
+      return py;
+    }
+  }
+
   public static void main(String[] args)
   {
+
+    DisjointSetUnion disjointSetUnion = new DisjointSetUnion(10);
+    disjointSetUnion.union(2, 3);
+
     List<Person> people = new ArrayList<Person>();
     people.add( new Person("Homer", 38) );
     people.add( new Person("Marge", 35) );

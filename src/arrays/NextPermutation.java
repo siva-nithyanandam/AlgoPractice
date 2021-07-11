@@ -18,7 +18,7 @@ public class NextPermutation {
 
     public static void main(String[] args) {
         NextPermutation o = new NextPermutation();
-        o.nextPermutation(new int[]{1, 3, 2});
+        o.nextPermutation(new int[]{2, 3, 1});
         o.nextPermutation(new int[]{3, 2, 1});
         o.nextPermutation(new int[]{1});
         o.nextPermutation(new int[]{1, 2, 3});
