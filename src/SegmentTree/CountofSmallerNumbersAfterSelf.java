@@ -1,4 +1,4 @@
-package SearchAndSorting;
+package SegmentTree;
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 7/9/2021  8:29 PM
  *

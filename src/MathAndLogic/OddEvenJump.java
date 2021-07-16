@@ -78,7 +78,8 @@ public class OddEvenJump {
     TreeMap<Integer, Integer> map = new TreeMap<>();
     map.put(A[n - 1], n - 1);
     for (int i = n - 2; i >= 0; --i) {
-      Map.Entry<Integer, Integer> hi = map.ceilingEntry(A[i]), lo = map.floorEntry(A[i]);
+      Map.Entry<Integer, Integer> hi = map.ceilingEntry(A[i]);
+      Map.Entry<Integer, Integer> lo = map.floorEntry(A[i]);
       if (hi != null) {
         higher[i] = lower[(int) hi.getValue()];
       }
@@ -157,7 +158,7 @@ public class OddEvenJump {
     Node minMore(int val) {
       if (this.val == val) {
         return this;
-      }//  4 >= 3, 1>=3
+      }
       if (this.val >= val) {
         if (left == null) {
           return this;
