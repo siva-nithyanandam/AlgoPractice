@@ -25,10 +25,41 @@ public class LongestPalindromicSubstring {
 
   public static void main(String[] args) {
     LongestPalindromicSubstring o = new LongestPalindromicSubstring();
-    //System.out.println(o.longestPalindrome_faster("aap"));
+    System.out.println(o.longestPalindrome1("cbbd"));
+    System.out.println(o.longestPalindrome1("babad"));
     System.out.println(o.longestPalindrome_faster("malayalam"));
     //System.out.println(o.longestPalindrome_faster("paapa"));
   }
+
+  public String longestPalindrome1(String s) {
+
+    int i, j = 0, k;
+    int start = 0, len = 1;
+
+    char[] chars = s.toCharArray();
+    while (j < chars.length) {
+      k = j;
+      i = j;
+      while (j+1 < chars.length && chars[j] == chars[j+1]) {
+        j++;
+      }
+
+      while (i > 0 && j < chars.length-1 && chars[i-1] == chars[j+1]) {
+        i--;
+        j++;
+      }
+      if (j-i+1 > len) {
+        start = i;
+        len = j - i + 1;
+      }
+      if (k == j) {
+        j++;
+      }
+    }
+    return s.substring(start, start+len);
+  }
+
+
 
   int start = 0, end = 0;
 
