@@ -41,6 +41,7 @@ public class KClosestPointstoOrigin {
 
   public static void main(String[] args) {
     KClosestPointstoOrigin o = new KClosestPointstoOrigin();
+    System.out.println(o.kClosest(new int[][]{{6,6}, {5,5}, {4,4}, {1,1}, {2,2}, {7,7}}, 2));
     System.out.println(o.kClosest(new int[][]{{4, 4}, {7, 7}, {3, 3}, {5, 5}, {6, 6}}, 2));
     System.out.println(o.kClosest(new int[][]{{6, 6}, {5, 5}, {4, 4}, {3, 3}, {2, 2}, {1, 1}}, 2));
     System.out.println(o.kClosest(new int[][]{{3, 3}, {5, -1}, {-2, 4}}, 2));

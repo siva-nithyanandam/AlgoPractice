@@ -68,6 +68,9 @@ public class OddEvenJump {
 
   public static void main(String[] args) {
     OddEvenJump o = new OddEvenJump();
+    System.out.println(o.oddEvenJumps_faster(new int[]{2,3,1,1,4}));
+    System.out.println(o.oddEvenJumps_faster(new int[]{14,13,15}));
+    System.out.println(o.oddEvenJumps_faster(new int[]{10,13,12,14,15}));
     System.out.println(o.oddEvenJumps_faster(new int[]{5, 1, 3, 4, 2}));
   }
 
@@ -94,7 +97,7 @@ public class OddEvenJump {
     return res;
   }
 
-  class Node {
+  /*class Node {
 
     int val;
     boolean even, odd;
@@ -151,9 +154,6 @@ public class OddEvenJump {
       }
     }
 
-    //////////      4(t,t)
-    //      1(t,f)
-    //          3(t, f)
 
     Node minMore(int val) {
       if (this.val == val) {
@@ -195,5 +195,101 @@ public class OddEvenJump {
       }
     }
     return count;
+  }*/
+
+  class Node {
+    int val;
+    Node left, right;
+    boolean upper, lower;
+
+    Node (int val, boolean upper, boolean lower) {
+      this.val = val;
+      this.upper = upper;
+      this.lower = lower;
+    }
+  }
+
+  private Node findImmediateUpper(Node root, int givenVal) {
+    if (root.val == givenVal) {
+      return root;
+    }
+
+    if (givenVal < root.val) {
+      if (root.left == null) {
+        return root;
+      }
+      Node temp = findImmediateUpper(root.left, givenVal);
+      if (temp.val == -1) {
+        return root;
+      } else {
+        return temp;
+      }
+    } else {
+      if (root.right == null) {
+        return new Node(-1, false, false);
+      }
+      return findImmediateUpper(root.right, givenVal);
+    }
+  }
+
+  private Node findImmediateLower(Node root, int givenVal) {
+    if (root.val == givenVal) {
+      return root;
+    }
+
+    if (givenVal > root.val) {
+      if (root.right == null) {
+        return root;
+      }
+      Node temp = findImmediateLower(root.right, givenVal);
+      if (temp.val == -1) {
+        return root;
+      } else {
+        return temp;
+      }
+    } else {
+      if (root.left == null) {
+        return new Node(-1, false, false);
+      }
+      return findImmediateLower(root.left, givenVal);
+    }
+  }
+
+  private void insert(Node root, int givenVal, boolean upper, boolean lower) {
+    if (givenVal == root.val) {
+      root.upper = upper;
+      root.lower = lower;
+      return;
+    }
+    if (givenVal > root.val) {
+      if (root.right == null) {
+        root.right = new Node(givenVal, upper, lower);
+      } else {
+        insert(root.right, givenVal, upper, lower);
+      }
+    } else {
+      if (root.left == null) {
+        root.left = new Node(givenVal, upper, lower);
+      } else {
+        insert(root.left, givenVal, upper, lower);
+      }
+    }
+  }
+
+  public int oddEvenJumps_faster(int[] arr) {
+    int n = arr.length;
+    int res = 1;
+    Node root = new Node(arr[n-1], true, true);
+
+    for (int i = n - 2; i >= 0; i--) {
+      Node upper = findImmediateUpper(root, arr[i]);
+      Node lower = findImmediateLower(root, arr[i]);
+
+      if (upper.lower) {
+        res++;
+      }
+      insert(root, arr[i], upper.lower, lower.upper);
+    }
+    return res;
   }
 }

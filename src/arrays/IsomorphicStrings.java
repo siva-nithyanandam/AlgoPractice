@@ -29,19 +29,21 @@ public class IsomorphicStrings {
 
   public boolean isIsomorphic_1ms(String s, String t) {
 
-    char[] map= new char[256];
-    boolean[] used=new boolean[256];
-    char[] sc=s.toCharArray();
+    char[] map = new char[256];
+    boolean[] used = new boolean[256];
+    char[] sc = s.toCharArray();
 
-    char[] tc= t.toCharArray();
+    char[] tc = t.toCharArray();
 
-    for(int i=0; i<sc.length; i++){
-      if(map[sc[i]]==0){
-        if(used[tc[i]]) return false;
+    for (int i = 0; i < sc.length; i++) {
+      if (map[sc[i]] == 0) {
+        if (used[tc[i]]) {
+          return false;
+        }
 
-        map[sc[i]]=tc[i];
-        used[tc[i]]=true;
-      }else if(map[sc[i]] != tc[i]){
+        map[sc[i]] = tc[i];
+        used[tc[i]] = true;
+      } else if (map[sc[i]] != tc[i]) {
         return false;
       }
     }

@@ -1,4 +1,4 @@
-package MathAndLogic;
+package dynamicProgramming;
 
 /**
  * Author - Sivaprakash Nithyanandam

@@ -39,7 +39,7 @@ public class LicenseKeyFormatting {
 
   public static void main(String[] args) {
     LicenseKeyFormatting o = new LicenseKeyFormatting();
-    System.out.println(o.licenseKeyFormatting("-5F3Z-2e-9-w", 4));
+    System.out.println(o.licenseKeyFormatting_faster("-5F3Z-2e-9-w", 4));
   }
 
   static final char toUpper = (char)('a' - 'A');

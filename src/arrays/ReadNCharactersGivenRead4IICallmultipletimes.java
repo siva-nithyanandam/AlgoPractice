@@ -96,22 +96,27 @@ public class ReadNCharactersGivenRead4IICallmultipletimes {
    * @return    The number of actual characters read
    */
   char[] buf4 = new char[4];
-  int r=0;
+  int r = 0;
   int idx = 0;
+
   public int read(char[] buf, int n) {
-    int i=0;
-    while(i<n){
-      if(r==0){
-        idx=0;
+    int i = 0;
+    while (i < n) {
+      if (r == 0) {
+        idx = 0;
         //Supporting class is not available here
         //r = read4(buf4);
-        if(r==0) break;
+        if (r == 0) {
+          break;
+        }
       }
-      while(i<n && idx<r){
+      while (i < n && idx < r) {
         buf[i] = buf4[idx];
         idx++;
         i++;
-        if(idx==r) r=0;
+        if (idx == r) {
+          r = 0;
+        }
       }
 
     }

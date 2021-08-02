@@ -124,7 +124,7 @@ public class NextClosestTime {
     return false;
   }
 
-  public boolean minZeroth(boolean[] nos, int val,StringBuilder str ){
+  public boolean minZeroth(boolean[] nos, int val,StringBuilder str){
 
     for(int i = val+1; i <=9; i++){
       if(nos[i]){

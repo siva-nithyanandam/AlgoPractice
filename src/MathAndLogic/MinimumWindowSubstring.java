@@ -19,9 +19,9 @@ public class MinimumWindowSubstring {
 
   public static void main(String[] args) {
     MinimumWindowSubstring mws = new MinimumWindowSubstring();
+    System.out.println(mws.minWindow_own("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow_optimized("ab", "b"));
     System.out.println(mws.minWindow_own("ab", "b"));
-    System.out.println(mws.minWindow_optimized("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow("ADOBECODEBANC", "ABC"));
     System.out.println(mws.minWindow_optimized("ab", "b"));
@@ -46,13 +46,14 @@ public class MinimumWindowSubstring {
           len = i - j;
           start = j;
         }
-        while(count == 0 || (j < i && tArr[sArr[j]] < 0)) {
-          if (++tArr[sArr[j]] > 0) {
-            count++;
-          }
-          j++;
-        }
       }
+      while(count == 0 || (j < i && tArr[sArr[j]] < 0)) {
+        if (++tArr[sArr[j]] > 0) {
+          count++;
+        }
+        j++;
+      }
+
     }
     return start == -1 ? "" : s.substring(start, start+len);
   }

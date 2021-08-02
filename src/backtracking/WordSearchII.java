@@ -5,7 +5,6 @@ package backtracking;/**
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,9 +43,76 @@ public class WordSearchII {
 
   public static void main(String[] args) {
     WordSearchII o = new WordSearchII();
-    System.out.println(o.findWords(new char[][]{{'o','a','a','n'},
+    System.out.println(o.findWords_trie_fastest(new char[][]{{'o','a','a','n'},
     {'e','t','a','e'},{'i','h','k','r'},
     {'i','f','l','v'}}, new String[]{"oath","pea","eat","rain"}));
+  }
+
+  static class Node {
+
+    Node child[];
+    String str;
+    int count = 0;
+
+    Node() {
+      child = new Node[26];
+    }
+  }
+
+  public static void insert(Node curr, String s) {
+
+    for (char c : s.toCharArray()) {
+      if (curr.child[c - 'a'] == null) {
+        curr.child[c - 'a'] = new Node();
+        curr.count++;
+      }
+      curr = curr.child[c - 'a'];
+    }
+    curr.str = s;
+  }
+
+  public List<String> findWords_trie_fastest(char[][] board, String[] words) {
+    List<String> ans = new ArrayList<>();
+    int n = board.length, m = board[0].length;
+    boolean vis[][] = new boolean[n][m];
+    Node root = new Node();
+    for (String s : words) {
+      insert(root, s);
+    }
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        dfs(board, i, j, root, ans, vis);
+      }
+    }
+
+    return ans;
+  }
+
+  public void dfs(char board[][], int i, int j, Node curr, List<String> ans, boolean vis[][]) {
+    int n = board.length, m = board[0].length;
+    if (i < 0 || i >= n || j < 0 || j >= m || vis[i][j] || curr.count == 0) {
+      return;
+    }
+    if (curr.child[board[i][j] - 'a'] == null) {
+      return;
+    }
+    Node child = curr.child[board[i][j] - 'a'];
+    if (child.str != null) {
+      ans.add(child.str);
+      child.str = null;
+    }
+
+    vis[i][j] = true;
+    dfs(board, i - 1, j, child, ans, vis);
+    dfs(board, i, j + 1, child, ans, vis);
+    dfs(board, i + 1, j, child, ans, vis);
+    dfs(board, i, j - 1, child, ans, vis);
+    vis[i][j] = false;
+
+    if (child.count == 0) {
+      curr.count--;
+    }
   }
 
   public List<String> findWords_faster(char[][] board, String[] words) {

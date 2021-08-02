@@ -62,7 +62,7 @@ public class MinimumCosttoHireKWorkers {
 
   public static void main(String[] args) {
     MinimumCosttoHireKWorkers o = new MinimumCosttoHireKWorkers();
-    System.out.println(o.mincostToHireWorkers_fastest(new int[]{10,20,5,25}, new int[]{70,50,30,100}, 2));
+    System.out.println(o.mincostToHireWorkers_faster(new int[]{10,20,5,25}, new int[]{70,50,30,100}, 2));
   }
 
   class Worker implements Comparable<Worker> {

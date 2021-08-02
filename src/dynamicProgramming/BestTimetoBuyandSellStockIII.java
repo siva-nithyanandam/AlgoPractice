@@ -1,4 +1,4 @@
-package MathAndLogic;
+package dynamicProgramming;
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 7/16/2021  7:19 PM
  *

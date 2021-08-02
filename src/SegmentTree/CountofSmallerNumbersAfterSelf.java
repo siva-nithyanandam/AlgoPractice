@@ -46,7 +46,7 @@ public class CountofSmallerNumbersAfterSelf {
   public static void main(String[] args) {
     CountofSmallerNumbersAfterSelf o = new CountofSmallerNumbersAfterSelf();
     System.out.println(Arrays.asList(o.countSmaller_merge_sort_understandable(new int[]{5,2,6,1})));
-    System.out.println(Arrays.asList(o.countSmaller_own(new int[]{26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41})));
+    System.out.println(Arrays.asList(o.countSmaller_segment_tree(new int[]{26,78,27,100,33,67,90,23,66,5,38,7,35,23,52,22,83,51,98,69,81,32,78,28,94,13,2,97,3,76,99,51,9,21,84,66,65,36,100,41})));
   }
 
   int[] count;
@@ -209,7 +209,7 @@ public class CountofSmallerNumbersAfterSelf {
     }
   }
 
-  public List<Integer> countSmaller_own(int[] nums) {
+  public List<Integer> countSmaller_segment_tree(int[] nums) {
     int offset = 10000;
     int n = 2 * offset + 1;
     int size = nextPowerOfTwo(n);
