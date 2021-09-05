@@ -7,7 +7,7 @@ package BitMasking;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 
 /**
  * https://leetcode.com/problems/matchsticks-to-square/
@@ -40,11 +40,11 @@ public class MatchstickstoSquare {
 
   public static void main(String[] args) {
     MatchstickstoSquare o = new MatchstickstoSquare();
-    System.out.println(o.makesquare_Bitmasking(new int[]{1,1,2,2,2}));
+    System.out.println(o.makesquare(new int[]{1,1,2,2,2}));
   }
 
   // The memoization cache to be used during recursion.
-  public HashMap<Pair<Integer, Integer>, Boolean> memo;
+  /*public HashMap<Pair<Integer, Integer>, Boolean> memo;
 
   // Array containing our matchsticks.
   public int[] nums;
@@ -107,9 +107,9 @@ public class MatchstickstoSquare {
     // Cache the computed results.
     this.memo.put(memoKey, ans);
     return ans;
-  }
+  }*/
 
-  public boolean makesquare_Bitmasking(int[] nums) {
+  /*public boolean makesquare_Bitmasking(int[] nums) {
 
     // Empty matchsticks.
     if (nums == null || nums.length == 0) {
@@ -131,7 +131,7 @@ public class MatchstickstoSquare {
     this.nums = nums;
     this.possibleSquareSide = possibleSquareSide;
     return this.recurse((1 << L) - 1, 0);
-  }
+  }*/
 
   public boolean makesquare(int[] nums) {
     if (nums == null || nums.length < 4) {
