@@ -9,7 +9,7 @@ public class DuplicatesInConstantArray {
 
   public static void main(String[] args) {
     DuplicatesInConstantArray o = new DuplicatesInConstantArray();
-    o.identifyDuplicate(new int[]{1, 2, 3, 3, 5, 6, 4});
+    o.identifyDuplicate(new int[]{1, 2, 3, 5, 6, 4, 3});
   }
 
   private void identifyDuplicate(int[] arr) {

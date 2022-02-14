@@ -39,6 +39,7 @@ public class MinimumAreaRectangle {
 
   public static void main(String[] args) {
     MinimumAreaRectangle o = new MinimumAreaRectangle();
+    System.out.println(o.minAreaRect_better(new int[][]{{1, 1}, {1, 3}, {3, 1}, {3, 3}, {2, 2}}));
     System.out.println(o.minAreaRect_faster(new int[][]{{1, 1}, {1, 3}, {3, 1}, {3, 3}, {2, 2}}));
   }
 

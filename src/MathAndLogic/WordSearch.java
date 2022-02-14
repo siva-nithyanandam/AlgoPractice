@@ -9,8 +9,8 @@ public class WordSearch {
 
   public static void main(String[] args) {
     WordSearch o = new WordSearch();
-    System.out.println(o.exist_faster(new char[][]{{'A','B','C','E'},
-        {'S','F','C','S'},{'A','D','E','E'}}, "ABCCED"));
+    System.out.println(o.exist_faster(new char[][]{{'A','B','B','E'},
+        {'S','F','C','S'},{'A','D','E','E'}}, "ASABB"));
     System.out.println(o.exist(new char[][]{{'A','B','C','E'},
         {'S','F','C','S'},{'A','D','E','E'}}, "ABCCED"));
   }

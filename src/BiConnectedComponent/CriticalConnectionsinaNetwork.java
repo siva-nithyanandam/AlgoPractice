@@ -5,7 +5,9 @@ import java.util.*;
 /**
  * https://leetcode.com/problems/critical-connections-in-a-network/
  *
- * There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections forming a network where connections[i] = [ai, bi] represents a connection between servers ai and bi. Any server can reach other servers directly or indirectly through the network.
+ * There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections forming a
+ * network where connections[i] = [ai, bi] represents a connection between servers ai and bi.
+ * Any server can reach other servers directly or indirectly through the network.
  *
  * A critical connection is a connection that, if removed, will make some servers unable to reach some other server.
  *
@@ -55,8 +57,8 @@ public class CriticalConnectionsinaNetwork {
         conn4.add(1);
         conn4.add(3);
         connections.add(conn4);
-        o.criticalConnections(4, connections);
         o.criticalConnections_simple(4, connections);
+        o.criticalConnections(4, connections);
     }
 
     List<List<Integer>> ans = new ArrayList<>();
@@ -132,7 +134,8 @@ public class CriticalConnectionsinaNetwork {
         return res;
     }
 
-    private void findArticulationPoint(Map<Integer, List<Integer>> adjMap, int[] parents, int[] visitedTime, int[] lowTime, int currTime, List<List<Integer>> res, int vertex) {
+    private void findArticulationPoint(Map<Integer, List<Integer>> adjMap, int[] parents, int[] visitedTime,
+                                       int[] lowTime, int currTime, List<List<Integer>> res, int vertex) {
         // if (adjMap.get(vertex) == null) {
         //     visitedTime[vertex] = currTime-1;
         //     lowTime[vertex] = currTime-1;

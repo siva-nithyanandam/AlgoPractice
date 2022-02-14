@@ -10,6 +10,7 @@ public class OddRepeatingElementsInaGivenArray {
   public static void main(String[] args) {
     OddRepeatingElementsInaGivenArray o = new OddRepeatingElementsInaGivenArray();
     System.out.println(System.currentTimeMillis());
+    o.identifyNonDuplicates(new int[]{1,2,3,3,4,4});
     o.identifyNonDuplicates(new int[]{12, 23, 34, 12, 12, 23, 12, 45});
     System.out.println(System.currentTimeMillis());
     o.identifyNonDuplicates(new int[]{4, 4, 100, 5000, 4, 4, 4, 4, 100, 100});

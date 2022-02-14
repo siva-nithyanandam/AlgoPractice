@@ -41,6 +41,7 @@ public class FindtheLongestSubstringContainingVowelsinEvenCounts {
 
   public static void main(String[] args) {
     FindtheLongestSubstringContainingVowelsinEvenCounts o = new FindtheLongestSubstringContainingVowelsinEvenCounts();
+    System.out.println(o.findTheLongestSubstring_better("eleetminicoworoep"));
     System.out.println(o.findTheLongestSubstring_4ms("eleetminicoworoep"));
     System.out.println(o.findTheLongestSubstring("aeiou"));
     System.out.println(o.findTheLongestSubstring("leetcodeisgreat"));

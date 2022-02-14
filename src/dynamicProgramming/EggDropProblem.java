@@ -1,4 +1,4 @@
-package MathAndLogic;
+package dynamicProgramming;
 
 /**
  * There is a building of 100 floors. If an egg drops from the Nth floor or

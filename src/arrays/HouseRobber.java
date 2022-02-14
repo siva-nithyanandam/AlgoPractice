@@ -28,6 +28,7 @@ public class HouseRobber {
 
     public static void main(String[] args) {
         HouseRobber o = new HouseRobber();
+        System.out.println(o.rob1(new int[]{1,2,3,1}));
         System.out.println(o.rob(new int[]{1,2,3,1}));
         System.out.println(o.rob(new int[]{2,7,9,3,1}));
         System.out.println(o.rob(new int[]{2,1,1,2}));

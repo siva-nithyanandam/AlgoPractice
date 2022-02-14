@@ -36,6 +36,7 @@ public class KthLargestElementinanArray {
 
   public static void main(String[] args) {
     KthLargestElementinanArray o = new KthLargestElementinanArray();
+    System.out.println(o.findKthLargest(new int[]{3,2,1,5,6,4}, 2));
     System.out.println(o.findKthLargest_faster(new int[]{3,2,1,5,6,4}, 2));
   }
 

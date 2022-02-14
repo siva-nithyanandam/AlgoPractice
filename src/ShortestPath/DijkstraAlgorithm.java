@@ -18,8 +18,8 @@ public class DijkstraAlgorithm {
 
   public static void main(String[] args) {
     DijkstraAlgorithm o = new DijkstraAlgorithm();
-    System.out.println(o.dijkstra(3, new int[][]{{0,1,5},{0,2,7},{1,2,-4}}));
-    System.out.println(o.dijkstra(4, new int[][]{{0,1,5},{0,2,1},{1,3,-5},{2,3,1},{3,4,1}}));
+    System.out.println(o.dijkstra(3, new int[][]{{0,1,5},{0,2,7},{1,2,4}}));
+    System.out.println(o.dijkstra(4, new int[][]{{0,1,5},{0,2,1},{1,3,5},{2,3,1},{3,4,1}}));
   }
 
   public int dijkstra(int n, int[][] edges) {
@@ -48,6 +48,6 @@ public class DijkstraAlgorithm {
         }
       }
     }
-    return dist[0];
+    return dist[1];
   }
 }

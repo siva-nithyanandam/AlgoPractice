@@ -68,7 +68,7 @@ public class OddEvenJump {
 
   public static void main(String[] args) {
     OddEvenJump o = new OddEvenJump();
-    System.out.println(o.oddEvenJumps_faster(new int[]{2,3,1,1,4}));
+    System.out.println(o.oddEvenJumps(new int[]{2,3,1,1,4}));
     System.out.println(o.oddEvenJumps_faster(new int[]{14,13,15}));
     System.out.println(o.oddEvenJumps_faster(new int[]{10,13,12,14,15}));
     System.out.println(o.oddEvenJumps_faster(new int[]{5, 1, 3, 4, 2}));

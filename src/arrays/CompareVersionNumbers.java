@@ -12,7 +12,7 @@ public class CompareVersionNumbers {
 
   public static void main(String[] args) {
     CompareVersionNumbers o = new CompareVersionNumbers();
-    System.out.println(o.compareVersion("0.1", "1.0"));
+    System.out.println(o.compareVersion("1.1", "1.0"));
   }
 
   public int compareVersion(String version1, String version2) {

@@ -38,7 +38,9 @@ public class SurroundedRegions {
 
   public static void main(String[] args) {
     SurroundedRegions o = new SurroundedRegions();
-    System.out.println();
+    char[][] board = new char[][]{{'X','X','X','X'},{'X','O','O','X'},{'X','X','O','X'},{'X','O','X','X'}};
+    o.solve(board);
+    System.out.println("Check Manually");
   }
 
   public void solve_faster(char[][] board) {

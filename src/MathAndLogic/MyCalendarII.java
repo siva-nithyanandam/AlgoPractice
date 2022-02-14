@@ -52,12 +52,12 @@ public class MyCalendarII {
 
   public static void main(String[] args) {
     MyCalendarII o = new MyCalendarII();
-    System.out.println(o.book_faster(10, 20));
-    System.out.println(o.book_faster(50, 60));
-    System.out.println(o.book_faster(10, 40));
-    System.out.println(o.book_faster(5, 15));
-    System.out.println(o.book_faster(5, 10));
-    System.out.println(o.book_faster(25, 55));
+    System.out.println(o.book(10, 20));
+    System.out.println(o.book(50, 60));
+    System.out.println(o.book(10, 40));
+    System.out.println(o.book(5, 15));
+    System.out.println(o.book(5, 10));
+    System.out.println(o.book(25, 55));
   }
 
   public boolean book_faster(int start, int end) {

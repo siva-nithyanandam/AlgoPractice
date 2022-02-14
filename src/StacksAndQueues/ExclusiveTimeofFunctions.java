@@ -80,6 +80,7 @@ public class ExclusiveTimeofFunctions {
 
   public static void main(String[] args) {
     ExclusiveTimeofFunctions o = new ExclusiveTimeofFunctions();
+    System.out.println(Arrays.toString(o.exclusiveTime_faster(2, Arrays.asList("0:start:0","0:start:2","0:end:5","1:start:6","1:end:6","0:end:7"))));
     System.out.println(Arrays.toString(o.exclusiveTime_faster(1, Arrays.asList("0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"))));
   }
 

@@ -13,7 +13,8 @@ package dynamicProgramming;
  * Rules and restrictions:
  *
  * You can only travel among n cities, represented by indexes from 0 to n - 1. Initially, you are in the city indexed 0 on Monday.
- * The cities are connected by flights. The flights are represented as an n x n matrix (not necessarily symmetrical), called flights representing the airline status from the city i to the city j. If there is no flight from the city i to the city j, flights[i][j] == 0; Otherwise, flights[i][j] == 1. Also, flights[i][i] == 0 for all i.
+ * The cities are connected by flights. The flights are represented as an n x n matrix (not necessarily symmetrical),
+ * called flights representing the airline status from the city i to the city j. If there is no flight from the city i to the city j, flights[i][j] == 0; Otherwise, flights[i][j] == 1. Also, flights[i][i] == 0 for all i.
  * You totally have k weeks (each week has seven days) to travel. You can only take flights at most once per day and can only take flights on each week's Monday morning. Since flight time is so short, we do not consider the impact of flight time.
  * For each city, you can only have restricted vacation days in different weeks, given an n x k matrix called days representing this relationship. For the value of days[i][j], it represents the maximum days you could take a vacation in the city i in the week j.
  * You could stay in a city beyond the number of vacation days, but you should work on the extra days, which will not be counted as vacation days.
@@ -74,12 +75,19 @@ public class MaximumVacationDays {
 
   public int maxVacationDays(int[][] flights, int[][] days) {
     if (days.length == 0 || flights.length == 0) return 0;
+
     int[][] dp = new int[days.length][days[0].length + 1];
+
     for (int week = days[0].length - 1; week >= 0; week--) {
+
       for (int cur_city = 0; cur_city < days.length; cur_city++) {
+
         dp[cur_city][week] = days[cur_city][week] + dp[cur_city][week + 1];
+
         for (int dest_city = 0; dest_city < days.length; dest_city++) {
+
           if (flights[cur_city][dest_city] == 1) {
+
             dp[cur_city][week] = Math.max(days[dest_city][week] + dp[dest_city][week + 1], dp[cur_city][week]);
           }
         }

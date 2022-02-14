@@ -115,6 +115,7 @@ public class EqualCookies {
       System.out.println(find_min_actions(cookies));
     }
      */
+    System.out.println(find_min_actions(new int[]{2,2,3,7}));
     System.out.println(find_min_actions(new int[]{1, 5, 5}));
     System.out.println(equal(new int[]{1, 5, 5}));
     System.out.println(find_min_actions(new int[]{0, 4, 4}));

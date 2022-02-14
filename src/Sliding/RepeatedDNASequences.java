@@ -1,4 +1,4 @@
-package MathAndLogic;
+package Sliding;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,7 +26,10 @@ public class RepeatedDNASequences {
     public static void main(String[] args) {
         RepeatedDNASequences o = new RepeatedDNASequences();
         List<String> res;
-        res = o.findRepeatedDnaSequences_1("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
+        res = o.findRepeatedDnaSequences_own1("AAGGGTTTAAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
+        printRes(res);
+
+        res = o.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
         printRes(res);
 
         res = o.findRepeatedDnaSequences("AAAAAAAAAAA");

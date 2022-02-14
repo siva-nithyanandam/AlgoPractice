@@ -12,6 +12,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
   public static void main(String[] args) {
     LongestSubstringWithoutRepeatingCharacters o = new LongestSubstringWithoutRepeatingCharacters();
+    System.out.println(o.lengthOfLongestSubstring("abcacbcbb"));
     System.out.println(o.lengthOfLongestSubstring_fastest("abcacbcbb"));
     System.out.println(o.lengthOfLongestSubstring("abba"));
     System.out.println(o.lengthOfLongestSubstring("au"));

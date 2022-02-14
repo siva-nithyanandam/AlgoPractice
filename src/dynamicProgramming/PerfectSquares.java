@@ -39,6 +39,7 @@ public class PerfectSquares {
 
   public static void main(String[] args) {
     PerfectSquares o = new PerfectSquares();
+    System.out.println(o.numSquares(12));
     System.out.println(o.numSquares_2(12));
   }
 

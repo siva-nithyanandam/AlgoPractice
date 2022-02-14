@@ -8,10 +8,13 @@ package recursion;
 /**
  * https://leetcode.com/problems/android-unlock-patterns/
  *
- * Android devices have a special lock screen with a 3 x 3 grid of dots. Users can set an "unlock pattern" by connecting the dots in a specific sequence, forming a series of joined line segments where each segment's endpoints are two consecutive dots in the sequence. A sequence of k dots is a valid unlock pattern if both of the following are true:
+ * Android devices have a special lock screen with a 3 x 3 grid of dots. Users can set an "unlock pattern" by connecting the dots in a specific sequence,
+ * forming a series of joined line segments where each segment's endpoints are two consecutive dots in the sequence.
+ * A sequence of k dots is a valid unlock pattern if both of the following are true:
  *
  * All the dots in the sequence are distinct.
- * If the line segment connecting two consecutive dots in the sequence passes through the center of any other dot, the other dot must have previously appeared in the sequence. No jumps through the center non-selected dots are allowed.
+ * If the line segment connecting two consecutive dots in the sequence passes through the center of any other dot,
+ * the other dot must have previously appeared in the sequence. No jumps through the center non-selected dots are allowed.
  * For example, connecting dots 2 and 9 without dots 5 or 6 appearing beforehand is valid because the line from dot 2 to dot 9 does not pass through the center of either dot 5 or 6.
  * However, connecting dots 1 and 3 without dot 2 appearing beforehand is invalid because the line from dot 1 to dot 3 passes through the center of dot 2.
  * Here are some example valid and invalid unlock patterns:

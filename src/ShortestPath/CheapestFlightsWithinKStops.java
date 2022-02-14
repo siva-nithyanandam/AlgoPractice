@@ -10,7 +10,8 @@ import java.util.Arrays;
 /**
  * https://leetcode.com/problems/cheapest-flights-within-k-stops/
  *
- * There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
+ * There are n cities connected by some number of flights.
+ * You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
  *
  * You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
  *
@@ -48,7 +49,7 @@ public class CheapestFlightsWithinKStops {
 
   public static void main(String[] args) {
     CheapestFlightsWithinKStops o = new CheapestFlightsWithinKStops();
-    System.out.println(o.findCheapestPrice(3, new int[][]{{0,1,100},{1,2,100},{0,2,500}}, 0, 2, 1));
+    System.out.println(o.findCheapestPrice(3, new int[][]{{0,1,100},{1,2,100},{0,2,500}}, 0, 2, 0));
   }
 
   //Bellman Ford Algorithm
