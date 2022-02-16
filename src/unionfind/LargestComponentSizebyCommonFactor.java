@@ -1,4 +1,4 @@
-package TreesAndGraphs;
+package unionfind;
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 6/18/2021  11:20 PM
  *
@@ -49,6 +49,7 @@ public class LargestComponentSizebyCommonFactor {
   public static void main(String[] args) {
     LargestComponentSizebyCommonFactor o = new LargestComponentSizebyCommonFactor();
     System.out.println(o.largestComponentSize_fastest(new int[]{4,6,15,35}));
+    System.out.println(o.largestComponentSize_faster(new int[]{4,6,15,35}));
   }
 
   public int largestComponentSize_fastest(int[] A) {

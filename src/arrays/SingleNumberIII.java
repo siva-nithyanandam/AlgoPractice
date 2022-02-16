@@ -43,7 +43,7 @@ public class SingleNumberIII {
       c ^= num;
     }
     // get the lowest "1" bit of C
-    c &= -c;
+    c = c & (~(c-1));
     // rets[0], rets[1] would be the XOR results of Group A and Group B
     int[] rets = new int[2];
     for (int num : nums) {

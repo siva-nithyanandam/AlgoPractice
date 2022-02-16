@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * https://leetcode.com/explore/interview/card/google/59/array-and-strings/3057/
  *
- * You are given a 0-indexed string s that you must perform k replacement operations on. The replacement operations are given as three 0-indexed parallel arrays, indices, sources, and targets, all of length k.
+ * You are given a 0-indexed string s that you must perform k replacement operations on.
+ * The replacement operations are given as three 0-indexed parallel arrays, indices, sources, and targets, all of length k.
  *
  * To complete the ith replacement operation:
  *
@@ -75,8 +76,6 @@ public class FindAndReplaceinString {
       if (indexes[i] < S.length() && S.startsWith(sources[i], indexes[i])) { //match found
         matchingIndex[indexes[i]] = i;
       }
-
-
     }
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < matchingIndex.length; )

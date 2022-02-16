@@ -44,7 +44,8 @@ public class BinaryTreeUpsideDown {
     node.right = new Node(3);
 
 //    Node resNode = o.upsideDown(node);
-    Node resNode = o.upsideDown_recursive(node);
+    Node resNode = o.upsideDown(node);
+    resNode = o.upsideDown_recursive(node);
     System.out.println(resNode.data);
   }
 

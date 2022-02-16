@@ -16,7 +16,8 @@ import java.util.Map;
  *
  * A stone can be removed if it shares either the same row or the same column as another stone that has not been removed.
  *
- * Given an array stones of length n where stones[i] = [xi, yi] represents the location of the ith stone, return the largest possible number of stones that can be removed.
+ * Given an array stones of length n where stones[i] = [xi, yi] represents the location of the ith stone,
+ * return the largest possible number of stones that can be removed.
  *
  *
  *
@@ -57,8 +58,9 @@ public class MostStonesRemovedwithSameRoworColumn {
 
   public static void main(String[] args) {
     MostStonesRemovedwithSameRoworColumn o = new MostStonesRemovedwithSameRoworColumn();
-    System.out.println(o.removeStones(new int[][]{{0,1},{1,1}}));
     System.out.println(o.removeStones(new int[][]{{0,1},{0,2},{4,3},{2,4},{0,3},{1,1}}));
+    System.out.println(o.removeStones_faster(new int[][]{{0,1},{0,2},{4,3},{2,4},{0,3},{1,1}}));
+    System.out.println(o.removeStones(new int[][]{{0,1},{1,1}}));
   }
 
   public int removeStones_faster(int[][] stones) {

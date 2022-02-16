@@ -20,7 +20,7 @@ public class EightQueens {
     }
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 8;
         Stack<QueenPos> queenPosList = new Stack<>();
 
         for (int i = 0; i < n; i++) {

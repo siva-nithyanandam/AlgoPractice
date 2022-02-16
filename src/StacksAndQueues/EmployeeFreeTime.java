@@ -18,7 +18,9 @@ import java.util.List;
  *
  * Return the list of finite intervals representing common, positive-length free time for all employees, also in sorted order.
  *
- * (Even though we are representing Intervals in the form [x, y], the objects inside are Intervals, not lists or arrays. For example, schedule[0][0].start = 1, schedule[0][0].end = 2, and schedule[0][0][0] is not defined).  Also, we wouldn't include intervals like [5, 5] in our answer, as they have zero length.
+ * (Even though we are representing Intervals in the form [x, y], the objects inside are Intervals,
+ * not lists or arrays. For example, schedule[0][0].start = 1, schedule[0][0].end = 2, and schedule[0][0][0] is not defined).
+ * Also, we wouldn't include intervals like [5, 5] in our answer, as they have zero length.
  *
  *
  *

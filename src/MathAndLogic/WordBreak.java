@@ -63,6 +63,35 @@ public class WordBreak {
         return false;
     }
 
+    public boolean wordBreak_0ms(String s, List<String> wordDict) {
+        if(s == null || wordDict == null)
+            return false;
+
+        Boolean[] dp = new Boolean[s.length()];
+
+        helper(0, s, wordDict,dp);
+
+        return dp[0];
+    }
+
+    private boolean helper(int index, String s, List<String> wordDict,Boolean[] dp) {
+        if(index >= s.length())
+            return true;
+
+        if(dp[index] != null)
+            return dp[index];
+
+        for(String word : wordDict) {
+            if(s.indexOf(word, index) == index && helper(index+word.length(), s, wordDict,dp)) {
+                dp[index] = true;
+                return true;
+            }
+        }
+
+        dp[index] = false;
+        return false;
+    }
+
     public boolean wordBreak1(String s, List<String> wordDict) {
         Set<String> wordDictSet = new HashSet<>(wordDict);
         boolean[] dp = new boolean[s.length() + 1];

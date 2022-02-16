@@ -18,8 +18,8 @@ package linkedlists;
 public class LoopDetection {
 
     static class Node{
-        int data;
-        Node next;
+        public int data;
+        public Node next;
 
         Node(int data) {
             this.data = data;
@@ -32,7 +32,6 @@ public class LoopDetection {
         head.next.next = new Node(3);
         head.next.next.next = new Node(4);
         head.next.next.next.next = head.next.next.next;
-
 
         Node loopNode = detectLoop(head);
         System.out.println(loopNode.data);

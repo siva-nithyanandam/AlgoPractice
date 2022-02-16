@@ -16,7 +16,8 @@ import java.util.Queue;
 /**
  * https://leetcode.com/problems/number-of-restricted-paths-from-first-to-last-node/
  *
- * There is an undirected weighted connected graph. You are given a positive integer n which denotes that the graph has n nodes labeled from 1 to n, and an array edges where each edges[i] = [ui, vi, weighti] denotes that there is an edge between nodes ui and vi with weight equal to weighti.
+ * There is an undirected weighted connected graph. You are given a positive integer n which denotes that the
+ * graph has n nodes labeled from 1 to n, and an array edges where each edges[i] = [ui, vi, weighti] denotes that there is an edge between nodes ui and vi with weight equal to weighti.
  *
  * A path from node start to node end is a sequence of nodes [z0, z1, z2, ..., zk] such that z0 = start and zk = end and there is an edge between zi and zi+1 where 0 <= i <= k-1.
  *
@@ -58,8 +59,8 @@ public class NumberofRestrictedPathsFromFirsttoLastNode {
 
   public static void main(String[] args) {
     NumberofRestrictedPathsFromFirsttoLastNode o = new NumberofRestrictedPathsFromFirsttoLastNode();
+    System.out.println(o.countRestrictedPaths_self(5, new int[][]{{1,2,3},{1,3,3},{2,3,1},{1,4,2},{5,2,2},{3,5,1},{5,4,10}}));
     System.out.println(o.countRestrictedPaths_self(3, new int[][]{{1,2,100},{2,3,100}}));
-    System.out.println(o.countRestrictedPaths(5, new int[][]{{1,2,3},{1,3,3},{2,3,1},{1,4,2},{5,2,2},{3,5,1},{5,4,10}}));
     System.out.println(o.countRestrictedPaths(3, new int[][]{{1,3,1},{1,2,2},{2,3,5}}));
   }
 

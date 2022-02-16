@@ -20,7 +20,9 @@ import java.util.Queue;
  * 4 which means go to the upper cell. (i.e go from grid[i][j] to grid[i - 1][j])
  * Notice that there could be some invalid signs on the cells of the grid which points outside the grid.
  *
- * You will initially start at the upper left cell (0,0). A valid path in the grid is a path which starts from the upper left cell (0,0) and ends at the bottom-right cell (m - 1, n - 1) following the signs on the grid. The valid path doesn't have to be the shortest.
+ * You will initially start at the upper left cell (0,0). A valid path in the grid is a path which starts from the
+ * upper left cell (0,0) and ends at the bottom-right cell (m - 1, n - 1) following the signs on the grid.
+ * The valid path doesn't have to be the shortest.
  *
  * You can modify the sign on a cell with cost = 1. You can modify the sign on a cell one time only.
  *
@@ -117,7 +119,7 @@ public class MinimumCosttoMakeatLeastOneValidPathinaGrid {
     int[][] matrix = new int[m][n];
 
     PriorityQueue<int[]> queue = new PriorityQueue<int[]>((a, b) -> a[2] - b[2]);
-    queue.add(new int[]{0,0});
+    queue.add(new int[]{0,0,0});
     visited[0][0] = true;
 
     while (!queue.isEmpty()) {

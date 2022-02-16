@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * There are multiple small logic
- * Initialize a Node with "size" variable set to 1 as default. Increment the size with child added.
+ * Initialize a Node with "size" variable set to 1 as default. Increment the size when child added.
  *
  * 1. Insert
  * insert in an order - a binary search tree method.

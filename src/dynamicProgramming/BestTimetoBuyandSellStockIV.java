@@ -40,6 +40,7 @@ public class BestTimetoBuyandSellStockIV {
 
   public static void main(String[] args) {
     BestTimetoBuyandSellStockIV o = new BestTimetoBuyandSellStockIV();
+    System.out.println(o.maxProfit(2, new int[]{2,5,4,0,4,0,7}));
     System.out.println(o.maxProfit(2, new int[]{3,2,6,5,0,3}));
   }
 

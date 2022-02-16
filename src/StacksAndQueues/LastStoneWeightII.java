@@ -46,11 +46,13 @@ import java.util.Arrays;
  * 1 <= stones.length <= 30
  * 1 <= stones[i] <= 100
  */
+//Knap Sack Algorithm
 public class LastStoneWeightII {
 
   public static void main(String[] args) {
     LastStoneWeightII o = new LastStoneWeightII();
     System.out.println(o.lastStoneWeightII_1ms(new int[]{2,7,4,1,8,1}));
+    System.out.println(o.lastStoneWeightII_self(new int[]{2,7,4,1,8,1}));
     System.out.println(o.lastStoneWeightII_1ms(new int[]{31,26,33,21,40}));
     System.out.println(o.lastStoneWeightII_1ms(new int[]{1,2}));
     System.out.println(o.lastStoneWeightII_1ms(new int[]{1,2}));

@@ -1,4 +1,4 @@
-package MathAndLogic;
+package dynamicProgramming;
 
 /**
  * There are a row of n houses, each house can be painted with one of the three colors: red, blue or green.

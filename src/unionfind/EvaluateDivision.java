@@ -1,4 +1,4 @@
-package TreesAndGraphs;
+package unionfind;
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 6/18/2021  8:34 PM
  *
