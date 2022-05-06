@@ -42,7 +42,7 @@ public class CrackingtheSafe {
 
   public static void main(String[] args) {
     CrackingtheSafe o = new CrackingtheSafe();
-    System.out.println(o.crackSafe(2, 2));
+    System.out.println(o.crackSafe(3, 4));
   }
 
   public String crackSafe(int n, int k) {

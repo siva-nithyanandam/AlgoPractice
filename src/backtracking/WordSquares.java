@@ -44,7 +44,7 @@ public class WordSquares {
 
   public static void main(String[] args) {
     WordSquares o = new WordSquares();
-    System.out.println(o.wordSquares_faster(new String[]{"area", "lead", "wall", "lady", "ball"}));
+    System.out.println(o.wordSquares_trie(new String[]{"ball", "area", "lead", "wall", "lady"}));
   }
 
   private Trie root = new Trie();

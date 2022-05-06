@@ -45,7 +45,7 @@ public class WordSearchII {
     WordSearchII o = new WordSearchII();
     System.out.println(o.findWords_trie_fastest(new char[][]{{'o','a','a','n'},
     {'e','t','a','e'},{'i','h','k','r'},
-    {'i','f','l','v'}}, new String[]{"oath","pea","eat","rain"}));
+    {'i','f','l','v'}}, new String[]{"oath","pea","eat","rain","rambo","ra"}));
   }
 
   static class Node {

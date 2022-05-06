@@ -8,7 +8,8 @@ import java.util.List;
  */
 public class PermutationsWithDups {
     public static void main(String[] args) {
-        String str = "aab";
+        String str = "abc";
+        permute1(str);
         List<String> res = permute(str);
         for (String s : res) {
             System.out.println(s);

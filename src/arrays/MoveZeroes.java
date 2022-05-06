@@ -19,6 +19,7 @@ public class MoveZeroes {
 
   public static void main(String[] args) {
     MoveZeroes o = new MoveZeroes();
+    System.out.println(Arrays.toString(o.moveZeroes(new int[]{2,1})));
     System.out.println(Arrays.toString(o.moveZeroes(new int[]{0,0,1,2,3,4})));
     System.out.println(Arrays.toString(o.moveZeroes(new int[]{0,1,2,3,4})));
     System.out.println(Arrays.toString(o.moveZeroes(new int[]{1,2,3,4})));

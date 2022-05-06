@@ -5,6 +5,7 @@ package arrays;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -40,7 +41,7 @@ public class TopKFrequentElements {
 
   public static void main(String[] args) {
     TopKFrequentElements o = new TopKFrequentElements();
-    System.out.println(o.topKFrequent(new int[]{1,1,1,2,2,3,3}, 2));
+    System.out.println(Arrays.toString(o.topKFrequent(new int[]{1,1,1,2,2,3,3}, 2)));
   }
 
   public int[] topKFrequent(int[] nums, int k) {

@@ -56,7 +56,7 @@ public class MinimumMovestoReachTargetwithRotations {
         {0, 0, 0, 0},
         {0, 0, 0, 0},
         {0, 0, 0, 0}};
-    System.out.println(o.minimumMoves(grid1));
+    System.out.println(o.minimumMoves2(grid1));
   }
 
   public int minimumMoves(int[][] grid) {

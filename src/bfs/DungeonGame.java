@@ -47,6 +47,8 @@ public class DungeonGame {
     public static void main(String[] args) {
         DungeonGame o = new DungeonGame();
         System.out.println(o.calculateMinimumHP(new int[][]{{-2,-3,3},{-5,-10,1},{10,30,-5}}));
+        System.out.println(o.calculateMinimumHP(new int[][]{{-2,-3,3},{-5,-10,1},{10,30,5}}));
+        System.out.println(o.calculateMinimumHP_TLE_Wrong(new int[][]{{-2,-3,3},{-5,-10,1},{10,30,5}}));
     }
 
     public int calculateMinimumHP(int[][] dungeon) {
@@ -87,7 +89,7 @@ public class DungeonGame {
         return health[0][0];
     }
 
-    public int calculateMinimumHP_TLE(int[][] dungeon) {
+    public int calculateMinimumHP_TLE_Wrong(int[][] dungeon) {
         int m = dungeon.length;
         int n = dungeon[0].length;
 

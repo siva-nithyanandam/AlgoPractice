@@ -108,7 +108,8 @@ public class CriticalConnectionsinaNetwork {
                     ans.add(new ArrayList<>(inner));
                 }
             }else{
-                low[node] = Math.min(low[node],tin[it]);
+//                low[node] = Math.min(low[node],tin[it]);
+                low[node] = Math.min(low[node],low[it]);
             }
         }
     }

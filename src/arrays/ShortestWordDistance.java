@@ -18,6 +18,24 @@ public class ShortestWordDistance {
   }
 
   public int shortestDistance(String[] words, String word1, String word2) {
+    int l1 = -words.length;
+    int l2 = -words.length;
+    int l = words.length;
+
+    for (int i = 0; i < words.length; i++) {
+      if (words[i].equals(word1)) {
+        l1 = i;
+        l = Math.min(l, l1-l2);
+      }
+      else if (words[i].equals(word2)) {
+        l2 = i;
+        l = Math.min(l, l2-l1);
+      }
+    }
+    return l;
+  }
+
+  public int shortestDistance1(String[] words, String word1, String word2) {
     if (words.length == 0) {
       return 0;
     }

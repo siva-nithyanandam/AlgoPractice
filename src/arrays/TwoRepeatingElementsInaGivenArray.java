@@ -23,7 +23,7 @@ public class TwoRepeatingElementsInaGivenArray {
   public static void main(String[] args) {
     TwoRepeatingElementsInaGivenArray o = new TwoRepeatingElementsInaGivenArray();
     System.out.println(System.currentTimeMillis());
-    o.identifyDuplicates_2(new int[]{4, 2, 4, 5, 2, 3, 1}, 6);
+    o.identifyDuplicates_2(new int[]{4, 2, 4, 5, 2, 3, 1}, 5);
     System.out.println(System.currentTimeMillis());
     o.identifyDuplicates_2(new int[]{4, 2, 4, 5, 2, 3, 1}, 5);
     System.out.println(System.currentTimeMillis());

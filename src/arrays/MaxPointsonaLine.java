@@ -30,11 +30,11 @@ public class MaxPointsonaLine {
 
   public static void main(String[] args) {
     MaxPointsonaLine o = new MaxPointsonaLine();
+    System.out.println(o.maxPoints(new int[][]{{1,1},{2,2},{3,3},{4,4}}));
     System.out.println(o.maxPoints(new int[][]{{1,1},{1,0},{2,2},{0,3},{3,3}}));
     System.out.println(o.maxPoints(new int[][]{{84,250},{0,0},{1,0},{0,-70},{0,-70},{1,-1},{21,10},{42,90},{-42,-230}}));
     System.out.println(o.maxPoints(new int[][]{{0,0},{1,65536},{65536,0}}));
     System.out.println(o.maxPoints(new int[][]{{1,1},{1,1},{2,3}}));
-    System.out.println(o.maxPoints(new int[][]{{1,1},{2,2},{3,3}}));
     System.out.println(o.maxPoints(new int[][]{{0,0},{1,0}}));
     System.out.println(o.maxPoints(new int[][]{{0,0},{0,1}}));
     System.out.println(o.maxPoints(new int[][]{{0,0},{1,1},{1,-1}}));

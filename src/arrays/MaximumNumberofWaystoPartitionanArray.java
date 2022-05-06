@@ -1,9 +1,7 @@
 package arrays;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * https://leetcode.com/contest/biweekly-contest-62/problems/maximum-number-of-ways-to-partition-an-array/
@@ -51,9 +49,9 @@ public class MaximumNumberofWaystoPartitionanArray {
 
     public static void main(String[] args) {
         MaximumNumberofWaystoPartitionanArray o = new MaximumNumberofWaystoPartitionanArray();
+        System.out.println(o.waysToPartition(new int[]{2,-1,2}, 3));
         System.out.println(o.waysToPartition(new int[]{0,0,0,0,0,0,0,0,0,-4732,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, -4732));
         System.out.println(o.waysToPartition(new int[]{0,0,0,0,2,0,0,0,0}, 0));
-        System.out.println(o.waysToPartition(new int[]{2,-1,2}, 3));
     }
 
     public int waysToPartition(int[] nums, int k) {

@@ -42,6 +42,7 @@ package arrays;
 public class LongestCommonSubsequence {
     public static void main(String[] args) {
         LongestCommonSubsequence o = new LongestCommonSubsequence();
+        System.out.println(o.lcsDynamic_own("abcde", "ace"));
         System.out.println(o.lcsDynamic("abcde", "ace"));
     }
 
@@ -58,4 +59,48 @@ public class LongestCommonSubsequence {
         }
         return m[0][0];
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int lcsDynamic_own(String s, String t) {
+
+        int[][] a = new int[s.length() + 1][t.length() + 1];
+
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j < t.length(); j++) {
+                if (s.charAt(i) == t.charAt(j)) {
+                    a[i+1][j+1] = a[i][j] + 1;
+                } else {
+                    a[i+1][j+1] = Math.max(a[i+1][j], a[i][j+1]);
+                }
+            }
+        }
+        return a[s.length()][t.length()];
+    }
+
+
 }

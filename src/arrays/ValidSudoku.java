@@ -75,6 +75,7 @@ public class ValidSudoku {
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 9; j++) {
         int temp = (i / 3 * 3 + j / 3);
+        System.out.println(temp);
         if (board[i][j] != '.') {
           int num = (int) board[i][j] - (int) '0';
 

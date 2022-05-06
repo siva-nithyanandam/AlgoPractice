@@ -24,7 +24,7 @@ public class NamingNumber {
     o.addValue(map, "UVW", 6);
     o.addValue(map, "OZ", 7);
     o.addValue(map, "FP", 8);
-    System.out.println(o.nameNumber(map, "John Smith"));
+    System.out.println(o.nameNumber(map, "SamrudhanSivaprakash"));
   }
 
   private int nameNumber(Map<Character, Integer> map, String name) {
