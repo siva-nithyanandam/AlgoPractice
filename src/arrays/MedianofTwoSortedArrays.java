@@ -15,6 +15,8 @@ public class MedianofTwoSortedArrays {
     MedianofTwoSortedArrays o = new MedianofTwoSortedArrays();
 
     System.out
+            .println(o.findMedianSortedArrays(new int[]{1,3,8,9,15}, new int[]{7,11,18,19,21,25}));
+    System.out
         .println(o.findMedianSortedArrays(new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10}, new int[]{1}));
     System.out.println(
         o.findMedianSortedArrays(new int[]{1, 2, 3, 11}, new int[]{4, 12, 13, 14, 15}));
@@ -41,7 +43,7 @@ public class MedianofTwoSortedArrays {
     int n = nums2.length;
     int k = (m + n) / 2;
     int i = 0, j = k;
-    int lo = 0, hi = Math.min(k, m);
+    int lo = 0, hi = m;//Math.min(k, m);
 
     while (true) {
       i = lo + (hi - lo) / 2;

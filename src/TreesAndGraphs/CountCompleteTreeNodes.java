@@ -42,11 +42,11 @@ package TreesAndGraphs;
  // Definition for a binary tree node.
   class TreeNode {
       int val;
-      TreeNode left;
-      TreeNode right;
+      TreeNode1 left;
+      TreeNode1 right;
       TreeNode() {}
       TreeNode(int val) { this.val = val; }
-      TreeNode(int val, TreeNode left, TreeNode right) {
+      TreeNode(int val, TreeNode1 left, TreeNode1 right) {
           this.val = val;
           this.left = left;
           this.right = right;
@@ -59,7 +59,7 @@ public class CountCompleteTreeNodes {
     System.out.println();
   }
 
-  public int countNodes(TreeNode root) {
+  public int countNodes(TreeNode1 root) {
 
     int h = getLeftHeight(root);
 
@@ -83,7 +83,7 @@ public class CountCompleteTreeNodes {
     return (int)Math.pow(2, h-1) - 1 + left;
   }
 
-  private boolean isExists(int pivot, int right, TreeNode node) {
+  private boolean isExists(int pivot, int right, TreeNode1 node) {
 
     int left = 0;
     while (left < right) {
@@ -99,7 +99,7 @@ public class CountCompleteTreeNodes {
     return node != null;
   }
 
-  private int getLeftHeight(TreeNode node) {
+  private int getLeftHeight(TreeNode1 node) {
     if (node == null) {
       return 0;
     }

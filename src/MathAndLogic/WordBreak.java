@@ -30,12 +30,12 @@ public class WordBreak {
 
     public static void main(String[] args) {
         WordBreak o = new WordBreak();
-        System.out.println(o.wordBreak_faster("acccbccb", Arrays.asList("cc","bc","ac","ca")));
+        System.out.println(o.wordBreak("acccbccb", Arrays.asList("cc","bc","ac","ca")));
         System.out.println(o.wordBreak("a", Arrays.asList("a")));
         System.out.println(o.wordBreak1("leetcode", Arrays.asList("leet", "code")));
         System.out.println(o.wordBreak("applepenapple", Arrays.asList("apple", "pen")));
         System.out.println(o.wordBreak("catsandog", Arrays.asList("cats", "dog", "sand", "and", "cat")));
-        System.out.println(o.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+        System.out.println(o.wordBreak_faster("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
                         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
                 Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa")));
     }

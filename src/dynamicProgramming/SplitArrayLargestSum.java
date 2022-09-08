@@ -44,8 +44,8 @@ public class SplitArrayLargestSum {
 
   public static void main(String[] args) {
     SplitArrayLargestSum o = new SplitArrayLargestSum();
-    System.out.println(o.splitArray(new int[]{7,2,5,10,8}, 1));
     System.out.println(o.splitArray(new int[]{7,2,5,10,8}, 2));
+    System.out.println(o.splitArray(new int[]{7,2,5,10,8}, 1));
   }
 
   public int splitArray(int[] nums, int m) {

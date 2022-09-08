@@ -5,14 +5,15 @@ package test;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+//import net.sf.saxon.TransformerFactoryImpl;
+
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import net.sf.saxon.TransformerFactoryImpl;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  *
@@ -28,14 +29,14 @@ public class XsltProcessor {
 
     try {
       long start = System.currentTimeMillis();
-      TransformerFactoryImpl tFactory = new net.sf.saxon.TransformerFactoryImpl();
+      //TransformerFactoryImpl tFactory = new net.sf.saxon.TransformerFactoryImpl();
 
       Source xslDoc = new StreamSource("src//test//WordXMLViewer.xsl");
       Source xmlDoc = new StreamSource("src//test//35646-2020-1-SystemGenerated.xml");
       String outputFileName = "src//test//report.html";
 
       OutputStream htmlFile = new FileOutputStream(outputFileName);
-      Transformer trasform = tFactory.newTransformer(xslDoc);
+      Transformer trasform = null;//tFactory.newTransformer(xslDoc);
 
       trasform.transform(xmlDoc, new StreamResult(htmlFile));
       long end = System.currentTimeMillis();

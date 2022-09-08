@@ -30,6 +30,4 @@ public class TwoNonRepeatingElementsInaGivenArray {
     }
     System.out.println(x + " - " + y);
   }
-
-
 }

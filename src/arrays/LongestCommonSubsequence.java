@@ -60,32 +60,6 @@ public class LongestCommonSubsequence {
         return m[0][0];
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public int lcsDynamic_own(String s, String t) {
 
         int[][] a = new int[s.length() + 1][t.length() + 1];
