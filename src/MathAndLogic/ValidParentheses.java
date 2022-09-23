@@ -38,11 +38,36 @@ public class ValidParentheses {
   public static void main(String[] args) {
     ValidParentheses o = new ValidParentheses();
     System.out.println(o.isValid(""));
-    System.out.println(o.isValid("()"));
+    System.out.println(o.isValid_own("()"));
     System.out.println(o.isValid("()[]{}"));
     System.out.println(o.isValid("(]"));
     System.out.println(o.isValid("([)]"));
     System.out.println(o.isValid("{[]}"));
+  }
+
+  public boolean isValid_own(String s) {
+    char[] chars = new char[s.length()+1];
+
+    int pos = 1;
+
+    for (int i = 0; i < s.length(); i++) {
+      if (s.charAt(i) == ')') {
+        if (chars[--pos] != '(') {
+          return false;
+        }
+      } else if (s.charAt(i) == ']') {
+        if (chars[--pos] != '[') {
+          return false;
+        }
+      } else if (s.charAt(i) == '}') {
+        if (chars[--pos] != '{') {
+          return false;
+        }
+      } else {
+        chars[pos++] = s.charAt(i);
+      }
+    }
+    return pos == 0;
   }
 
   public boolean isValid_faster(String s) {

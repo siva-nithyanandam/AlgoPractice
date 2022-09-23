@@ -9,7 +9,8 @@ package TreesAndGraphs;
 /**
  * https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
  *
- * Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+ * Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and
+ * inorder is the inorder traversal of the same tree, construct and return the binary tree.
  *
  *
  *
@@ -58,7 +59,8 @@ public class ConstructBinaryTreefromPreorderandInorderTraversal {
 
   public static void main(String[] args) {
     ConstructBinaryTreefromPreorderandInorderTraversal o = new ConstructBinaryTreefromPreorderandInorderTraversal();
-    o.buildTree(new int[]{3,9,20,15,7}, new int[]{9,3,15,20,7});
+    TreeNode res = o.buildTree(new int[]{3,9,20,15,7}, new int[]{9,3,15,20,7});
+    System.out.println("Completed");
   }
 
   int pre = 0;

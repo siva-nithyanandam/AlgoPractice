@@ -56,8 +56,29 @@ public class FruitIntoBaskets {
   public static void main(String[] args) {
     FruitIntoBaskets o = new FruitIntoBaskets();
     System.out.println(o.totalFruit(new int[]{1,2,1}));//3
-    System.out.println(o.totalFruit(new int[]{1,0,1,1,4,1,4,1,2,3}));//6
+    System.out.println(o.totalFruit_faster(new int[]{1,0,1,1,4,1,4,1,2,3}));//6
     System.out.println(o.totalFruit(new int[]{3,3,3,1,2,1,1,2,3,3,4}));//5
+  }
+
+  public int totalFruit_faster(int[] tree) {
+    if (tree.length == 0) {
+      return 0;
+    }
+    int maxTotal = 0;
+    int currentStart = 0;
+    int previousPickLastIndex = -1;
+    for (int i = 1; i < tree.length; i++) {
+      if (tree[i] != tree[i-1]) {
+        if (previousPickLastIndex >= 0 && tree[i] != tree[previousPickLastIndex]) {
+          maxTotal = Math.max(maxTotal, i - currentStart);
+          currentStart = previousPickLastIndex + 1;
+        }
+        previousPickLastIndex = i - 1;
+      }
+    }
+
+    maxTotal = Math.max(maxTotal, tree.length - currentStart);
+    return maxTotal;
   }
 
   public int totalFruit(int[] tree) {

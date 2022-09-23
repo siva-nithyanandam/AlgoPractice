@@ -45,7 +45,7 @@ public class BinaryTreeLevelOrderTraversal {
     head.left.right= new TreeNode(5);
     head.right.left = new TreeNode(6);
     head.right.right= new TreeNode(7);
-    List<List<Integer>> res = levelOrder(head);
+    List<List<Integer>> res = levelOrder_faster(head);
     for (List<Integer> l : res) {
       for (Integer i : l) {
         System.out.print(i);
@@ -89,7 +89,7 @@ public class BinaryTreeLevelOrderTraversal {
       count = queue.size();
       List<Integer> subRes = new ArrayList<>();
       while(count > 0) {
-        TreeNode tn = queue.remove();
+        TreeNode tn = queue.poll();
         subRes.add(tn.val);
         if (tn.left != null) {
           queue.add(tn.left);

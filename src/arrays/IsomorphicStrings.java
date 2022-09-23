@@ -22,9 +22,55 @@ public class IsomorphicStrings {
   public static void main(String[] args) {
     IsomorphicStrings o = new IsomorphicStrings();
     System.out.println(o.isIsomorphic("ab", "aa"));
-    System.out.println(o.isIsomorphic("egg", "add"));
+    System.out.println(o.isIsomorphic_self("egg", "add"));
     System.out.println(o.isIsomorphic("foo", "bar"));
     System.out.println(o.isIsomorphic("paper", "title"));
+  }
+
+  public boolean isIsomorphic_1ms(String s, String t) {
+
+    char[] map = new char[256];
+    boolean[] used = new boolean[256];
+    char[] sc = s.toCharArray();
+
+    char[] tc = t.toCharArray();
+
+    for (int i = 0; i < sc.length; i++) {
+      if (map[sc[i]] == 0) {
+        if (used[tc[i]]) {
+          return false;
+        }
+
+        map[sc[i]] = tc[i];
+        used[tc[i]] = true;
+      } else if (map[sc[i]] != tc[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean isIsomorphic_self(String s, String t) {
+    if (s.length() != t.length()) {
+      return false;
+    }
+
+    char[] sChars = new char[256];
+    char[] tChars = new char[256];
+
+    for (int i = 0; i < s.length(); i++) {
+      char sc = s.charAt(i);
+      char tc = t.charAt(i);
+      if (sChars[sc] == Character.MIN_VALUE && tChars[tc] == Character.MIN_VALUE) {
+        sChars[sc] = tc;
+        tChars[tc] = sc;
+        continue;
+      }
+      if (sChars[sc] != tc || tChars[tc] != sc) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isIsomorphic(String s, String t) {

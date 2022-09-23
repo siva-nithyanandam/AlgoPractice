@@ -12,7 +12,8 @@ import java.util.LinkedList;
 /**
  * https://leetcode.com/problems/largest-rectangle-in-histogram/
  *
- * Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+ * Given an array of integers heights representing the histogram's bar height where the width of each bar is 1,
+ * return the area of the largest rectangle in the histogram.
  *
  *
  *
@@ -40,6 +41,7 @@ public class LargestRectangleinHistogram {
   public static void main(String[] args) {
     LargestRectangleinHistogram o = new LargestRectangleinHistogram();
     System.out.println(o.largestRectangleArea_faster(new int[]{2, 1, 5, 6, 2, 3}));
+    System.out.println(o.largestRectangleArea(new int[]{2, 2, 1, 1, 1}));
     System.out.println(o.largestRectangleArea(new int[]{2, 1, 5, 6, 2, 3}));
     System.out.println(o.maxHistogram(new int[]{1, 5, 6, 2, 3}));
   }

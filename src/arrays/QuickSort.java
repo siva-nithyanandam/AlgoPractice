@@ -5,7 +5,8 @@ public class QuickSort {
 
 	public static void main(String[] args) {
 		System.out.println(Math.log(3));
-		int arr[] = {9, 7, 5, 11, 12, 2, 14, 3, 10, 6};
+		//int arr[] = {9, 7, 5, 11, 12, 2, 14, 3, 10, 6};
+		int arr[] = {1,2,3,4,5,6,7,8};
 	    quickSort(arr, 0, arr.length - 1);
 	    System.out.println(Arrays.toString(arr));
     }
@@ -14,7 +15,7 @@ public class QuickSort {
 		if(p < r) {
 			int q = partition(arr, p, r);
 			quickSort(arr, p, q-1);
-			quickSort(arr, q+1, r);	
+			quickSort(arr, q+1, r);
 		}
 	}
 

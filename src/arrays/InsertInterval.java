@@ -58,7 +58,7 @@ public class InsertInterval {
     System.out.println("");
 
     intervals = new int[][]{{1, 5}, {8, 9}};
-    newInterval = new int[]{2, 10};
+    newInterval = new int[]{6, 7};
     res = insertFromInternet(intervals, newInterval);
     for (int i = 0; i < res.length; i++) {
       System.out.print(res[i][0] + ", " + res[i][1]);

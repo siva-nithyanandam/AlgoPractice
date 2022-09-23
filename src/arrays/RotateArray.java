@@ -36,7 +36,7 @@ import java.util.Arrays;
 public class RotateArray {
 
   public static void main(String[] args) {
-    int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7};
+    int[] nums = new int[]{1, 2, 3, 4, 5, 6};
     RotateArray o = new RotateArray();
     o.rotate(nums, 3);
     System.out.println(Arrays.toString(nums));

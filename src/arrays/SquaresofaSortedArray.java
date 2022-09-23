@@ -27,11 +27,41 @@ public class SquaresofaSortedArray {
     public static void main(String[] args) {
         SquaresofaSortedArray o = new SquaresofaSortedArray();
         int[] res;
-        res = o.sortedSquares(new int[]{-4, -1, 0, 3, 10});
+        res = o.sortedSquares_self(new int[]{-7,-3,2,3,11});
+        res = o.sortedSquares_self(new int[]{-4, -1, 0, 3, 10});
         printList(res);
 
         res = o.sortedSquares(new int[]{-4, -3, -2, -1});
         printList(res);
+    }
+
+    public int[] sortedSquares_self(int[] nums) {
+
+        int n = nums.length;
+        int[] res = new int[n];
+        int pos = n-1;
+        int fs = nums[0] * nums[0];
+        int flip = 1;
+        int ls = 0;
+        int f = 0, l = n-1;
+
+        while (f <= l) {
+            if (flip == 1) {
+                ls = nums[l] * nums[l];
+            } else {
+                fs = nums[f] * nums[f];
+            }
+            if (ls > fs) {
+                res[pos--] = ls;
+                flip = 1;
+                l--;
+            } else {
+                res[pos--] = fs;
+                flip = 0;
+                f++;
+            }
+        }
+        return res;
     }
 
     public int[] sortedSquares_faster(int[] A) {

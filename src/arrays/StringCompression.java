@@ -40,8 +40,29 @@ public class StringCompression {
     System.out.println(compressCharsInPlaceFastest(arr4));
   }
 
+  private static int compressCharsInPlaceFastest(char[] arr) {
+    StringBuilder sb = new StringBuilder();
+    int count = 1;
+    char lastChar = '\u0000';
+    for (char c : arr) {
+      if (lastChar == c) {
+        count++;
+      } else {
+        if (count > 1) {
+          sb.append(count);
+        }
+        sb.append(c);
+        count = 1;
+        lastChar = c;
+      }
+    }
+    if (count > 1) {
+      sb.append(count);
+    }
+    return sb.length();
+  }
 
-  private static int compressCharsInPlaceOwn(char[] arr) {
+    private static int compressCharsInPlaceOwn(char[] arr) {
     int w = 1, r = 1, s = 0;
     if (arr.length <= 1) {
       return arr.length;
@@ -81,7 +102,7 @@ public class StringCompression {
    * @param arr
    * @return
    */
-  private static int compressCharsInPlaceFastest(char[] arr) {
+  private static int compressCharsInPlaceFastest1(char[] arr) {
     int writePos = 0;
     int startPos = 0;
     for (int reader = 0; reader < arr.length; reader++) {
