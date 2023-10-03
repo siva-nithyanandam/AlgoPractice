@@ -40,4 +40,21 @@ public class MoveZeroes {
     }
     return nums;
   }
+
+  public void moveZeroes_1ms(int[] nums) {
+    int n= nums.length;
+    int left=0;
+
+    for(int i=0; i<n; i++){
+      if(nums[i]!=0){
+        nums[left]=nums[i];
+        left++;
+      }
+    }
+
+    while(left<n){
+      nums[left]=0;
+      left++;
+    }
+  }
 }

@@ -5,11 +5,7 @@ package ShortestPath;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/network-delay-time/
@@ -167,4 +163,98 @@ public class NetworkDelayTime {
     }
     return res;
   }
+
+  public int networkDelayTime_DFS(int[][] times, int n, int k) {
+
+    Map<Integer, Map<Integer, Integer>> adjList = new HashMap<>();
+
+    for (int[] time : times) {
+      Map<Integer, Integer> adjNode = adjList.get(time[0]);
+      if (adjNode == null) {
+        adjNode = new HashMap<>();
+      }
+      adjNode.put(time[1], time[2]);
+      adjList.put(time[0], adjNode);
+    }
+
+    int[] signalReceived = new int[n+1];
+    Arrays.fill(signalReceived, Integer.MAX_VALUE);
+
+    DFS(adjList, signalReceived, k, 0);
+
+    int res = 0;
+    for (int i = 1; i <= n; i++) {
+      if (signalReceived[i] == Integer.MAX_VALUE) {
+        return -1;
+      }
+      if (signalReceived[i] > res) {
+        res = signalReceived[i];
+      }
+    }
+    return res;
+  }
+
+  private void DFS(Map<Integer, Map<Integer, Integer>> adjList, int[] signalRec, int p, int currTime) {
+
+    if (currTime >= signalRec[p]) {
+      return;
+    }
+    signalRec[p] = currTime;
+
+    if (!adjList.containsKey(p)) {
+      return;
+    }
+
+    for (Map.Entry<Integer, Integer> entry : adjList.get(p).entrySet()) {
+      DFS(adjList, signalRec, entry.getKey(), currTime + entry.getValue());
+    }
+  }
+
+  public int networkDelayTime_BFS(int[][] times, int n, int k) {
+
+    Map<Integer, Map<Integer, Integer>> adjList = new HashMap<>();
+
+    for (int[] time : times) {
+      adjList.computeIfAbsent(time[0], x -> new HashMap<>()).put(time[1], time[2]);
+    }
+
+    int[] signalReceived = new int[n+1];
+    Arrays.fill(signalReceived, Integer.MAX_VALUE);
+
+    BFS(adjList, signalReceived, k);
+
+    int res = 0;
+    for (int i = 1; i <= n; i++) {
+      if (signalReceived[i] == Integer.MAX_VALUE) {
+        return -1;
+      }
+      if (signalReceived[i] > res) {
+        res = signalReceived[i];
+      }
+    }
+    return res;
+  }
+
+  private void BFS(Map<Integer, Map<Integer, Integer>> adjList, int[] signalRec, int p) {
+
+    Queue<int[]> q = new LinkedList<>();
+    q.add(new int[]{p, 0});
+
+    while (!q.isEmpty()) {
+      int[] nodes = q.poll();
+      if (nodes[1] < signalRec[nodes[0]]){
+        signalRec[nodes[0]] = nodes[1];
+
+        if (!adjList.containsKey(nodes[0])) {
+          continue;
+        }
+
+        for (Map.Entry<Integer, Integer> entry : adjList.get(nodes[0]).entrySet()) {
+          q.add(new int[]{entry.getKey(), nodes[1] + entry.getValue()});
+        }
+      }
+    }
+  }
+
+
 }

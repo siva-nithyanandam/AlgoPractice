@@ -24,7 +24,19 @@ public class NamingNumber {
     o.addValue(map, "UVW", 6);
     o.addValue(map, "OZ", 7);
     o.addValue(map, "FP", 8);
-    System.out.println(o.nameNumber(map, "SamrudhanSivaprakash"));
+    o.nameNumber(map, "SamrudhanSivaprakash");
+    o.nameNumber(map, "Sivaprakash");
+    o.nameNumber(map, "VaigaSivaprakash");
+    o.nameNumber(map, "VarunaSivaprakash");
+    o.nameNumber(map, "VarnaaSivaprakash");
+    o.nameNumber(map, "VarnuSivaprakash");
+    o.nameNumber(map, "VayunaSivaprakash");
+    o.nameNumber(map, "ValoraSivaprakash");
+    o.nameNumber(map, "VanoraSivaprakash");
+    o.nameNumber(map, "VanorhaSivaprakash");
+    o.nameNumber(map, "VanorSivaprakash");
+    o.nameNumber(map, "VenorhaSivaprakash");
+    o.nameNumber(map, "AroraSivaprakash");
   }
 
   private int nameNumber(Map<Character, Integer> map, String name) {
@@ -34,6 +46,7 @@ public class NamingNumber {
         res += map.get(c);
       }
     }
+    System.out.println(name + " - " + res);
     return res;
   }
 

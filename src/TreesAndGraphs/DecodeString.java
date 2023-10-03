@@ -5,6 +5,8 @@ package TreesAndGraphs;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
+import java.util.Stack;
+
 /**
  * https://leetcode.com/problems/decode-string/
  *
@@ -47,6 +49,8 @@ public class DecodeString {
 
   public static void main(String[] args) {
     DecodeString o = new DecodeString();
+    System.out.println(o.decodeString_own("3[a2[c]]"));
+    System.out.println(o.decodeString_own("3[a]2[bc]"));
     System.out.println(o.decodeString("3[a]2[bc]"));
   }
 
@@ -86,5 +90,32 @@ public class DecodeString {
       }
     }
     return end + 1;
+  }
+
+  public String decodeString_own(String s) {
+    Stack<StringBuilder> stringStack = new Stack<>();
+    Stack<Integer> countStack = new Stack<>();
+    StringBuilder currentString = new StringBuilder();
+    int count = 0;
+    
+    for (char c : s.toCharArray()) {
+      if (Character.isDigit(c)) {
+        count = count * 10 + c - '0';
+      } else if (c == '[') {
+        countStack.push(count);
+        stringStack.push(currentString);
+        currentString = new StringBuilder();
+        count = 0;
+      } else if(c == ']') {
+        StringBuilder prevString = stringStack.pop();
+        for (int i = countStack.pop(); i > 0; i--) {
+          prevString.append(currentString);
+        }
+        currentString = prevString;
+      } else {
+        currentString.append(c);
+      }
+    }
+    return currentString.toString();
   }
 }

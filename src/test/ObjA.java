@@ -5,6 +5,7 @@ package test;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,6 +15,8 @@ public class ObjA {
 
   private int i;
   private String s;
+
+  private List<String> list;
 
   public int getI() {
     return i;
@@ -46,5 +49,13 @@ public class ObjA {
   @Override
   public int hashCode() {
     return Objects.hash(i, s);
+  }
+
+  public List<String> getList() {
+    return list;
+  }
+
+  public void setList(List<String> list) {
+    this.list = list;
   }
 }

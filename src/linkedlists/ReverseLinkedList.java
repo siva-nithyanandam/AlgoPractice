@@ -18,7 +18,7 @@ public class ReverseLinkedList {
     listNode.next.next.next = new ListNode(4);
     listNode.next.next.next.next = new ListNode(5);
 
-    ListNode res = o.reverseList(listNode);
+    ListNode res = o.reverseList_recursive(listNode);
     System.out.println("Verify Manually");
   }
 
@@ -40,8 +40,22 @@ public class ReverseLinkedList {
     }
   }
 
+  public ListNode reverseList_own(ListNode node) {
+    if (node == null) {
+      return null;
+    }
+    if (node.next == null) {
+      return new ListNode(node.val);
+    }
+    ListNode newHead = reverseList_own(node.next);
+    newHead.next = new ListNode(node.val);
+    return newHead;
+  }
+
   public ListNode reverseList_recursive(ListNode head) {
-    if (head == null || head.next == null) return head;
+    if (head == null || head.next == null) {
+      return head;
+    }
     ListNode p = reverseList_recursive(head.next);
     head.next.next = head;
     head.next = null;

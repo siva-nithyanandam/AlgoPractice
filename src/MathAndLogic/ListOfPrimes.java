@@ -39,7 +39,7 @@ public class ListOfPrimes {
   }
 
   private static void crossOff(int[] flags, int prime) {
-    for(int i = prime * prime; i < flags.length; i += prime*2) {
+    for(int i = prime * prime; i < flags.length; i += prime) {
       flags[i] = 1;
     }
   }

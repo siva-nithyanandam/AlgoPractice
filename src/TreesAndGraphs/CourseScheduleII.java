@@ -5,11 +5,8 @@ package TreesAndGraphs;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * https://leetcode.com/explore/interview/card/google/61/trees-and-graphs/3070/
@@ -48,7 +45,9 @@ public class CourseScheduleII {
 
   public static void main(String[] args) {
     CourseScheduleII o = new CourseScheduleII();
-    System.out.println(o.findOrder(4, new int[][]{{1, 0}, {2, 0}, {3, 1}, {3, 2}}));
+    System.out.println(Arrays.toString(o.findOrder(2, new int[][]{{1,0},{1,2},{0,1}})));
+    System.out.println(Arrays.toString(o.findOrder(2, new int[][]{})));
+    System.out.println(Arrays.toString(o.findOrder(4, new int[][]{{1, 0}, {2, 0}, {3, 1}, {3, 2}})));
   }
 
   public int[] findOrder(int n, int[][] pres) {
