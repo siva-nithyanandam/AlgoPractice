@@ -1,4 +1,4 @@
-package backtracking;
+package trie;
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 7/4/2021  11:36 PM
  *
@@ -44,6 +44,7 @@ public class WordSquares {
 
   public static void main(String[] args) {
     WordSquares o = new WordSquares();
+    System.out.println(o.wordSquares_faster(new String[]{"ball", "area", "lead", "wall", "lady"}));
     System.out.println(o.wordSquares_trie(new String[]{"ball", "area", "lead", "wall", "lady"}));
   }
 

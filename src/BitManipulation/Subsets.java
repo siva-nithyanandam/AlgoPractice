@@ -21,7 +21,45 @@ public class Subsets {
     System.out.println(findNbrOfFlips(29, 15));
     char[] a = {'a', 'b', 'c'};
     possibleSubsets(a, 3);
+    o.subsets_neetcode(new int[]{1,2,3});
+    o.subsets_0ms(new int[]{1,2,3});
     o.subsets_backtrack(new int[]{1,2,3});
+  }
+
+  public List<List<Integer>> subsets_neetcode(int[] nums) {
+    List<List<Integer>> ans = new ArrayList<>();
+    List<Integer> list = new ArrayList<>();
+    helper(ans, 0, nums, list);
+    return ans;
+  }
+
+  public void helper(List<List<Integer>> ans, int start, int[] nums, List<Integer> list) {
+    if (start >= nums.length) {
+      ans.add(new ArrayList<>(list));
+    } else {
+      // add the element and start the  recursive call
+      list.add(nums[start]);
+      helper(ans, start + 1, nums, list);
+      // remove the element and do the backtracking call.
+      list.remove(list.size() - 1);
+      helper(ans, start + 1, nums, list);
+    }
+  }
+
+  public List<List<Integer>> subsets_0ms(int[] nums) {
+    int resultSize = 1 << nums.length;
+    List<List<Integer>> result = new ArrayList<>();
+    result.add(new ArrayList<>());
+    for (int i = 1; i < resultSize; i++) {
+      List<Integer> subRes = new ArrayList<>();
+      for (int j = 0; j < nums.length; j++) {
+        if ((i & (1 << j)) != 0) {
+          subRes.add(nums[j]);
+        }
+      }
+      result.add(subRes);
+    }
+    return result;
   }
 
   List<List<Integer>> output = new ArrayList();

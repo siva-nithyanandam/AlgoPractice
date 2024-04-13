@@ -18,6 +18,8 @@ public class PairwiseSwap {
     }
 
     private static int doPairwiseSwap(int given) {
+        System.out.println("0xAAAAAAAA  -> " + Integer.toBinaryString(0xAAAAAAAA));
+        System.out.println("0x55555555  -> " + Integer.toBinaryString(0x55555555));
         int oddBits = given & (0xAAAAAAAA);
         int evenBits = given & (0x55555555);
         return (oddBits >> 1) | (evenBits << 1);

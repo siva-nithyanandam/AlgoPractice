@@ -1,7 +1,13 @@
 package test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -13,45 +19,37 @@ import java.util.Optional;
 
 public class Test {
 
-  @FunctionalInterface
-  interface Square {
-    int calculate(int x, int y);
+  public static void main(String[] args) {
+    HardwareManufacturer hardwareManufacturer = HardwareManufacturer.fromEvseUid("");
+    System.out.println(hardwareManufacturer.toString());
   }
 
-  public static void main(String[] args) {
-    System.out.println(Math.log10(12));
-    double d = Math.log10(12);
+  public enum HardwareManufacturer {
+    ABB(List.of("AB")), SIGNET(List.of("SI")), BTC(List.of("BT", "EA")), UNKNOWN(List.of("UNKNOWN"));
 
-    int a;
-    if (d % 1 == 0) {
-      a = (int) (d);
-    } else {
-      a = a = (int)d + 1;
+    private final List<String> prefixes;
+
+    HardwareManufacturer(List<String> prefixes) {
+      this.prefixes = prefixes;
     }
 
-    System.out.println(a);
+    public static HardwareManufacturer fromEvseUid(String uid) {
+      if (uid == null) {
+        return UNKNOWN;
+      }
+      for (HardwareManufacturer manufacturer : HardwareManufacturer.values()) {
+        for (String prefix : manufacturer.getPrefixes()) {
+          if (uid.startsWith(prefix)) {
+            return manufacturer;
+          }
+        }
+      }
 
-    System.out.println(Math.log10(10));
-    System.out.println(Math.log10(100));
-    System.out.println(Math.log10(1000));
-    System.out.println(Math.log10(2000));
-    System.out.println(Math.log10(10000));
-    System.out.println(Math.log10(100000000));
+      return UNKNOWN;
+    }
 
-    int[] res = {2};
-    Square s = (x,y) -> x * y;
-    System.out.println(s.calculate(5, 6));
-
-    ObjA objA = new ObjA();
-    List<String> sampleList = new ArrayList<>();
-    sampleList.add("1");
-    sampleList.add("2");
-    sampleList.add("3");
-    objA.setList(sampleList);
-
-    List<String> sessionChargingPeriods = Optional.ofNullable(objA.getList())
-            .map(ArrayList::new).orElseThrow();
-    sessionChargingPeriods.add(0,"4");
-    System.out.println(sessionChargingPeriods.size());
+    public List<String> getPrefixes() {
+      return prefixes;
+    }
   }
 }

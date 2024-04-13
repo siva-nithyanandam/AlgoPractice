@@ -71,7 +71,7 @@ public class DijkstraAlgorithm {
     Arrays.fill(dist, (int)1E9);
     dist[0] = 0;
     Queue<int[]> q = new PriorityQueue<>((a,b) -> a[1] - b[1]);
-    q.offer(new int[]{0, 0});
+    q.add(new int[]{0, 0});
 
     while (!q.isEmpty()) {
       int[] node = q.poll();

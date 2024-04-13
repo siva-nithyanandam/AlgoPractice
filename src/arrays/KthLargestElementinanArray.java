@@ -5,6 +5,8 @@ package arrays;
  * @see <a href="https://github.com/trysivaprakash">trysivaprakash</a>
  */
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
 
@@ -93,6 +95,7 @@ public class KthLargestElementinanArray {
   }
 
   public int findKthLargest(int[] nums, int k) {
+    List.of(nums).stream().forEach(num -> System.out.println(num));
     // init heap 'the smallest element first'
     PriorityQueue<Integer> heap =
         new PriorityQueue<Integer>((n1, n2) -> n1 - n2);

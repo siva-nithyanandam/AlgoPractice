@@ -49,7 +49,7 @@ public class MinCosttoConnectAllPoints {
 
     public static void main(String[] args) {
         MinCosttoConnectAllPoints o = new MinCosttoConnectAllPoints();
-        System.out.println();
+        System.out.println(o.minCostConnectPoints_prims(new int[][]{{0,0},{2,2},{3,10},{5,2},{7,0}}));
     }
 
     public int minCostConnectPoints_kruskal(int[][] points) {
@@ -133,17 +133,21 @@ public class MinCosttoConnectAllPoints {
 
         while(!pq.isEmpty() && remV > 0) {
             int[] v = pq.poll();
-            if (!vis[v[1]]) {
-                resCost += v[2];
-                vis[v[1]] = true;
-                int i = v[1];
+            /*if (vis[v[1]]) {
+                continue;
+            }*/
+            resCost += v[2];
+            vis[v[1]] = true;
+            int i = v[1];
 
-                for (int j = 1; j < n; j++) {
-                    int dist = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
-                    pq.add(new int[]{i, j, dist});
+            for (int j = 1; j < n; j++) {
+                if (vis[j]) {
+                    continue;
                 }
-                remV--;
+                int dist = Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
+                pq.add(new int[]{i, j, dist});
             }
+            remV--;
         }
         return resCost;
     }
