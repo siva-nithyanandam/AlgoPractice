@@ -47,6 +47,7 @@ public class CountingBits {
 
   public static void main(String[] args) {
     CountingBits o = new CountingBits();
+    System.out.println(o.countBits(5));
     System.out.println(o.countBits_1(3));
   }
 
