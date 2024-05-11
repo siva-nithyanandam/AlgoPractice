@@ -4,6 +4,8 @@ package BitManipulation;
  * @author sivaprakashnithyanandam
  */
 
+import java.util.Arrays;
+
 /**
  *
  * https://leetcode.com/problems/reverse-bits/description/

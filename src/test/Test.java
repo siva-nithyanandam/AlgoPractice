@@ -2,13 +2,7 @@ package test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -23,17 +17,53 @@ public class Test {
 
   public static void main(String[] args) {
     Test o = new Test();
-    Function<Integer, Integer> square = num -> num * num;
-
-    System.out.println(square.apply(3));
-    Integer i1=127;
-    Integer i2=127;
-    Integer i3=200;
-    Integer i4=200;
-
-    System.out.println(i1 == i2);
-    System.out.println(i3 == i4);
+    System.out.println(o.maxPointsInsideSquare(new int[][]{{2,2},{-1,-2},{-4,4},{-3,1},{3,-3}}, "abdca"));
   }
+
+  public class Point implements Comparable<Point> {
+
+    private int x;
+    private int y;
+    private char tag;
+
+    public Point (int x, int y, char tag) {
+      this.x = x;
+      this.y = y;
+      this.tag = tag;
+    }
+
+    public double findDist(Point p) {
+      return Math.sqrt(p.x * p.x + p.y * p.y);
+    }
+
+    public int compareTo(Point other) {
+      return Double.compare(findDist(this), findDist(other));
+    }
+  }
+
+  public int maxPointsInsideSquare(int[][] points, String s) {
+
+    Point[] arr = new Point[s.length()];
+    for (int i = 0; i < s.length(); i++) {
+      arr[i] = new Point(points[i][0], points[i][1], s.charAt(i));
+    }
+
+    Arrays.sort(arr);
+
+    Set<Character> seenTags = new HashSet<>();
+    int ans = 0;
+
+    for (Point point : arr) {
+      if (seenTags.contains(point.tag)) {
+        return ans;
+      }
+      seenTags.add(point.tag);
+      ans++;
+    }
+    return ans;
+  }
+
+  
 
   public int compareVersion(String version1, String version2) {
     String[] v1 = version1.split("\\.");

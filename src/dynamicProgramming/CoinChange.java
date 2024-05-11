@@ -14,13 +14,13 @@ public class CoinChange {
 
   public static void main(String[] args) {
     CoinChange o = new CoinChange();
+    System.out.println(o.coinChange_faster(new int[]{186,419,83,408}, 6249));
+    System.out.println(o.coinChange_faster(new int[]{5, 2, 1}, 11));
     System.out.println(o.coinChange_faster(new int[]{5, 4, 1}, 13));
-    System.out.println(o.coinChange(new int[]{5, 4, 1}, 13));
     System.out.println(o.coinChange(new int[]{186, 419, 83, 408}, 6249));
     System.out.println(o.coinChange_bottom_up(new int[]{186, 419, 83, 408}, 6249));
     System.out.println(o.coinChange_bottom_up(new int[]{1, 2, 5}, 11));
   }
-
 
   public int coinChange_faster(int[] coins, int amount) {
     int n = coins.length;
