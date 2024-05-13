@@ -1,10 +1,8 @@
 package test;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
 import java.util.Arrays;
-import java.util.function.Function;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 5/21/2022  11:27 PM
@@ -17,7 +15,16 @@ public class Test {
 
   public static void main(String[] args) {
     Test o = new Test();
-    System.out.println(o.maxPointsInsideSquare(new int[][]{{2,2},{-1,-2},{-4,4},{-3,1},{3,-3}}, "abdca"));
+    System.out.println(Integer.toBinaryString(59));
+  }
+
+  public int sqrt(int x) {
+    if (x < 2) {
+      return x;
+    }
+    int left = sqrt(x >> 2) << 1;
+    int right = left + 1;
+    return right * right > x ? left : right;
   }
 
   public class Point implements Comparable<Point> {
