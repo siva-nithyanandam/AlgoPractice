@@ -26,7 +26,7 @@ public class RepeatedDNASequences {
     public static void main(String[] args) {
         RepeatedDNASequences o = new RepeatedDNASequences();
         List<String> res;
-        res = o.findRepeatedDnaSequences_own1("AAGGGTTTAAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
+        res = o.findRepeatedDnaSequences("AAGGGTTTAAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
         printRes(res);
 
         res = o.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
@@ -57,7 +57,7 @@ public class RepeatedDNASequences {
         bitLabel['G'] = 2;
         bitLabel['T'] = 3;
         int[] nums = new int[len];
-        int[] exist = new int[1048576];
+        int[] exist = new int[1048576];//2 ^ 20
         char[] schars = s.toCharArray();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j <= i; j++) {
@@ -77,12 +77,18 @@ public class RepeatedDNASequences {
         return ret;
     }
 
+    /**
+     * Not a running code but good solution. Try using long instead of int, as throwing ArrayIndexOutOfBoundsException
+     * @param s
+     * @return
+     */
     public List<String> findRepeatedDnaSequences_own1(String s) {
         List<String> res = new ArrayList<>();
         if (s.length() < 10) {
             return res;
         }
-        int[] holder = new int[4 << 11];
+        //OutOfMemoryError, or ArrayIndexOutOfBoundsException
+        int[] holder = new int[1 << 30];
         int[] chars = new int[128];
         chars['A'] = 1;
         chars['C'] = 2;

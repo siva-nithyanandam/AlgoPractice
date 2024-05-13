@@ -60,7 +60,7 @@ public class QueryKthSmallestTrimmedNumber {
 //            new int[][]{{9,4},{6,1},{3,8},{12,9},{11,4},{4,9},{2,7},{10,3},{13,1},{13,1},{6,1},{5,10}})));
 
 
-    class Pair {
+    public class Pair {
         String str;
         int idx;
         public Pair(String str, int idx) {

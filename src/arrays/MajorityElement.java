@@ -39,6 +39,7 @@ public class MajorityElement {
 
     public static void main(String[] args) {
         MajorityElement o = new MajorityElement();
+        System.out.println(o.majorityElement_v1(new int[]{3,2,3}));
         System.out.println(o.majorityElement(new int[]{3,2,3}));
     }
 
@@ -48,8 +49,29 @@ public class MajorityElement {
             if(count == 0) {
                 res = n;
             }
-            count += (n == res? 1: -1);
+            count += n == res? 1: -1;
         }
         return res;
+    }
+
+    public int majorityElement_v1(int[] nums) {
+        int len = Integer.SIZE; // equivalent to sizeof(int) * 8 in C++
+        int size = nums.length;
+        int count = 0, mask = 1, ret = 0;
+
+        for (int i = 0; i < len; ++i) { // Iterate over all bit positions
+            count = 0;
+            for (int j = 0; j < size; ++j) { // Count the number of 1s in the current bit position
+                if ((mask & nums[j]) != 0) {
+                    count++;
+                }
+            }
+            if (count > size / 2) {
+                ret |= mask; // Set the bit in the result if the majority of elements have this bit set
+            }
+            mask <<= 1; // Move to the next bit position
+        }
+
+        return ret;
     }
 }
