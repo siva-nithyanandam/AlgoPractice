@@ -47,7 +47,7 @@ public class DijkstraAlgorithm {
         }
       }
     }
-    return dist[4];
+    return dist[n];
   }
 
 
