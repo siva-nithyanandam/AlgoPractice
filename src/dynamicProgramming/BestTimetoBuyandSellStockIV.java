@@ -6,6 +6,7 @@ package dynamicProgramming;
  */
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
@@ -40,11 +41,12 @@ public class BestTimetoBuyandSellStockIV {
 
   public static void main(String[] args) {
     BestTimetoBuyandSellStockIV o = new BestTimetoBuyandSellStockIV();
-    System.out.println(o.maxProfit(2, new int[]{2,5,4,0,4,0,7}));
-    System.out.println(o.maxProfit(2, new int[]{3,2,6,5,0,3}));
+    System.out.println(o.maxProfit_top_down(2, Arrays.asList(2,5,4,0,4,0,7)));
+    System.out.println(o.maxProfit_bottom_up(2, new int[]{2,5,4,0,4,0,7}));
+    System.out.println(o.maxProfit_bottom_up(2, new int[]{3,2,6,5,0,3}));
   }
 
-  public int maxProfit(int k, int[] prices) {
+  public int maxProfit_bottom_up(int k, int[] prices) {
     if (prices.length == 0 || k == 0) {
       return 0;
     }
@@ -70,5 +72,32 @@ public class BestTimetoBuyandSellStockIV {
       }
     }
     return sells[k-1];
+  }
+
+  static int[][][] dp = new int[1000][101][2];
+
+  public static int dfs(List<Integer> ps, int p, int k, boolean buy) {
+    if (p >= ps.size() || (k == 0 && buy)) {
+      return 0;
+    }
+    if (dp[p][k][buy ? 1 : 0] == 0) {
+
+      dp[p][k][buy ? 1 : 0] = Math.max(dfs(ps, p + 1, k, buy),
+              (buy ? -1 : 1) * ps.get(p) + dfs(ps, p + 1, k - (buy ? 1 : 0), !buy));
+    }
+    return dp[p][k][buy ? 1 : 0];
+  }
+
+  public int maxProfit_top_down(int k, List<Integer> ps) {
+    if (k * 2 >= ps.size())
+      return maxProfit2(ps);
+    return dfs(ps, 0, k, true);
+  }
+
+  public int maxProfit2(List<Integer> ps) {
+    int res = 0;
+    for (int i = 1; i < ps.size(); ++i)
+      res += Math.max(0, ps.get(i) - ps.get(i - 1));
+    return res;
   }
 }
