@@ -41,9 +41,32 @@ public class BestTimetoBuyandSellStockIV {
 
   public static void main(String[] args) {
     BestTimetoBuyandSellStockIV o = new BestTimetoBuyandSellStockIV();
+    System.out.println(o.maxProfit_bottom_up(2, new int[]{3,2,6,5,0,3}));
+    System.out.println(o.maxProfit(2, new int[]{3,2,6,5,0,3}));
     System.out.println(o.maxProfit_top_down(2, Arrays.asList(2,5,4,0,4,0,7)));
     System.out.println(o.maxProfit_bottom_up(2, new int[]{2,5,4,0,4,0,7}));
-    System.out.println(o.maxProfit_bottom_up(2, new int[]{3,2,6,5,0,3}));
+  }
+
+  public int maxProfit(int k, int[] prices) {
+
+    int n = prices.length;
+    int[][][] mem = new int[n+1][k+1][2];
+    return dp(prices, 0, k, 1, mem);
+  }
+
+  private int dp(int[] prices, int p, int k, int isBuy, int[][][] mem) {
+    if (p >= prices.length || (k == 0 && isBuy == 1)) {
+      return 0;
+    }
+
+    if (mem[p][k][isBuy] == 0) {
+      int next = dp(prices, p+1, k, isBuy, mem);
+      int curr = (isBuy == 1 ? -1 : 1) * prices[p];
+      int curr1 = dp(prices, p+1, k-isBuy, isBuy ^ 1, mem);
+      int ans = Math.max(next, curr+curr1);
+      mem[p][k][isBuy] = ans;
+    }
+    return mem[p][k][isBuy];
   }
 
   public int maxProfit_bottom_up(int k, int[] prices) {

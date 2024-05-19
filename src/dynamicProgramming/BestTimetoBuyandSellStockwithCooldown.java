@@ -37,7 +37,35 @@ public class BestTimetoBuyandSellStockwithCooldown {
 
   public static void main(String[] args) {
     BestTimetoBuyandSellStockwithCooldown o = new BestTimetoBuyandSellStockwithCooldown();
+    System.out.println(o.maxProfit_1ms(new int[]{1,2,3,0,2}));
     System.out.println(o.maxProfit_0ms(new int[]{2,1,4,5,2,9,7}));
+  }
+
+  public int maxProfit_top_down_own(int[] prices) {
+
+    int[][] mem = new int[prices.length][3];
+    return dp(prices, 0, 0, mem);
+  }
+
+  private int dp(int[] prices, int p, int state, int[][] mem) {
+    if (p >= prices.length) {
+      return 0;
+    }
+    if (mem[p][state] == 0) {
+      mem[p][state] = Math.max(dp(prices, p+1, state, mem), findMultiplier(state) * prices[p] + dp(prices, p+1, (state + 1) % 3, mem));
+    }
+    return mem[p][state];
+  }
+
+  private int findMultiplier(int state) {
+    switch(state){
+      case 0:
+        return -1;
+      case 1:
+        return 1;
+      default:
+        return 0;
+    }
   }
 
   public int maxProfit_0ms(int[] prices) {
@@ -79,7 +107,7 @@ public class BestTimetoBuyandSellStockwithCooldown {
       //Selling it
       dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
 
-      //Buying it
+      //Buying it => look at the logic for i-2 to accommodate cooldown period
       dp[i][1] = Math.max(dp[i-1][1], dp[i-2][0] - prices[i]);
     }
     return dp[n-1][0];
