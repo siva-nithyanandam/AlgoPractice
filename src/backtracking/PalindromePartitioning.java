@@ -35,7 +35,7 @@ public class PalindromePartitioning {
   public static void main(String[] args) {
     PalindromePartitioning o = new PalindromePartitioning();
     System.out.println(o.partition_faster("aab"));
-    System.out.println(o.partition("a"));
+    System.out.println(o.partition("aab"));
     System.out.println(o.partition("aabcaaba"));
   }
 
