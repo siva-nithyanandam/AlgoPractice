@@ -71,9 +71,9 @@ public class FindNumberofWaystoReachtheKthStair {
 
     public static void main(String[] args) {
         FindNumberofWaystoReachtheKthStair o = new FindNumberofWaystoReachtheKthStair();
-        System.out.println(o.waysToReachStair(8388597));
         System.out.println(o.waysToReachStair(0));
         System.out.println(o.waysToReachStair(1));
+        System.out.println(o.waysToReachStair(8388597));
     }
 
     public int waysToReachStair(int k) {

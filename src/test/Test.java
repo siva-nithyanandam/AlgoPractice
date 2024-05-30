@@ -1,7 +1,5 @@
 package test;
 
-import java.util.List;
-
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 5/21/2022  11:27 PM
  *
@@ -13,35 +11,32 @@ public class Test {
 
   public static void main(String[] args) {
     Test o = new Test();
-    List<Integer> nums = List.of(4, 2);
-    int k = 3;
-    List<List<Integer>> edges = List.of();
-    System.out.println(o.maximumValueSum(nums, k, edges));  // Example usage
+    System.out.println(o.checkRecord(2));
   }
 
-  public long maximumValueSum(List<Integer> nums, int k, List<List<Integer>> edges) {
-    long sum = 0;
-    int smallestGain = 2 * k + 1;
-    int smallestLost = 2 * k + 1;
-    int gainCount = 0;
+  public int checkRecord(int n) {
+    int[] mem = new int[n+1];
+    helper(n, 0, 0, 0, 0, mem);
+    return mem[0];
+  }
 
-    for (int num : nums) {
-      int gain = (num ^ k) - num;
-      if (gain > 0) {
-        smallestGain = Math.min(smallestGain, gain);
-        sum += num + gain;
-        gainCount++;
-      } else {
-        smallestLost = Math.min(smallestLost, -gain);
-        sum += num;
-      }
+  private int helper(int n, int p, int a, int l, int total, int[] mem) {
+    if (total == n) {
+      return 1;
     }
 
-    if (gainCount % 2 == 1) {
-      sum -= Math.min(smallestGain, smallestLost);
+    if (mem[total] > 0) {
+      return mem[total];
     }
 
-    return sum;
+    int ans = helper(n, 1, 0, 0, total+1, mem);
+    if (a < 1) {
+      ans += helper(n, 0, a+1, 0, total+1, mem);
+    }
+    if (l < 2) {
+      ans += helper(n, 0, 0, l+1, total+1, mem);
+    }
+    return mem[total] = ans;
   }
 
 }
