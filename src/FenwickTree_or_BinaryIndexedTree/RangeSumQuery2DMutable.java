@@ -1,4 +1,4 @@
-package SegmentTree;
+package FenwickTree_or_BinaryIndexedTree;
 /**
  * Author - Sivaprakash Nithyanandam Timestamp - 7/11/2021  6:59 PM
  *

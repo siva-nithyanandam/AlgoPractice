@@ -22,13 +22,12 @@ public class BubbleSort {
     int size = array.length;
 
     // loop to access each array element
-    for (int i = 0; i < (size-1); i++) {
-
+    for (int i = 0; i < size-1; i++) {
       // check if swapping occurs
       boolean swapped = false;
 
       // loop to compare adjacent elements
-      for (int j = 0; j < (size-i-1); j++) {
+      for (int j = 0; j < size-i-1; j++) {
 
         // compare two array elements
         // change > to < to sort in descending order

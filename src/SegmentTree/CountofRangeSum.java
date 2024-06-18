@@ -199,8 +199,8 @@ public class CountofRangeSum {
 
   public static void main(String[] args) {
     CountofRangeSum o = new CountofRangeSum();
-    System.out.println(o.countRangeSum(new int[]{1}, -2, 2));
     System.out.println(o.countRangeSum(new int[]{-2,5,-1}, -2, 2));
+    System.out.println(o.countRangeSum(new int[]{1}, -2, 2));
     System.out.println(o.countRangeSum(new int[]{0, -3, -3, 1, 1, 2}, 3, 4));
     System.out.println(o.countRangeSum(new int[]{-2147483647,0,-2147483647,2147483647}, -564, 3864));
   }
